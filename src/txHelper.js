@@ -1,8 +1,8 @@
 import { Buffer } from 'buffer'
 import { sign as signTransaction, derivePublicKey } from 'ed25519.js'
 import { sha3_256 as sha3 } from 'js-sha3'
-import cloneDeep from 'lodash/cloneDeep'
-import each from 'lodash/each'
+import cloneDeep from 'lodash.clonedeep'
+import forEach from 'lodash.foreach'
 import * as Commands from './proto/commands_pb'
 import { Signature } from './proto/primitive_pb'
 import Transaction from './proto/transaction_pb'
@@ -32,7 +32,7 @@ const getOrCreateReducedPayload = payload => payload.hasReducedPayload() ? clone
 const addCommand = (transaction, commandName, params) => {
   let payloadCommand = new Commands[capitalize(commandName)]()
 
-  each(params, (value, key) => {
+  forEach(params, (value, key) => {
     payloadCommand['set' + capitalize(key)](value)
   })
 

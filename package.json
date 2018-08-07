@@ -1,0 +1,40 @@
+{
+  "name": "iroha-helpers",
+  "version": "0.0.1",
+  "description": "Some helpers function for transaction/query generation for Hyperledger Iroha",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/laSinteZ/iroha-helpers.git"
+  },
+  "keywords": [
+    "iroha",
+    "hyperledger"
+  ],
+  "contributors": [
+    "Vyacheslav Bikbaev <la.sintez@gmail.com> (https://github.com/lasintez/)",
+    "Robert Sayakhov <roobertdantes@gmail.com> (https://github.com/pobepto/)"
+  ],
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/laSinteZ/iroha-helpers/issues"
+  },
+  "homepage": "https://github.com/laSinteZ/iroha-helpers#readme",
+  "scripts": {
+    "build": "babel src --out-dir lib"
+  },
+  "dependencies": {
+    "buffer": "^5.2.0",
+    "ed25519.js": "^1.2.0",
+    "google-protobuf": "^3.6.0",
+    "grpc-web-client": "^0.6.2",
+    "js-sha3": "^0.7.0",
+    "lodash.clonedeep": "^4.5.0",
+    "lodash.foreach": "^4.5.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.56",
+    "@babel/core": "^7.0.0-beta.56",
+    "@babel/preset-env": "^7.0.0-beta.56"
+  }
+}

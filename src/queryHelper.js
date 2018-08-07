@@ -1,8 +1,8 @@
 import { Buffer } from 'buffer'
 import { sign as signQuery, derivePublicKey } from 'ed25519.js'
 import { sha3_256 as sha3 } from 'js-sha3'
-import cloneDeep from 'lodash/cloneDeep'
-import each from 'lodash/each'
+import cloneDeep from 'lodash.clonedeep'
+import forEach from 'lodash.foreach'
 import { Signature } from './proto/primitive_pb'
 import * as Queries from './proto/queries_pb'
 import { capitalize } from './util.js'
@@ -24,7 +24,7 @@ const getOrCreatePayload = query => query.hasPayload() ? cloneDeep(query.getPayl
 const addQuery = (query, queryName, params) => {
   let payloadQuery = new Queries[capitalize(queryName)]()
 
-  each(params, (value, key) => {
+  forEach(params, (value, key) => {
     payloadQuery['set' + capitalize(key)](value)
   })
 
