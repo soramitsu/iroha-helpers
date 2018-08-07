@@ -1,11 +1,11 @@
 {
   "name": "iroha-helpers",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Some helpers function for transaction/query generation for Hyperledger Iroha",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/laSinteZ/iroha-helpers.git"
+    "url": "git+ssh://git@github.com/soramitsu/iroha-helpers.git"
   },
   "keywords": [
     "iroha",
@@ -17,9 +17,9 @@
   ],
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/laSinteZ/iroha-helpers/issues"
+    "url": "https://github.com/soramitsu/iroha-helpers/issues"
   },
-  "homepage": "https://github.com/laSinteZ/iroha-helpers#readme",
+  "homepage": "https://github.com/soramitsu/iroha-helpers#readme",
   "scripts": {
     "build": "babel src --out-dir lib"
   },
