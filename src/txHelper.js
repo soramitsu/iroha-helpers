@@ -84,7 +84,7 @@ const sign = (transaction, privateKeyHex) => {
   const privateKey = Buffer.from(privateKeyHex, 'hex')
   const publicKey = derivePublicKey(privateKey)
 
-  const payloadHash = Buffer.from(sha3.array(transaction.getPayload().serializeBinary()))
+  const payloadHash = hash(sha3.array(transaction.getPayload().serializeBinary()))
 
   const signatory = signTransaction(payloadHash, publicKey, privateKey)
 
@@ -102,9 +102,9 @@ const sign = (transaction, privateKeyHex) => {
  * Returns hash of a transaction
  * @param {Object} transaction base transaction
  * @param {String} privateKeyHex private key of query's creator in hex.
- * @returns {Uint8Array} transaction hash
+ * @returns {Buffer} transaction hash
  */
-const hash = transaction => new Uint8Array(sha3.array(transaction.getPayload().serializeBinary()))
+const hash = transaction => Buffer.from(sha3.array(transaction.getPayload().serializeBinary()))
 
 // TODO: Add types for commands
 export default {
