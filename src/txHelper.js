@@ -84,7 +84,7 @@ const sign = (transaction, privateKeyHex) => {
   const privateKey = Buffer.from(privateKeyHex, 'hex')
   const publicKey = derivePublicKey(privateKey)
 
-  const payloadHash = hash(sha3.array(transaction.getPayload().serializeBinary()))
+  const payloadHash = hash(transaction)
 
   const signatory = signTransaction(payloadHash, publicKey, privateKey)
 
