@@ -37,7 +37,13 @@ const addCommand = (transaction, commandName, params) => {
   })
 
   let command = new Commands.Command()
-  command['set' + capitalize(commandName)](payloadCommand)
+
+  let commandNameSetter = 'set' + capitalize(commandName)
+
+  // Fix for setAccountQuorum
+  if (commandNameSetter === 'setSetAccountQuorum') commandNameSetter = 'setSetQuorum'
+
+  command[commandNameSetter](payloadCommand)
 
   let payload = getOrCreatePayload(transaction)
   let reducedPayload = getOrCreateReducedPayload(payload)
