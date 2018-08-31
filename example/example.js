@@ -1,5 +1,10 @@
-import { QueryServiceClient, CommandServiceClient } from '../lib/proto/endpoint_pb_service'
+import {
+  QueryServiceClient,
+  CommandServiceClient
+} from '../lib/proto/endpoint_pb_service'
 import { queryHelper, txHelper } from '../lib'
+
+import { TxStatus, TxStatusRequest } from '../lib/proto/endpoint_pb.js'
 
 import flow from 'lodash.flow'
 
@@ -10,22 +15,81 @@ let adminPriv =
 
 // Creating transaction with txHelper
 let transaction = flow(
-  (t) => txHelper.addCommand(t, 'CreateAsset', { assetName: 'dollar', domainId: 'test', precision: 2 }),
-  (t) => txHelper.addMeta(t, { creatorAccountId: 'admin@test', createdTime: Date.now() }),
-  (t) => txHelper.sign(t, adminPriv)
+  t =>
+    txHelper.addCommand(t, 'CreateAsset', {
+      assetName: 'dollar10',
+      domainId: 'test',
+      precision: 2
+    }),
+  t =>
+    txHelper.addMeta(t, {
+      creatorAccountId: 'admin@test'
+    })
 )(txHelper.emptyTransaction())
 
-const txClient = new CommandServiceClient(
-  irohaAddress
-)
+let transaction2 = flow(
+  t =>
+    txHelper.addCommand(t, 'CreateAsset', {
+      assetName: 'dollar11',
+      domainId: 'test',
+      precision: 2
+    }),
+  t =>
+    txHelper.addMeta(t, {
+      creatorAccountId: 'admin@test'
+    })
+)(txHelper.emptyTransaction())
 
-// Submitting transaction
-txClient.torii(transaction, (err, data) => {
+const txClient = new CommandServiceClient(irohaAddress)
+
+const batchArray = txHelper.addBatchMeta([transaction, transaction2], 0)
+
+batchArray[0] = txHelper.sign(batchArray[0], adminPriv)
+batchArray[1] = txHelper.sign(batchArray[1], adminPriv)
+
+const txHash = txHelper.hash(batchArray[0])
+const txHash2 = txHelper.hash(batchArray[1])
+
+const batch = txHelper.createTxListFromArray(batchArray)
+
+txClient.listTorii(batch, (err, data) => {
   if (err) {
     throw err
   } else {
-    console.log('Submitted transaction successfully! Hash: ' + txHelper.hash(transaction).toString('hex'))
+    console.log(
+      'Submitted transaction successfully! Hash: ' +
+        txHash.toString('hex') + '\n' +
+        txHash2.toString('hex')
+    )
   }
+})
+
+const request = new TxStatusRequest()
+
+request.setTxHash(txHash)
+
+let stream = txClient.statusStream(request)
+
+stream.on('data', function (response) {
+  console.log(response.getTxStatus())
+})
+
+stream.on('end', function (end) {
+  console.log('finish')
+})
+
+const request2 = new TxStatusRequest()
+
+request2.setTxHash(txHash2)
+
+let stream2 = txClient.statusStream(request2)
+
+stream2.on('data', function (response) {
+  console.log(response.getTxStatus())
+})
+
+stream2.on('end', function (end) {
+  console.log('finish')
 })
 
 // Creating query with queryHelper
