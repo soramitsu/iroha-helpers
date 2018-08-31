@@ -119,14 +119,14 @@ const hash = transaction => Buffer.from(sha3.array(transaction.getPayload().seri
  * @param {Number} type type of batch transaction, 0 for ATOMIC, 1 for ORDERED
  * @returns {Object} TxList with all necessary fields
  */
-const createBatch = (transactions, type) => {
+const addBatchMeta = (transactions, type) => {
   let reducedHashes = transactions.map(tx => Buffer.from(sha3.array(tx.getPayload().getReducedPayload().serializeBinary())))
 
   let batchMeta = new Transaction.Transaction.Payload.BatchMeta()
   batchMeta.setReducedHashesList(reducedHashes)
   batchMeta.setType(type)
 
-  let batchTransactions = transactions.map(tx => {
+  let transactionsWithBatchMeta = transactions.map(tx => {
     let transaction = cloneDeep(tx)
     let payload = getOrCreatePayload(transaction)
 
@@ -136,10 +136,14 @@ const createBatch = (transactions, type) => {
     return transaction
   })
 
-  let batch = new TxList()
-  batch.setTransactionsList(batchTransactions)
+  return transactionsWithBatchMeta
+}
 
-  return batch
+const createTxListFromArray = (transactions) => {
+  let txList = new TxList()
+  txList.setTransactionsList(transactions)
+
+  return txList
 }
 
 // TODO: Add types for commands
@@ -149,5 +153,6 @@ export default {
   sign,
   emptyTransaction,
   hash,
-  createBatch
+  addBatchMeta,
+  createTxListFromArray
 }
