@@ -114,10 +114,10 @@ const sign = (transaction, privateKeyHex) => {
 const hash = transaction => Buffer.from(sha3.array(transaction.getPayload().serializeBinary()))
 
 /**
- * Returns hash of a transaction
+ * Returns array of transactions with Batch Meta in them
  * @param {Array} transactions transactions to be included in batch
  * @param {Number} type type of batch transaction, 0 for ATOMIC, 1 for ORDERED
- * @returns {Object} TxList with all necessary fields
+ * @returns {Array} Transactions with all necessary fields
  */
 const addBatchMeta = (transactions, type) => {
   let reducedHashes = transactions.map(tx => Buffer.from(sha3.array(tx.getPayload().getReducedPayload().serializeBinary())))
@@ -139,10 +139,14 @@ const addBatchMeta = (transactions, type) => {
   return transactionsWithBatchMeta
 }
 
+/**
+ * Returns a TransactionList with transactions from array
+ * @param {Array} transactions transactions to be included in batch
+ * @returns {Object} TxList with all transactions
+ */
 const createTxListFromArray = (transactions) => {
   let txList = new TxList()
   txList.setTransactionsList(transactions)
-
   return txList
 }
 
