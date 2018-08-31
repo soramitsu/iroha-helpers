@@ -17,38 +17,40 @@ let adminPriv =
 let transaction = flow(
   t =>
     txHelper.addCommand(t, 'CreateAsset', {
-      assetName: 'dollar3',
+      assetName: 'dollar10',
       domainId: 'test',
       precision: 2
     }),
   t =>
     txHelper.addMeta(t, {
-      creatorAccountId: 'admin@test',
-      createdTime: Date.now()
-    }),
-  t => txHelper.sign(t, adminPriv)
+      creatorAccountId: 'admin@test'
+    })
 )(txHelper.emptyTransaction())
 
 let transaction2 = flow(
   t =>
     txHelper.addCommand(t, 'CreateAsset', {
-      assetName: 'dollar2',
+      assetName: 'dollar11',
       domainId: 'test',
       precision: 2
     }),
   t =>
     txHelper.addMeta(t, {
-      creatorAccountId: 'admin@test',
-      createdTime: Date.now()
+      creatorAccountId: 'admin@test'
     })
 )(txHelper.emptyTransaction())
 
 const txClient = new CommandServiceClient(irohaAddress)
 
-const txHash = txHelper.hash(transaction)
-const txHash2 = txHelper.hash(transaction2)
+const batchArray = txHelper.addBatchMeta([transaction, transaction2], 0)
 
-const batch = txHelper.createBatch([transaction, transaction2], 0)
+batchArray[0] = txHelper.sign(batchArray[0], adminPriv)
+batchArray[1] = txHelper.sign(batchArray[1], adminPriv)
+
+const txHash = txHelper.hash(batchArray[0])
+const txHash2 = txHelper.hash(batchArray[1])
+
+const batch = txHelper.createTxListFromArray(batchArray)
 
 txClient.listTorii(batch, (err, data) => {
   if (err) {
@@ -56,42 +58,11 @@ txClient.listTorii(batch, (err, data) => {
   } else {
     console.log(
       'Submitted transaction successfully! Hash: ' +
-        txHash.toString('hex')
+        txHash.toString('hex') + '\n' +
+        txHash2.toString('hex')
     )
   }
 })
-
-// Submitting transaction
-// txClient.torii(transaction, (err, data) => {
-//   if (err) {
-//     throw err
-//   } else {
-//     console.log(
-//       'Submitted transaction successfully! Hash: ' +
-//         txHash.toString('hex')
-//     )
-//   }
-// })
-
-// // Creating query with queryHelper
-// let query = flow(
-//   (q) => queryHelper.addQuery(q, 'getAccount', { accountId: 'admin@test' }),
-//   (q) => queryHelper.addMeta(q, { creatorAccountId: 'admin@test' }),
-//   (q) => queryHelper.sign(q, adminPriv)
-// )(queryHelper.emptyQuery())
-
-// const queryClient = new QueryServiceClient(
-//   irohaAddress
-// )
-
-// // Sending query with queryHelper
-// queryClient.find(query, (err, response) => {
-//   if (err) {
-//     throw err;
-//   } else {
-//     console.log(JSON.stringify(response));
-//   }
-// });
 
 const request = new TxStatusRequest()
 
@@ -119,4 +90,24 @@ stream2.on('data', function (response) {
 
 stream2.on('end', function (end) {
   console.log('finish')
+})
+
+// Creating query with queryHelper
+let query = flow(
+  (q) => queryHelper.addQuery(q, 'getAccount', { accountId: 'admin@test' }),
+  (q) => queryHelper.addMeta(q, { creatorAccountId: 'admin@test' }),
+  (q) => queryHelper.sign(q, adminPriv)
+)(queryHelper.emptyQuery())
+
+const queryClient = new QueryServiceClient(
+  irohaAddress
+)
+
+// Sending query with queryHelper
+queryClient.find(query, (err, response) => {
+  if (err) {
+    throw err
+  } else {
+    console.log(JSON.stringify(response))
+  }
 })
