@@ -62,7 +62,7 @@ proto.iroha.protocol.Signature.prototype.toObject = function(opt_includeInstance
  */
 proto.iroha.protocol.Signature.toObject = function(includeInstance, msg) {
   var f, obj = {
-    pubkey: msg.getPubkey_asB64(),
+    publicKey: msg.getPublicKey_asB64(),
     signature: msg.getSignature_asB64()
   };
 
@@ -102,7 +102,7 @@ proto.iroha.protocol.Signature.deserializeBinaryFromReader = function(msg, reade
     switch (field) {
     case 1:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.setPubkey(value);
+      msg.setPublicKey(value);
       break;
     case 2:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
@@ -137,7 +137,7 @@ proto.iroha.protocol.Signature.prototype.serializeBinary = function() {
  */
 proto.iroha.protocol.Signature.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getPubkey_asU8();
+  f = message.getPublicKey_asU8();
   if (f.length > 0) {
     writer.writeBytes(
       1,
@@ -155,40 +155,40 @@ proto.iroha.protocol.Signature.serializeBinaryToWriter = function(message, write
 
 
 /**
- * optional bytes pubkey = 1;
+ * optional bytes public_key = 1;
  * @return {!(string|Uint8Array)}
  */
-proto.iroha.protocol.Signature.prototype.getPubkey = function() {
+proto.iroha.protocol.Signature.prototype.getPublicKey = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /**
- * optional bytes pubkey = 1;
- * This is a type-conversion wrapper around `getPubkey()`
+ * optional bytes public_key = 1;
+ * This is a type-conversion wrapper around `getPublicKey()`
  * @return {string}
  */
-proto.iroha.protocol.Signature.prototype.getPubkey_asB64 = function() {
+proto.iroha.protocol.Signature.prototype.getPublicKey_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getPubkey()));
+      this.getPublicKey()));
 };
 
 
 /**
- * optional bytes pubkey = 1;
+ * optional bytes public_key = 1;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getPubkey()`
+ * This is a type-conversion wrapper around `getPublicKey()`
  * @return {!Uint8Array}
  */
-proto.iroha.protocol.Signature.prototype.getPubkey_asU8 = function() {
+proto.iroha.protocol.Signature.prototype.getPublicKey_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getPubkey()));
+      this.getPublicKey()));
 };
 
 
 /** @param {!(string|Uint8Array)} value */
-proto.iroha.protocol.Signature.prototype.setPubkey = function(value) {
+proto.iroha.protocol.Signature.prototype.setPublicKey = function(value) {
   jspb.Message.setProto3BytesField(this, 1, value);
 };
 

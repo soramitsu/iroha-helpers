@@ -111,10 +111,10 @@ export class CreateAccount extends jspb.Message {
   getDomainId(): string;
   setDomainId(value: string): void;
 
-  getMainPubkey(): Uint8Array | string;
-  getMainPubkey_asU8(): Uint8Array;
-  getMainPubkey_asB64(): string;
-  setMainPubkey(value: Uint8Array | string): void;
+  getPublicKey(): Uint8Array | string;
+  getPublicKey_asU8(): Uint8Array;
+  getPublicKey_asB64(): string;
+  setPublicKey(value: Uint8Array | string): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CreateAccount.AsObject;
@@ -130,7 +130,7 @@ export namespace CreateAccount {
   export type AsObject = {
     accountName: string,
     domainId: string,
-    mainPubkey: Uint8Array | string,
+    publicKey: Uint8Array | string,
   }
 }
 
@@ -469,10 +469,10 @@ export class Command extends jspb.Message {
   getGrantPermission(): GrantPermission | undefined;
   setGrantPermission(value?: GrantPermission): void;
 
-  hasRemoveSign(): boolean;
-  clearRemoveSign(): void;
-  getRemoveSign(): RemoveSignatory | undefined;
-  setRemoveSign(value?: RemoveSignatory): void;
+  hasRemoveSignatory(): boolean;
+  clearRemoveSignatory(): void;
+  getRemoveSignatory(): RemoveSignatory | undefined;
+  setRemoveSignatory(value?: RemoveSignatory): void;
 
   hasRevokePermission(): boolean;
   clearRevokePermission(): void;
@@ -484,10 +484,10 @@ export class Command extends jspb.Message {
   getSetAccountDetail(): SetAccountDetail | undefined;
   setSetAccountDetail(value?: SetAccountDetail): void;
 
-  hasSetQuorum(): boolean;
-  clearSetQuorum(): void;
-  getSetQuorum(): SetAccountQuorum | undefined;
-  setSetQuorum(value?: SetAccountQuorum): void;
+  hasSetAccountQuorum(): boolean;
+  clearSetAccountQuorum(): void;
+  getSetAccountQuorum(): SetAccountQuorum | undefined;
+  setSetAccountQuorum(value?: SetAccountQuorum): void;
 
   hasSubtractAssetQuantity(): boolean;
   clearSubtractAssetQuantity(): void;
@@ -522,10 +522,10 @@ export namespace Command {
     createRole?: CreateRole.AsObject,
     detachRole?: DetachRole.AsObject,
     grantPermission?: GrantPermission.AsObject,
-    removeSign?: RemoveSignatory.AsObject,
+    removeSignatory?: RemoveSignatory.AsObject,
     revokePermission?: RevokePermission.AsObject,
     setAccountDetail?: SetAccountDetail.AsObject,
-    setQuorum?: SetAccountQuorum.AsObject,
+    setAccountQuorum?: SetAccountQuorum.AsObject,
     subtractAssetQuantity?: SubtractAssetQuantity.AsObject,
     transferAsset?: TransferAsset.AsObject,
   }
@@ -542,10 +542,10 @@ export namespace Command {
     CREATE_ROLE = 8,
     DETACH_ROLE = 9,
     GRANT_PERMISSION = 10,
-    REMOVE_SIGN = 11,
+    REMOVE_SIGNATORY = 11,
     REVOKE_PERMISSION = 12,
     SET_ACCOUNT_DETAIL = 13,
-    SET_QUORUM = 14,
+    SET_ACCOUNT_QUORUM = 14,
     SUBTRACT_ASSET_QUANTITY = 15,
     TRANSFER_ASSET = 16,
   }

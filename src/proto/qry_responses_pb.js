@@ -3263,7 +3263,7 @@ proto.iroha.protocol.BlockQueryResponse.oneofGroups_ = [[1,2]];
 proto.iroha.protocol.BlockQueryResponse.ResponseCase = {
   RESPONSE_NOT_SET: 0,
   BLOCK_RESPONSE: 1,
-  ERROR_RESPONSE: 2
+  BLOCK_ERROR_RESPONSE: 2
 };
 
 /**
@@ -3303,7 +3303,7 @@ proto.iroha.protocol.BlockQueryResponse.prototype.toObject = function(opt_includ
 proto.iroha.protocol.BlockQueryResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     blockResponse: (f = msg.getBlockResponse()) && proto.iroha.protocol.BlockResponse.toObject(includeInstance, f),
-    errorResponse: (f = msg.getErrorResponse()) && proto.iroha.protocol.BlockErrorResponse.toObject(includeInstance, f)
+    blockErrorResponse: (f = msg.getBlockErrorResponse()) && proto.iroha.protocol.BlockErrorResponse.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -3348,7 +3348,7 @@ proto.iroha.protocol.BlockQueryResponse.deserializeBinaryFromReader = function(m
     case 2:
       var value = new proto.iroha.protocol.BlockErrorResponse;
       reader.readMessage(value,proto.iroha.protocol.BlockErrorResponse.deserializeBinaryFromReader);
-      msg.setErrorResponse(value);
+      msg.setBlockErrorResponse(value);
       break;
     default:
       reader.skipField();
@@ -3387,7 +3387,7 @@ proto.iroha.protocol.BlockQueryResponse.serializeBinaryToWriter = function(messa
       proto.iroha.protocol.BlockResponse.serializeBinaryToWriter
     );
   }
-  f = message.getErrorResponse();
+  f = message.getBlockErrorResponse();
   if (f != null) {
     writer.writeMessage(
       2,
@@ -3429,23 +3429,23 @@ proto.iroha.protocol.BlockQueryResponse.prototype.hasBlockResponse = function() 
 
 
 /**
- * optional BlockErrorResponse error_response = 2;
+ * optional BlockErrorResponse block_error_response = 2;
  * @return {?proto.iroha.protocol.BlockErrorResponse}
  */
-proto.iroha.protocol.BlockQueryResponse.prototype.getErrorResponse = function() {
+proto.iroha.protocol.BlockQueryResponse.prototype.getBlockErrorResponse = function() {
   return /** @type{?proto.iroha.protocol.BlockErrorResponse} */ (
     jspb.Message.getWrapperField(this, proto.iroha.protocol.BlockErrorResponse, 2));
 };
 
 
 /** @param {?proto.iroha.protocol.BlockErrorResponse|undefined} value */
-proto.iroha.protocol.BlockQueryResponse.prototype.setErrorResponse = function(value) {
+proto.iroha.protocol.BlockQueryResponse.prototype.setBlockErrorResponse = function(value) {
   jspb.Message.setOneofWrapperField(this, 2, proto.iroha.protocol.BlockQueryResponse.oneofGroups_[0], value);
 };
 
 
-proto.iroha.protocol.BlockQueryResponse.prototype.clearErrorResponse = function() {
-  this.setErrorResponse(undefined);
+proto.iroha.protocol.BlockQueryResponse.prototype.clearBlockErrorResponse = function() {
+  this.setBlockErrorResponse(undefined);
 };
 
 
@@ -3453,7 +3453,7 @@ proto.iroha.protocol.BlockQueryResponse.prototype.clearErrorResponse = function(
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.iroha.protocol.BlockQueryResponse.prototype.hasErrorResponse = function() {
+proto.iroha.protocol.BlockQueryResponse.prototype.hasBlockErrorResponse = function() {
   return jspb.Message.getField(this, 2) != null;
 };
 

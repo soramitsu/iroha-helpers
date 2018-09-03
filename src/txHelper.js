@@ -41,9 +41,6 @@ const addCommand = (transaction, commandName, params) => {
 
   let commandNameSetter = 'set' + capitalize(commandName)
 
-  // Fix for setAccountQuorum
-  if (commandNameSetter === 'setSetAccountQuorum') commandNameSetter = 'setSetQuorum'
-
   command[commandNameSetter](payloadCommand)
 
   let payload = getOrCreatePayload(transaction)
@@ -96,7 +93,7 @@ const sign = (transaction, privateKeyHex) => {
   const signatory = signTransaction(payloadHash, publicKey, privateKey)
 
   let s = new Signature()
-  s.setPubkey(publicKey)
+  s.setPublicKey(publicKey)
   s.setSignature(signatory)
 
   let signedTransactionWithSignature = cloneDeep(transaction)

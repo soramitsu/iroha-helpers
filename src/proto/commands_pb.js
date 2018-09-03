@@ -795,7 +795,7 @@ proto.iroha.protocol.CreateAccount.toObject = function(includeInstance, msg) {
   var f, obj = {
     accountName: jspb.Message.getFieldWithDefault(msg, 1, ""),
     domainId: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    mainPubkey: msg.getMainPubkey_asB64()
+    publicKey: msg.getPublicKey_asB64()
   };
 
   if (includeInstance) {
@@ -842,7 +842,7 @@ proto.iroha.protocol.CreateAccount.deserializeBinaryFromReader = function(msg, r
       break;
     case 3:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.setMainPubkey(value);
+      msg.setPublicKey(value);
       break;
     default:
       reader.skipField();
@@ -887,7 +887,7 @@ proto.iroha.protocol.CreateAccount.serializeBinaryToWriter = function(message, w
       f
     );
   }
-  f = message.getMainPubkey_asU8();
+  f = message.getPublicKey_asU8();
   if (f.length > 0) {
     writer.writeBytes(
       3,
@@ -928,40 +928,40 @@ proto.iroha.protocol.CreateAccount.prototype.setDomainId = function(value) {
 
 
 /**
- * optional bytes main_pubkey = 3;
+ * optional bytes public_key = 3;
  * @return {!(string|Uint8Array)}
  */
-proto.iroha.protocol.CreateAccount.prototype.getMainPubkey = function() {
+proto.iroha.protocol.CreateAccount.prototype.getPublicKey = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
 /**
- * optional bytes main_pubkey = 3;
- * This is a type-conversion wrapper around `getMainPubkey()`
+ * optional bytes public_key = 3;
+ * This is a type-conversion wrapper around `getPublicKey()`
  * @return {string}
  */
-proto.iroha.protocol.CreateAccount.prototype.getMainPubkey_asB64 = function() {
+proto.iroha.protocol.CreateAccount.prototype.getPublicKey_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getMainPubkey()));
+      this.getPublicKey()));
 };
 
 
 /**
- * optional bytes main_pubkey = 3;
+ * optional bytes public_key = 3;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getMainPubkey()`
+ * This is a type-conversion wrapper around `getPublicKey()`
  * @return {!Uint8Array}
  */
-proto.iroha.protocol.CreateAccount.prototype.getMainPubkey_asU8 = function() {
+proto.iroha.protocol.CreateAccount.prototype.getPublicKey_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getMainPubkey()));
+      this.getPublicKey()));
 };
 
 
 /** @param {!(string|Uint8Array)} value */
-proto.iroha.protocol.CreateAccount.prototype.setMainPubkey = function(value) {
+proto.iroha.protocol.CreateAccount.prototype.setPublicKey = function(value) {
   jspb.Message.setProto3BytesField(this, 3, value);
 };
 
@@ -3021,10 +3021,10 @@ proto.iroha.protocol.Command.CommandCase = {
   CREATE_ROLE: 8,
   DETACH_ROLE: 9,
   GRANT_PERMISSION: 10,
-  REMOVE_SIGN: 11,
+  REMOVE_SIGNATORY: 11,
   REVOKE_PERMISSION: 12,
   SET_ACCOUNT_DETAIL: 13,
-  SET_QUORUM: 14,
+  SET_ACCOUNT_QUORUM: 14,
   SUBTRACT_ASSET_QUANTITY: 15,
   TRANSFER_ASSET: 16
 };
@@ -3075,10 +3075,10 @@ proto.iroha.protocol.Command.toObject = function(includeInstance, msg) {
     createRole: (f = msg.getCreateRole()) && proto.iroha.protocol.CreateRole.toObject(includeInstance, f),
     detachRole: (f = msg.getDetachRole()) && proto.iroha.protocol.DetachRole.toObject(includeInstance, f),
     grantPermission: (f = msg.getGrantPermission()) && proto.iroha.protocol.GrantPermission.toObject(includeInstance, f),
-    removeSign: (f = msg.getRemoveSign()) && proto.iroha.protocol.RemoveSignatory.toObject(includeInstance, f),
+    removeSignatory: (f = msg.getRemoveSignatory()) && proto.iroha.protocol.RemoveSignatory.toObject(includeInstance, f),
     revokePermission: (f = msg.getRevokePermission()) && proto.iroha.protocol.RevokePermission.toObject(includeInstance, f),
     setAccountDetail: (f = msg.getSetAccountDetail()) && proto.iroha.protocol.SetAccountDetail.toObject(includeInstance, f),
-    setQuorum: (f = msg.getSetQuorum()) && proto.iroha.protocol.SetAccountQuorum.toObject(includeInstance, f),
+    setAccountQuorum: (f = msg.getSetAccountQuorum()) && proto.iroha.protocol.SetAccountQuorum.toObject(includeInstance, f),
     subtractAssetQuantity: (f = msg.getSubtractAssetQuantity()) && proto.iroha.protocol.SubtractAssetQuantity.toObject(includeInstance, f),
     transferAsset: (f = msg.getTransferAsset()) && proto.iroha.protocol.TransferAsset.toObject(includeInstance, f)
   };
@@ -3170,7 +3170,7 @@ proto.iroha.protocol.Command.deserializeBinaryFromReader = function(msg, reader)
     case 11:
       var value = new proto.iroha.protocol.RemoveSignatory;
       reader.readMessage(value,proto.iroha.protocol.RemoveSignatory.deserializeBinaryFromReader);
-      msg.setRemoveSign(value);
+      msg.setRemoveSignatory(value);
       break;
     case 12:
       var value = new proto.iroha.protocol.RevokePermission;
@@ -3185,7 +3185,7 @@ proto.iroha.protocol.Command.deserializeBinaryFromReader = function(msg, reader)
     case 14:
       var value = new proto.iroha.protocol.SetAccountQuorum;
       reader.readMessage(value,proto.iroha.protocol.SetAccountQuorum.deserializeBinaryFromReader);
-      msg.setSetQuorum(value);
+      msg.setSetAccountQuorum(value);
       break;
     case 15:
       var value = new proto.iroha.protocol.SubtractAssetQuantity;
@@ -3306,7 +3306,7 @@ proto.iroha.protocol.Command.serializeBinaryToWriter = function(message, writer)
       proto.iroha.protocol.GrantPermission.serializeBinaryToWriter
     );
   }
-  f = message.getRemoveSign();
+  f = message.getRemoveSignatory();
   if (f != null) {
     writer.writeMessage(
       11,
@@ -3330,7 +3330,7 @@ proto.iroha.protocol.Command.serializeBinaryToWriter = function(message, writer)
       proto.iroha.protocol.SetAccountDetail.serializeBinaryToWriter
     );
   }
-  f = message.getSetQuorum();
+  f = message.getSetAccountQuorum();
   if (f != null) {
     writer.writeMessage(
       14,
@@ -3658,23 +3658,23 @@ proto.iroha.protocol.Command.prototype.hasGrantPermission = function() {
 
 
 /**
- * optional RemoveSignatory remove_sign = 11;
+ * optional RemoveSignatory remove_signatory = 11;
  * @return {?proto.iroha.protocol.RemoveSignatory}
  */
-proto.iroha.protocol.Command.prototype.getRemoveSign = function() {
+proto.iroha.protocol.Command.prototype.getRemoveSignatory = function() {
   return /** @type{?proto.iroha.protocol.RemoveSignatory} */ (
     jspb.Message.getWrapperField(this, proto.iroha.protocol.RemoveSignatory, 11));
 };
 
 
 /** @param {?proto.iroha.protocol.RemoveSignatory|undefined} value */
-proto.iroha.protocol.Command.prototype.setRemoveSign = function(value) {
+proto.iroha.protocol.Command.prototype.setRemoveSignatory = function(value) {
   jspb.Message.setOneofWrapperField(this, 11, proto.iroha.protocol.Command.oneofGroups_[0], value);
 };
 
 
-proto.iroha.protocol.Command.prototype.clearRemoveSign = function() {
-  this.setRemoveSign(undefined);
+proto.iroha.protocol.Command.prototype.clearRemoveSignatory = function() {
+  this.setRemoveSignatory(undefined);
 };
 
 
@@ -3682,7 +3682,7 @@ proto.iroha.protocol.Command.prototype.clearRemoveSign = function() {
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.iroha.protocol.Command.prototype.hasRemoveSign = function() {
+proto.iroha.protocol.Command.prototype.hasRemoveSignatory = function() {
   return jspb.Message.getField(this, 11) != null;
 };
 
@@ -3748,23 +3748,23 @@ proto.iroha.protocol.Command.prototype.hasSetAccountDetail = function() {
 
 
 /**
- * optional SetAccountQuorum set_quorum = 14;
+ * optional SetAccountQuorum set_account_quorum = 14;
  * @return {?proto.iroha.protocol.SetAccountQuorum}
  */
-proto.iroha.protocol.Command.prototype.getSetQuorum = function() {
+proto.iroha.protocol.Command.prototype.getSetAccountQuorum = function() {
   return /** @type{?proto.iroha.protocol.SetAccountQuorum} */ (
     jspb.Message.getWrapperField(this, proto.iroha.protocol.SetAccountQuorum, 14));
 };
 
 
 /** @param {?proto.iroha.protocol.SetAccountQuorum|undefined} value */
-proto.iroha.protocol.Command.prototype.setSetQuorum = function(value) {
+proto.iroha.protocol.Command.prototype.setSetAccountQuorum = function(value) {
   jspb.Message.setOneofWrapperField(this, 14, proto.iroha.protocol.Command.oneofGroups_[0], value);
 };
 
 
-proto.iroha.protocol.Command.prototype.clearSetQuorum = function() {
-  this.setSetQuorum(undefined);
+proto.iroha.protocol.Command.prototype.clearSetAccountQuorum = function() {
+  this.setSetAccountQuorum(undefined);
 };
 
 
@@ -3772,7 +3772,7 @@ proto.iroha.protocol.Command.prototype.clearSetQuorum = function() {
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.iroha.protocol.Command.prototype.hasSetQuorum = function() {
+proto.iroha.protocol.Command.prototype.hasSetAccountQuorum = function() {
   return jspb.Message.getField(this, 14) != null;
 };
 

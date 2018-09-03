@@ -322,10 +322,10 @@ export namespace Query {
     getGetAccount(): GetAccount | undefined;
     setGetAccount(value?: GetAccount): void;
 
-    hasGetAccountSignatories(): boolean;
-    clearGetAccountSignatories(): void;
-    getGetAccountSignatories(): GetSignatories | undefined;
-    setGetAccountSignatories(value?: GetSignatories): void;
+    hasGetSignatories(): boolean;
+    clearGetSignatories(): void;
+    getGetSignatories(): GetSignatories | undefined;
+    setGetSignatories(value?: GetSignatories): void;
 
     hasGetAccountTransactions(): boolean;
     clearGetAccountTransactions(): void;
@@ -387,7 +387,7 @@ export namespace Query {
     export type AsObject = {
       meta?: QueryPayloadMeta.AsObject,
       getAccount?: GetAccount.AsObject,
-      getAccountSignatories?: GetSignatories.AsObject,
+      getSignatories?: GetSignatories.AsObject,
       getAccountTransactions?: GetAccountTransactions.AsObject,
       getAccountAssetTransactions?: GetAccountAssetTransactions.AsObject,
       getTransactions?: GetTransactions.AsObject,
@@ -402,7 +402,7 @@ export namespace Query {
     export enum QueryCase {
       QUERY_NOT_SET = 0,
       GET_ACCOUNT = 3,
-      GET_ACCOUNT_SIGNATORIES = 4,
+      GET_SIGNATORIES = 4,
       GET_ACCOUNT_TRANSACTIONS = 5,
       GET_ACCOUNT_ASSET_TRANSACTIONS = 6,
       GET_TRANSACTIONS = 7,

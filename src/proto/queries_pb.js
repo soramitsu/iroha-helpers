@@ -2133,7 +2133,7 @@ proto.iroha.protocol.Query.Payload.oneofGroups_ = [[3,4,5,6,7,8,9,10,11,12,13]];
 proto.iroha.protocol.Query.Payload.QueryCase = {
   QUERY_NOT_SET: 0,
   GET_ACCOUNT: 3,
-  GET_ACCOUNT_SIGNATORIES: 4,
+  GET_SIGNATORIES: 4,
   GET_ACCOUNT_TRANSACTIONS: 5,
   GET_ACCOUNT_ASSET_TRANSACTIONS: 6,
   GET_TRANSACTIONS: 7,
@@ -2183,7 +2183,7 @@ proto.iroha.protocol.Query.Payload.toObject = function(includeInstance, msg) {
   var f, obj = {
     meta: (f = msg.getMeta()) && proto.iroha.protocol.QueryPayloadMeta.toObject(includeInstance, f),
     getAccount: (f = msg.getGetAccount()) && proto.iroha.protocol.GetAccount.toObject(includeInstance, f),
-    getAccountSignatories: (f = msg.getGetAccountSignatories()) && proto.iroha.protocol.GetSignatories.toObject(includeInstance, f),
+    getSignatories: (f = msg.getGetSignatories()) && proto.iroha.protocol.GetSignatories.toObject(includeInstance, f),
     getAccountTransactions: (f = msg.getGetAccountTransactions()) && proto.iroha.protocol.GetAccountTransactions.toObject(includeInstance, f),
     getAccountAssetTransactions: (f = msg.getGetAccountAssetTransactions()) && proto.iroha.protocol.GetAccountAssetTransactions.toObject(includeInstance, f),
     getTransactions: (f = msg.getGetTransactions()) && proto.iroha.protocol.GetTransactions.toObject(includeInstance, f),
@@ -2242,7 +2242,7 @@ proto.iroha.protocol.Query.Payload.deserializeBinaryFromReader = function(msg, r
     case 4:
       var value = new proto.iroha.protocol.GetSignatories;
       reader.readMessage(value,proto.iroha.protocol.GetSignatories.deserializeBinaryFromReader);
-      msg.setGetAccountSignatories(value);
+      msg.setGetSignatories(value);
       break;
     case 5:
       var value = new proto.iroha.protocol.GetAccountTransactions;
@@ -2334,7 +2334,7 @@ proto.iroha.protocol.Query.Payload.serializeBinaryToWriter = function(message, w
       proto.iroha.protocol.GetAccount.serializeBinaryToWriter
     );
   }
-  f = message.getGetAccountSignatories();
+  f = message.getGetSignatories();
   if (f != null) {
     writer.writeMessage(
       4,
@@ -2478,23 +2478,23 @@ proto.iroha.protocol.Query.Payload.prototype.hasGetAccount = function() {
 
 
 /**
- * optional GetSignatories get_account_signatories = 4;
+ * optional GetSignatories get_signatories = 4;
  * @return {?proto.iroha.protocol.GetSignatories}
  */
-proto.iroha.protocol.Query.Payload.prototype.getGetAccountSignatories = function() {
+proto.iroha.protocol.Query.Payload.prototype.getGetSignatories = function() {
   return /** @type{?proto.iroha.protocol.GetSignatories} */ (
     jspb.Message.getWrapperField(this, proto.iroha.protocol.GetSignatories, 4));
 };
 
 
 /** @param {?proto.iroha.protocol.GetSignatories|undefined} value */
-proto.iroha.protocol.Query.Payload.prototype.setGetAccountSignatories = function(value) {
+proto.iroha.protocol.Query.Payload.prototype.setGetSignatories = function(value) {
   jspb.Message.setOneofWrapperField(this, 4, proto.iroha.protocol.Query.Payload.oneofGroups_[0], value);
 };
 
 
-proto.iroha.protocol.Query.Payload.prototype.clearGetAccountSignatories = function() {
-  this.setGetAccountSignatories(undefined);
+proto.iroha.protocol.Query.Payload.prototype.clearGetSignatories = function() {
+  this.setGetSignatories(undefined);
 };
 
 
@@ -2502,7 +2502,7 @@ proto.iroha.protocol.Query.Payload.prototype.clearGetAccountSignatories = functi
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.iroha.protocol.Query.Payload.prototype.hasGetAccountSignatories = function() {
+proto.iroha.protocol.Query.Payload.prototype.hasGetSignatories = function() {
   return jspb.Message.getField(this, 4) != null;
 };
 

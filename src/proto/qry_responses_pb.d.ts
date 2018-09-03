@@ -472,10 +472,10 @@ export class BlockQueryResponse extends jspb.Message {
   getBlockResponse(): BlockResponse | undefined;
   setBlockResponse(value?: BlockResponse): void;
 
-  hasErrorResponse(): boolean;
-  clearErrorResponse(): void;
-  getErrorResponse(): BlockErrorResponse | undefined;
-  setErrorResponse(value?: BlockErrorResponse): void;
+  hasBlockErrorResponse(): boolean;
+  clearBlockErrorResponse(): void;
+  getBlockErrorResponse(): BlockErrorResponse | undefined;
+  setBlockErrorResponse(value?: BlockErrorResponse): void;
 
   getResponseCase(): BlockQueryResponse.ResponseCase;
   serializeBinary(): Uint8Array;
@@ -491,13 +491,13 @@ export class BlockQueryResponse extends jspb.Message {
 export namespace BlockQueryResponse {
   export type AsObject = {
     blockResponse?: BlockResponse.AsObject,
-    errorResponse?: BlockErrorResponse.AsObject,
+    blockErrorResponse?: BlockErrorResponse.AsObject,
   }
 
   export enum ResponseCase {
     RESPONSE_NOT_SET = 0,
     BLOCK_RESPONSE = 1,
-    ERROR_RESPONSE = 2,
+    BLOCK_ERROR_RESPONSE = 2,
   }
 }
 

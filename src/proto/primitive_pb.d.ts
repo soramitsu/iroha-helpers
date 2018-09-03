@@ -4,10 +4,10 @@
 import * as jspb from "google-protobuf";
 
 export class Signature extends jspb.Message {
-  getPubkey(): Uint8Array | string;
-  getPubkey_asU8(): Uint8Array;
-  getPubkey_asB64(): string;
-  setPubkey(value: Uint8Array | string): void;
+  getPublicKey(): Uint8Array | string;
+  getPublicKey_asU8(): Uint8Array;
+  getPublicKey_asB64(): string;
+  setPublicKey(value: Uint8Array | string): void;
 
   getSignature(): Uint8Array | string;
   getSignature_asU8(): Uint8Array;
@@ -26,7 +26,7 @@ export class Signature extends jspb.Message {
 
 export namespace Signature {
   export type AsObject = {
-    pubkey: Uint8Array | string,
+    publicKey: Uint8Array | string,
     signature: Uint8Array | string,
   }
 }
