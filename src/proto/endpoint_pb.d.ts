@@ -89,5 +89,7 @@ export enum TxStatus {
   COMMITTED = 4,
   MST_EXPIRED = 5,
   NOT_RECEIVED = 6,
+  MST_PENDING = 7,
+  ENOUGH_SIGNATURES_COLLECTED = 8,
 }
 

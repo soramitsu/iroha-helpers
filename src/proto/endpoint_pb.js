@@ -583,7 +583,9 @@ proto.iroha.protocol.TxStatus = {
   STATEFUL_VALIDATION_SUCCESS: 3,
   COMMITTED: 4,
   MST_EXPIRED: 5,
-  NOT_RECEIVED: 6
+  NOT_RECEIVED: 6,
+  MST_PENDING: 7,
+  ENOUGH_SIGNATURES_COLLECTED: 8
 };
 
 goog.object.extend(exports, proto.iroha.protocol);
