@@ -1,3 +1,4 @@
+// for usage with grpc package use endpoint_grpc_pb file
 import {
   QueryServiceClient,
   CommandServiceClient
@@ -40,6 +41,7 @@ let transaction2 = flow(
     })
 )(txHelper.emptyTransaction())
 
+// for usage with grpc package don't forget to pass credentials or grpc.credentials.createInsecure()
 const txClient = new CommandServiceClient(irohaAddress)
 
 const batchArray = txHelper.addBatchMeta([transaction, transaction2], 0)
@@ -99,6 +101,7 @@ let query = flow(
   (q) => queryHelper.sign(q, adminPriv)
 )(queryHelper.emptyQuery())
 
+// for usage with grpc package don't forget to pass credentials or grpc.credentials.createInsecure()
 const queryClient = new QueryServiceClient(
   irohaAddress
 )

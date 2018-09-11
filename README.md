@@ -14,7 +14,6 @@ Some functions which will help you to interact with [Hyperledger Iroha](https://
 
 ## Known issues
  - Please be careful: API might and WILL change.
- - Please not that only [`grpc-web`](https://github.com/improbable-eng/grpc-web/tree/master/go/grpcwebproxy) is supported now. We will fix it soon.
  - Please note that some of commands (e.g. addPeer, createRole) are not
    supported yet. We will support them after migrating to Protobuf.js.
    Stay tuned!
@@ -26,7 +25,7 @@ Some functions which will help you to interact with [Hyperledger Iroha](https://
  - [ ] Field validation
  - [ ] Add tests
  - [ ] Integration tests with Iroha
- - [ ] Add ability to use native GRPC, not grpc-web-client.
+ - [x] Add ability to use native GRPC, not grpc-web-client.
  - [ ] Use Protobuf.js
  - [ ] Implement all Transactions/Queries
  - [ ] Add more documentation
