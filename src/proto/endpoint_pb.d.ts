@@ -16,8 +16,14 @@ export class ToriiResponse extends jspb.Message {
   getTxHash_asB64(): string;
   setTxHash(value: Uint8Array | string): void;
 
-  getErrorMessage(): string;
-  setErrorMessage(value: string): void;
+  getErrOrCmdName(): string;
+  setErrOrCmdName(value: string): void;
+
+  getFailedCmdIndex(): number;
+  setFailedCmdIndex(value: number): void;
+
+  getErrorCode(): number;
+  setErrorCode(value: number): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ToriiResponse.AsObject;
@@ -33,7 +39,9 @@ export namespace ToriiResponse {
   export type AsObject = {
     txStatus: TxStatus,
     txHash: Uint8Array | string,
-    errorMessage: string,
+    errOrCmdName: string,
+    failedCmdIndex: number,
+    errorCode: number,
   }
 }
 

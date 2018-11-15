@@ -189,7 +189,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.iroha.protocol.Block.Payload.repeatedFields_ = [1];
+proto.iroha.protocol.Block.Payload.repeatedFields_ = [1,6];
 
 
 
@@ -225,7 +225,8 @@ proto.iroha.protocol.Block.Payload.toObject = function(includeInstance, msg) {
     txNumber: jspb.Message.getFieldWithDefault(msg, 2, 0),
     height: jspb.Message.getFieldWithDefault(msg, 3, 0),
     prevBlockHash: msg.getPrevBlockHash_asB64(),
-    createdTime: jspb.Message.getFieldWithDefault(msg, 6, 0)
+    createdTime: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    rejectedTransactionsHashesList: msg.getRejectedTransactionsHashesList_asB64()
   };
 
   if (includeInstance) {
@@ -275,13 +276,17 @@ proto.iroha.protocol.Block.Payload.deserializeBinaryFromReader = function(msg, r
       var value = /** @type {number} */ (reader.readUint64());
       msg.setHeight(value);
       break;
-    case 5:
+    case 4:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setPrevBlockHash(value);
       break;
-    case 6:
+    case 5:
       var value = /** @type {number} */ (reader.readUint64());
       msg.setCreatedTime(value);
+      break;
+    case 6:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.addRejectedTransactionsHashes(value);
       break;
     default:
       reader.skipField();
@@ -337,13 +342,20 @@ proto.iroha.protocol.Block.Payload.serializeBinaryToWriter = function(message, w
   f = message.getPrevBlockHash_asU8();
   if (f.length > 0) {
     writer.writeBytes(
-      5,
+      4,
       f
     );
   }
   f = message.getCreatedTime();
   if (f !== 0) {
     writer.writeUint64(
+      5,
+      f
+    );
+  }
+  f = message.getRejectedTransactionsHashesList_asU8();
+  if (f.length > 0) {
+    writer.writeRepeatedBytes(
       6,
       f
     );
@@ -413,16 +425,16 @@ proto.iroha.protocol.Block.Payload.prototype.setHeight = function(value) {
 
 
 /**
- * optional bytes prev_block_hash = 5;
+ * optional bytes prev_block_hash = 4;
  * @return {!(string|Uint8Array)}
  */
 proto.iroha.protocol.Block.Payload.prototype.getPrevBlockHash = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
 
 /**
- * optional bytes prev_block_hash = 5;
+ * optional bytes prev_block_hash = 4;
  * This is a type-conversion wrapper around `getPrevBlockHash()`
  * @return {string}
  */
@@ -433,7 +445,7 @@ proto.iroha.protocol.Block.Payload.prototype.getPrevBlockHash_asB64 = function()
 
 
 /**
- * optional bytes prev_block_hash = 5;
+ * optional bytes prev_block_hash = 4;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
  * This is a type-conversion wrapper around `getPrevBlockHash()`
@@ -447,22 +459,75 @@ proto.iroha.protocol.Block.Payload.prototype.getPrevBlockHash_asU8 = function() 
 
 /** @param {!(string|Uint8Array)} value */
 proto.iroha.protocol.Block.Payload.prototype.setPrevBlockHash = function(value) {
-  jspb.Message.setProto3BytesField(this, 5, value);
+  jspb.Message.setProto3BytesField(this, 4, value);
 };
 
 
 /**
- * optional uint64 created_time = 6;
+ * optional uint64 created_time = 5;
  * @return {number}
  */
 proto.iroha.protocol.Block.Payload.prototype.getCreatedTime = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
 };
 
 
 /** @param {number} value */
 proto.iroha.protocol.Block.Payload.prototype.setCreatedTime = function(value) {
-  jspb.Message.setProto3IntField(this, 6, value);
+  jspb.Message.setProto3IntField(this, 5, value);
+};
+
+
+/**
+ * repeated bytes rejected_transactions_hashes = 6;
+ * @return {!(Array<!Uint8Array>|Array<string>)}
+ */
+proto.iroha.protocol.Block.Payload.prototype.getRejectedTransactionsHashesList = function() {
+  return /** @type {!(Array<!Uint8Array>|Array<string>)} */ (jspb.Message.getRepeatedField(this, 6));
+};
+
+
+/**
+ * repeated bytes rejected_transactions_hashes = 6;
+ * This is a type-conversion wrapper around `getRejectedTransactionsHashesList()`
+ * @return {!Array.<string>}
+ */
+proto.iroha.protocol.Block.Payload.prototype.getRejectedTransactionsHashesList_asB64 = function() {
+  return /** @type {!Array.<string>} */ (jspb.Message.bytesListAsB64(
+      this.getRejectedTransactionsHashesList()));
+};
+
+
+/**
+ * repeated bytes rejected_transactions_hashes = 6;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getRejectedTransactionsHashesList()`
+ * @return {!Array.<!Uint8Array>}
+ */
+proto.iroha.protocol.Block.Payload.prototype.getRejectedTransactionsHashesList_asU8 = function() {
+  return /** @type {!Array.<!Uint8Array>} */ (jspb.Message.bytesListAsU8(
+      this.getRejectedTransactionsHashesList()));
+};
+
+
+/** @param {!(Array<!Uint8Array>|Array<string>)} value */
+proto.iroha.protocol.Block.Payload.prototype.setRejectedTransactionsHashesList = function(value) {
+  jspb.Message.setField(this, 6, value || []);
+};
+
+
+/**
+ * @param {!(string|Uint8Array)} value
+ * @param {number=} opt_index
+ */
+proto.iroha.protocol.Block.Payload.prototype.addRejectedTransactionsHashes = function(value, opt_index) {
+  jspb.Message.addToRepeatedField(this, 6, value, opt_index);
+};
+
+
+proto.iroha.protocol.Block.Payload.prototype.clearRejectedTransactionsHashesList = function() {
+  this.setRejectedTransactionsHashesList([]);
 };
 
 

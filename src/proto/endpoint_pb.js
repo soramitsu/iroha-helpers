@@ -68,7 +68,9 @@ proto.iroha.protocol.ToriiResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     txStatus: jspb.Message.getFieldWithDefault(msg, 1, 0),
     txHash: msg.getTxHash_asB64(),
-    errorMessage: jspb.Message.getFieldWithDefault(msg, 3, "")
+    errOrCmdName: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    failedCmdIndex: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    errorCode: jspb.Message.getFieldWithDefault(msg, 5, 0)
   };
 
   if (includeInstance) {
@@ -115,7 +117,15 @@ proto.iroha.protocol.ToriiResponse.deserializeBinaryFromReader = function(msg, r
       break;
     case 3:
       var value = /** @type {string} */ (reader.readString());
-      msg.setErrorMessage(value);
+      msg.setErrOrCmdName(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setFailedCmdIndex(value);
+      break;
+    case 5:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setErrorCode(value);
       break;
     default:
       reader.skipField();
@@ -160,10 +170,24 @@ proto.iroha.protocol.ToriiResponse.serializeBinaryToWriter = function(message, w
       f
     );
   }
-  f = message.getErrorMessage();
+  f = message.getErrOrCmdName();
   if (f.length > 0) {
     writer.writeString(
       3,
+      f
+    );
+  }
+  f = message.getFailedCmdIndex();
+  if (f !== 0) {
+    writer.writeUint64(
+      4,
+      f
+    );
+  }
+  f = message.getErrorCode();
+  if (f !== 0) {
+    writer.writeUint32(
+      5,
       f
     );
   }
@@ -225,17 +249,47 @@ proto.iroha.protocol.ToriiResponse.prototype.setTxHash = function(value) {
 
 
 /**
- * optional string error_message = 3;
+ * optional string err_or_cmd_name = 3;
  * @return {string}
  */
-proto.iroha.protocol.ToriiResponse.prototype.getErrorMessage = function() {
+proto.iroha.protocol.ToriiResponse.prototype.getErrOrCmdName = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
 /** @param {string} value */
-proto.iroha.protocol.ToriiResponse.prototype.setErrorMessage = function(value) {
+proto.iroha.protocol.ToriiResponse.prototype.setErrOrCmdName = function(value) {
   jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional uint64 failed_cmd_index = 4;
+ * @return {number}
+ */
+proto.iroha.protocol.ToriiResponse.prototype.getFailedCmdIndex = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/** @param {number} value */
+proto.iroha.protocol.ToriiResponse.prototype.setFailedCmdIndex = function(value) {
+  jspb.Message.setProto3IntField(this, 4, value);
+};
+
+
+/**
+ * optional uint32 error_code = 5;
+ * @return {number}
+ */
+proto.iroha.protocol.ToriiResponse.prototype.getErrorCode = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+};
+
+
+/** @param {number} value */
+proto.iroha.protocol.ToriiResponse.prototype.setErrorCode = function(value) {
+  jspb.Message.setProto3IntField(this, 5, value);
 };
 
 

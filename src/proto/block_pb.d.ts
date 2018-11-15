@@ -52,6 +52,13 @@ export namespace Block {
     getCreatedTime(): number;
     setCreatedTime(value: number): void;
 
+    clearRejectedTransactionsHashesList(): void;
+    getRejectedTransactionsHashesList(): Array<Uint8Array | string>;
+    getRejectedTransactionsHashesList_asU8(): Array<Uint8Array>;
+    getRejectedTransactionsHashesList_asB64(): Array<string>;
+    setRejectedTransactionsHashesList(value: Array<Uint8Array | string>): void;
+    addRejectedTransactionsHashes(value: Uint8Array | string, index?: number): Uint8Array | string;
+
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Payload.AsObject;
     static toObject(includeInstance: boolean, msg: Payload): Payload.AsObject;
@@ -69,6 +76,7 @@ export namespace Block {
       height: number,
       prevBlockHash: Uint8Array | string,
       createdTime: number,
+      rejectedTransactionsHashesList: Array<Uint8Array | string>,
     }
   }
 }
