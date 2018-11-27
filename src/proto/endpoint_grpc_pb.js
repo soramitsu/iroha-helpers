@@ -113,9 +113,9 @@ function deserialize_iroha_protocol_TxStatusRequest(buffer_arg) {
 }
 
 
-var CommandServiceService = exports.CommandServiceService = {
+var CommandService_v1Service = exports.CommandService_v1Service = {
   torii: {
-    path: '/iroha.protocol.CommandService/Torii',
+    path: '/iroha.protocol.CommandService_v1/Torii',
     requestStream: false,
     responseStream: false,
     requestType: transaction_pb.Transaction,
@@ -126,7 +126,7 @@ var CommandServiceService = exports.CommandServiceService = {
     responseDeserialize: deserialize_google_protobuf_Empty,
   },
   listTorii: {
-    path: '/iroha.protocol.CommandService/ListTorii',
+    path: '/iroha.protocol.CommandService_v1/ListTorii',
     requestStream: false,
     responseStream: false,
     requestType: endpoint_pb.TxList,
@@ -137,7 +137,7 @@ var CommandServiceService = exports.CommandServiceService = {
     responseDeserialize: deserialize_google_protobuf_Empty,
   },
   status: {
-    path: '/iroha.protocol.CommandService/Status',
+    path: '/iroha.protocol.CommandService_v1/Status',
     requestStream: false,
     responseStream: false,
     requestType: endpoint_pb.TxStatusRequest,
@@ -148,7 +148,7 @@ var CommandServiceService = exports.CommandServiceService = {
     responseDeserialize: deserialize_iroha_protocol_ToriiResponse,
   },
   statusStream: {
-    path: '/iroha.protocol.CommandService/StatusStream',
+    path: '/iroha.protocol.CommandService_v1/StatusStream',
     requestStream: false,
     responseStream: true,
     requestType: endpoint_pb.TxStatusRequest,
@@ -160,10 +160,10 @@ var CommandServiceService = exports.CommandServiceService = {
   },
 };
 
-exports.CommandServiceClient = grpc.makeGenericClientConstructor(CommandServiceService);
-var QueryServiceService = exports.QueryServiceService = {
+exports.CommandService_v1Client = grpc.makeGenericClientConstructor(CommandService_v1Service);
+var QueryService_v1Service = exports.QueryService_v1Service = {
   find: {
-    path: '/iroha.protocol.QueryService/Find',
+    path: '/iroha.protocol.QueryService_v1/Find',
     requestStream: false,
     responseStream: false,
     requestType: queries_pb.Query,
@@ -174,7 +174,7 @@ var QueryServiceService = exports.QueryServiceService = {
     responseDeserialize: deserialize_iroha_protocol_QueryResponse,
   },
   fetchCommits: {
-    path: '/iroha.protocol.QueryService/FetchCommits',
+    path: '/iroha.protocol.QueryService_v1/FetchCommits',
     requestStream: false,
     responseStream: true,
     requestType: queries_pb.BlocksQuery,
@@ -186,4 +186,4 @@ var QueryServiceService = exports.QueryServiceService = {
   },
 };
 
-exports.QueryServiceClient = grpc.makeGenericClientConstructor(QueryServiceService);
+exports.QueryService_v1Client = grpc.makeGenericClientConstructor(QueryService_v1Service);

@@ -8,72 +8,72 @@ import * as qry_responses_pb from "./qry_responses_pb";
 import * as google_protobuf_empty_pb from "google-protobuf/google/protobuf/empty_pb";
 import {grpc} from "grpc-web-client";
 
-type CommandServiceTorii = {
+type CommandService_v1Torii = {
   readonly methodName: string;
-  readonly service: typeof CommandService;
+  readonly service: typeof CommandService_v1;
   readonly requestStream: false;
   readonly responseStream: false;
   readonly requestType: typeof transaction_pb.Transaction;
   readonly responseType: typeof google_protobuf_empty_pb.Empty;
 };
 
-type CommandServiceListTorii = {
+type CommandService_v1ListTorii = {
   readonly methodName: string;
-  readonly service: typeof CommandService;
+  readonly service: typeof CommandService_v1;
   readonly requestStream: false;
   readonly responseStream: false;
   readonly requestType: typeof endpoint_pb.TxList;
   readonly responseType: typeof google_protobuf_empty_pb.Empty;
 };
 
-type CommandServiceStatus = {
+type CommandService_v1Status = {
   readonly methodName: string;
-  readonly service: typeof CommandService;
+  readonly service: typeof CommandService_v1;
   readonly requestStream: false;
   readonly responseStream: false;
   readonly requestType: typeof endpoint_pb.TxStatusRequest;
   readonly responseType: typeof endpoint_pb.ToriiResponse;
 };
 
-type CommandServiceStatusStream = {
+type CommandService_v1StatusStream = {
   readonly methodName: string;
-  readonly service: typeof CommandService;
+  readonly service: typeof CommandService_v1;
   readonly requestStream: false;
   readonly responseStream: true;
   readonly requestType: typeof endpoint_pb.TxStatusRequest;
   readonly responseType: typeof endpoint_pb.ToriiResponse;
 };
 
-export class CommandService {
+export class CommandService_v1 {
   static readonly serviceName: string;
-  static readonly Torii: CommandServiceTorii;
-  static readonly ListTorii: CommandServiceListTorii;
-  static readonly Status: CommandServiceStatus;
-  static readonly StatusStream: CommandServiceStatusStream;
+  static readonly Torii: CommandService_v1Torii;
+  static readonly ListTorii: CommandService_v1ListTorii;
+  static readonly Status: CommandService_v1Status;
+  static readonly StatusStream: CommandService_v1StatusStream;
 }
 
-type QueryServiceFind = {
+type QueryService_v1Find = {
   readonly methodName: string;
-  readonly service: typeof QueryService;
+  readonly service: typeof QueryService_v1;
   readonly requestStream: false;
   readonly responseStream: false;
   readonly requestType: typeof queries_pb.Query;
   readonly responseType: typeof qry_responses_pb.QueryResponse;
 };
 
-type QueryServiceFetchCommits = {
+type QueryService_v1FetchCommits = {
   readonly methodName: string;
-  readonly service: typeof QueryService;
+  readonly service: typeof QueryService_v1;
   readonly requestStream: false;
   readonly responseStream: true;
   readonly requestType: typeof queries_pb.BlocksQuery;
   readonly responseType: typeof qry_responses_pb.BlockQueryResponse;
 };
 
-export class QueryService {
+export class QueryService_v1 {
   static readonly serviceName: string;
-  static readonly Find: QueryServiceFind;
-  static readonly FetchCommits: QueryServiceFetchCommits;
+  static readonly Find: QueryService_v1Find;
+  static readonly FetchCommits: QueryService_v1FetchCommits;
 }
 
 export type ServiceError = { message: string, code: number; metadata: grpc.Metadata }
@@ -87,7 +87,7 @@ interface ResponseStream<T> {
   on(type: 'status', handler: (status: Status) => void): ResponseStream<T>;
 }
 
-export class CommandServiceClient {
+export class CommandService_v1Client {
   readonly serviceHost: string;
 
   constructor(serviceHost: string, options?: ServiceClientOptions);
@@ -121,7 +121,7 @@ export class CommandServiceClient {
   statusStream(requestMessage: endpoint_pb.TxStatusRequest, metadata?: grpc.Metadata): ResponseStream<endpoint_pb.ToriiResponse>;
 }
 
-export class QueryServiceClient {
+export class QueryService_v1Client {
   readonly serviceHost: string;
 
   constructor(serviceHost: string, options?: ServiceClientOptions);

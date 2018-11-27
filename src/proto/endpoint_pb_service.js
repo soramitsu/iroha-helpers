@@ -8,60 +8,60 @@ var qry_responses_pb = require("./qry_responses_pb");
 var google_protobuf_empty_pb = require("google-protobuf/google/protobuf/empty_pb");
 var grpc = require("grpc-web-client").grpc;
 
-var CommandService = (function () {
-  function CommandService() {}
-  CommandService.serviceName = "iroha.protocol.CommandService";
-  return CommandService;
+var CommandService_v1 = (function () {
+  function CommandService_v1() {}
+  CommandService_v1.serviceName = "iroha.protocol.CommandService_v1";
+  return CommandService_v1;
 }());
 
-CommandService.Torii = {
+CommandService_v1.Torii = {
   methodName: "Torii",
-  service: CommandService,
+  service: CommandService_v1,
   requestStream: false,
   responseStream: false,
   requestType: transaction_pb.Transaction,
   responseType: google_protobuf_empty_pb.Empty
 };
 
-CommandService.ListTorii = {
+CommandService_v1.ListTorii = {
   methodName: "ListTorii",
-  service: CommandService,
+  service: CommandService_v1,
   requestStream: false,
   responseStream: false,
   requestType: endpoint_pb.TxList,
   responseType: google_protobuf_empty_pb.Empty
 };
 
-CommandService.Status = {
+CommandService_v1.Status = {
   methodName: "Status",
-  service: CommandService,
+  service: CommandService_v1,
   requestStream: false,
   responseStream: false,
   requestType: endpoint_pb.TxStatusRequest,
   responseType: endpoint_pb.ToriiResponse
 };
 
-CommandService.StatusStream = {
+CommandService_v1.StatusStream = {
   methodName: "StatusStream",
-  service: CommandService,
+  service: CommandService_v1,
   requestStream: false,
   responseStream: true,
   requestType: endpoint_pb.TxStatusRequest,
   responseType: endpoint_pb.ToriiResponse
 };
 
-exports.CommandService = CommandService;
+exports.CommandService_v1 = CommandService_v1;
 
-function CommandServiceClient(serviceHost, options) {
+function CommandService_v1Client(serviceHost, options) {
   this.serviceHost = serviceHost;
   this.options = options || {};
 }
 
-CommandServiceClient.prototype.torii = function torii(requestMessage, metadata, callback) {
+CommandService_v1Client.prototype.torii = function torii(requestMessage, metadata, callback) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
-  grpc.unary(CommandService.Torii, {
+  grpc.unary(CommandService_v1.Torii, {
     request: requestMessage,
     host: this.serviceHost,
     metadata: metadata,
@@ -78,11 +78,11 @@ CommandServiceClient.prototype.torii = function torii(requestMessage, metadata, 
   });
 };
 
-CommandServiceClient.prototype.listTorii = function listTorii(requestMessage, metadata, callback) {
+CommandService_v1Client.prototype.listTorii = function listTorii(requestMessage, metadata, callback) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
-  grpc.unary(CommandService.ListTorii, {
+  grpc.unary(CommandService_v1.ListTorii, {
     request: requestMessage,
     host: this.serviceHost,
     metadata: metadata,
@@ -99,11 +99,11 @@ CommandServiceClient.prototype.listTorii = function listTorii(requestMessage, me
   });
 };
 
-CommandServiceClient.prototype.status = function status(requestMessage, metadata, callback) {
+CommandService_v1Client.prototype.status = function status(requestMessage, metadata, callback) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
-  grpc.unary(CommandService.Status, {
+  grpc.unary(CommandService_v1.Status, {
     request: requestMessage,
     host: this.serviceHost,
     metadata: metadata,
@@ -120,13 +120,13 @@ CommandServiceClient.prototype.status = function status(requestMessage, metadata
   });
 };
 
-CommandServiceClient.prototype.statusStream = function statusStream(requestMessage, metadata) {
+CommandService_v1Client.prototype.statusStream = function statusStream(requestMessage, metadata) {
   var listeners = {
     data: [],
     end: [],
     status: []
   };
-  var client = grpc.invoke(CommandService.StatusStream, {
+  var client = grpc.invoke(CommandService_v1.StatusStream, {
     request: requestMessage,
     host: this.serviceHost,
     metadata: metadata,
@@ -158,44 +158,44 @@ CommandServiceClient.prototype.statusStream = function statusStream(requestMessa
   };
 };
 
-exports.CommandServiceClient = CommandServiceClient;
+exports.CommandService_v1Client = CommandService_v1Client;
 
-var QueryService = (function () {
-  function QueryService() {}
-  QueryService.serviceName = "iroha.protocol.QueryService";
-  return QueryService;
+var QueryService_v1 = (function () {
+  function QueryService_v1() {}
+  QueryService_v1.serviceName = "iroha.protocol.QueryService_v1";
+  return QueryService_v1;
 }());
 
-QueryService.Find = {
+QueryService_v1.Find = {
   methodName: "Find",
-  service: QueryService,
+  service: QueryService_v1,
   requestStream: false,
   responseStream: false,
   requestType: queries_pb.Query,
   responseType: qry_responses_pb.QueryResponse
 };
 
-QueryService.FetchCommits = {
+QueryService_v1.FetchCommits = {
   methodName: "FetchCommits",
-  service: QueryService,
+  service: QueryService_v1,
   requestStream: false,
   responseStream: true,
   requestType: queries_pb.BlocksQuery,
   responseType: qry_responses_pb.BlockQueryResponse
 };
 
-exports.QueryService = QueryService;
+exports.QueryService_v1 = QueryService_v1;
 
-function QueryServiceClient(serviceHost, options) {
+function QueryService_v1Client(serviceHost, options) {
   this.serviceHost = serviceHost;
   this.options = options || {};
 }
 
-QueryServiceClient.prototype.find = function find(requestMessage, metadata, callback) {
+QueryService_v1Client.prototype.find = function find(requestMessage, metadata, callback) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
-  grpc.unary(QueryService.Find, {
+  grpc.unary(QueryService_v1.Find, {
     request: requestMessage,
     host: this.serviceHost,
     metadata: metadata,
@@ -212,13 +212,13 @@ QueryServiceClient.prototype.find = function find(requestMessage, metadata, call
   });
 };
 
-QueryServiceClient.prototype.fetchCommits = function fetchCommits(requestMessage, metadata) {
+QueryService_v1Client.prototype.fetchCommits = function fetchCommits(requestMessage, metadata) {
   var listeners = {
     data: [],
     end: [],
     status: []
   };
-  var client = grpc.invoke(QueryService.FetchCommits, {
+  var client = grpc.invoke(QueryService_v1.FetchCommits, {
     request: requestMessage,
     host: this.serviceHost,
     metadata: metadata,
@@ -250,5 +250,5 @@ QueryServiceClient.prototype.fetchCommits = function fetchCommits(requestMessage
   };
 };
 
-exports.QueryServiceClient = QueryServiceClient;
+exports.QueryService_v1Client = QueryService_v1Client;
 
