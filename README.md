@@ -1,5 +1,5 @@
 
-[![npm version](https://badge.fury.io/js/iroha-helpers.svg)](https://www.npmjs.com/package/iroha-helpers) [![Iroha 1.0.0-rc2](https://img.shields.io/badge/Iroha-1.0.0--rc2-red.svg)](https://github.com/hyperledger/iroha/releases/tag/1.0.0_rc2)
+[![npm version](https://img.shields.io/npm/v/iroha-helpers.svg)](https://www.npmjs.com/package/iroha-helpers) [![Iroha 1.0.0-rc2](https://img.shields.io/badge/Iroha-1.0.0--rc2-red.svg)](https://github.com/hyperledger/iroha/releases/tag/1.0.0_rc2)
 
 # iroha-helpers
 
