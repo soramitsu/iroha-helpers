@@ -61,63 +61,93 @@ CommandService_v1Client.prototype.torii = function torii(requestMessage, metadat
   if (arguments.length === 2) {
     callback = arguments[1];
   }
-  grpc.unary(CommandService_v1.Torii, {
+  var client = grpc.unary(CommandService_v1.Torii, {
     request: requestMessage,
     host: this.serviceHost,
     metadata: metadata,
     transport: this.options.transport,
+    debug: this.options.debug,
     onEnd: function (response) {
       if (callback) {
         if (response.status !== grpc.Code.OK) {
-          callback(Object.assign(new Error(response.statusMessage), { code: response.status, metadata: response.trailers }), null);
+          var err = new Error(response.statusMessage);
+          err.code = response.status;
+          err.metadata = response.trailers;
+          callback(err, null);
         } else {
           callback(null, response.message);
         }
       }
     }
   });
+  return {
+    cancel: function () {
+      callback = null;
+      client.close();
+    }
+  };
 };
 
 CommandService_v1Client.prototype.listTorii = function listTorii(requestMessage, metadata, callback) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
-  grpc.unary(CommandService_v1.ListTorii, {
+  var client = grpc.unary(CommandService_v1.ListTorii, {
     request: requestMessage,
     host: this.serviceHost,
     metadata: metadata,
     transport: this.options.transport,
+    debug: this.options.debug,
     onEnd: function (response) {
       if (callback) {
         if (response.status !== grpc.Code.OK) {
-          callback(Object.assign(new Error(response.statusMessage), { code: response.status, metadata: response.trailers }), null);
+          var err = new Error(response.statusMessage);
+          err.code = response.status;
+          err.metadata = response.trailers;
+          callback(err, null);
         } else {
           callback(null, response.message);
         }
       }
     }
   });
+  return {
+    cancel: function () {
+      callback = null;
+      client.close();
+    }
+  };
 };
 
 CommandService_v1Client.prototype.status = function status(requestMessage, metadata, callback) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
-  grpc.unary(CommandService_v1.Status, {
+  var client = grpc.unary(CommandService_v1.Status, {
     request: requestMessage,
     host: this.serviceHost,
     metadata: metadata,
     transport: this.options.transport,
+    debug: this.options.debug,
     onEnd: function (response) {
       if (callback) {
         if (response.status !== grpc.Code.OK) {
-          callback(Object.assign(new Error(response.statusMessage), { code: response.status, metadata: response.trailers }), null);
+          var err = new Error(response.statusMessage);
+          err.code = response.status;
+          err.metadata = response.trailers;
+          callback(err, null);
         } else {
           callback(null, response.message);
         }
       }
     }
   });
+  return {
+    cancel: function () {
+      callback = null;
+      client.close();
+    }
+  };
 };
 
 CommandService_v1Client.prototype.statusStream = function statusStream(requestMessage, metadata) {
@@ -131,6 +161,7 @@ CommandService_v1Client.prototype.statusStream = function statusStream(requestMe
     host: this.serviceHost,
     metadata: metadata,
     transport: this.options.transport,
+    debug: this.options.debug,
     onMessage: function (responseMessage) {
       listeners.data.forEach(function (handler) {
         handler(responseMessage);
@@ -195,21 +226,31 @@ QueryService_v1Client.prototype.find = function find(requestMessage, metadata, c
   if (arguments.length === 2) {
     callback = arguments[1];
   }
-  grpc.unary(QueryService_v1.Find, {
+  var client = grpc.unary(QueryService_v1.Find, {
     request: requestMessage,
     host: this.serviceHost,
     metadata: metadata,
     transport: this.options.transport,
+    debug: this.options.debug,
     onEnd: function (response) {
       if (callback) {
         if (response.status !== grpc.Code.OK) {
-          callback(Object.assign(new Error(response.statusMessage), { code: response.status, metadata: response.trailers }), null);
+          var err = new Error(response.statusMessage);
+          err.code = response.status;
+          err.metadata = response.trailers;
+          callback(err, null);
         } else {
           callback(null, response.message);
         }
       }
     }
   });
+  return {
+    cancel: function () {
+      callback = null;
+      client.close();
+    }
+  };
 };
 
 QueryService_v1Client.prototype.fetchCommits = function fetchCommits(requestMessage, metadata) {
@@ -223,6 +264,7 @@ QueryService_v1Client.prototype.fetchCommits = function fetchCommits(requestMess
     host: this.serviceHost,
     metadata: metadata,
     transport: this.options.transport,
+    debug: this.options.debug,
     onMessage: function (responseMessage) {
       listeners.data.forEach(function (handler) {
         handler(responseMessage);

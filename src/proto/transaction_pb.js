@@ -392,7 +392,7 @@ proto.iroha.protocol.Transaction.Payload.BatchMeta.prototype.toObject = function
 proto.iroha.protocol.Transaction.Payload.BatchMeta.toObject = function(includeInstance, msg) {
   var f, obj = {
     type: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    reducedHashesList: msg.getReducedHashesList_asB64()
+    reducedHashesList: jspb.Message.getRepeatedField(msg, 2)
   };
 
   if (includeInstance) {
@@ -434,7 +434,7 @@ proto.iroha.protocol.Transaction.Payload.BatchMeta.deserializeBinaryFromReader =
       msg.setType(value);
       break;
     case 2:
-      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      var value = /** @type {string} */ (reader.readString());
       msg.addReducedHashes(value);
       break;
     default:
@@ -473,9 +473,9 @@ proto.iroha.protocol.Transaction.Payload.BatchMeta.serializeBinaryToWriter = fun
       f
     );
   }
-  f = message.getReducedHashesList_asU8();
+  f = message.getReducedHashesList();
   if (f.length > 0) {
-    writer.writeRepeatedBytes(
+    writer.writeRepeatedString(
       2,
       f
     );
@@ -502,51 +502,27 @@ proto.iroha.protocol.Transaction.Payload.BatchMeta.prototype.getType = function(
 
 /** @param {!proto.iroha.protocol.Transaction.Payload.BatchMeta.BatchType} value */
 proto.iroha.protocol.Transaction.Payload.BatchMeta.prototype.setType = function(value) {
-  jspb.Message.setProto3EnumField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
 /**
- * repeated bytes reduced_hashes = 2;
- * @return {!(Array<!Uint8Array>|Array<string>)}
- */
-proto.iroha.protocol.Transaction.Payload.BatchMeta.prototype.getReducedHashesList = function() {
-  return /** @type {!(Array<!Uint8Array>|Array<string>)} */ (jspb.Message.getRepeatedField(this, 2));
-};
-
-
-/**
- * repeated bytes reduced_hashes = 2;
- * This is a type-conversion wrapper around `getReducedHashesList()`
+ * repeated string reduced_hashes = 2;
  * @return {!Array.<string>}
  */
-proto.iroha.protocol.Transaction.Payload.BatchMeta.prototype.getReducedHashesList_asB64 = function() {
-  return /** @type {!Array.<string>} */ (jspb.Message.bytesListAsB64(
-      this.getReducedHashesList()));
+proto.iroha.protocol.Transaction.Payload.BatchMeta.prototype.getReducedHashesList = function() {
+  return /** @type {!Array.<string>} */ (jspb.Message.getRepeatedField(this, 2));
 };
 
 
-/**
- * repeated bytes reduced_hashes = 2;
- * Note that Uint8Array is not supported on all browsers.
- * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getReducedHashesList()`
- * @return {!Array.<!Uint8Array>}
- */
-proto.iroha.protocol.Transaction.Payload.BatchMeta.prototype.getReducedHashesList_asU8 = function() {
-  return /** @type {!Array.<!Uint8Array>} */ (jspb.Message.bytesListAsU8(
-      this.getReducedHashesList()));
-};
-
-
-/** @param {!(Array<!Uint8Array>|Array<string>)} value */
+/** @param {!Array.<string>} value */
 proto.iroha.protocol.Transaction.Payload.BatchMeta.prototype.setReducedHashesList = function(value) {
   jspb.Message.setField(this, 2, value || []);
 };
 
 
 /**
- * @param {!(string|Uint8Array)} value
+ * @param {!string} value
  * @param {number=} opt_index
  */
 proto.iroha.protocol.Transaction.Payload.BatchMeta.prototype.addReducedHashes = function(value, opt_index) {
@@ -774,7 +750,7 @@ proto.iroha.protocol.Transaction.Payload.ReducedPayload.prototype.getCreatorAcco
 
 /** @param {string} value */
 proto.iroha.protocol.Transaction.Payload.ReducedPayload.prototype.setCreatorAccountId = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -789,7 +765,7 @@ proto.iroha.protocol.Transaction.Payload.ReducedPayload.prototype.getCreatedTime
 
 /** @param {number} value */
 proto.iroha.protocol.Transaction.Payload.ReducedPayload.prototype.setCreatedTime = function(value) {
-  jspb.Message.setProto3IntField(this, 3, value);
+  jspb.Message.setField(this, 3, value);
 };
 
 
@@ -804,7 +780,7 @@ proto.iroha.protocol.Transaction.Payload.ReducedPayload.prototype.getQuorum = fu
 
 /** @param {number} value */
 proto.iroha.protocol.Transaction.Payload.ReducedPayload.prototype.setQuorum = function(value) {
-  jspb.Message.setProto3IntField(this, 4, value);
+  jspb.Message.setField(this, 4, value);
 };
 
 

@@ -54,10 +54,8 @@ export class AddSignatory extends jspb.Message {
   getAccountId(): string;
   setAccountId(value: string): void;
 
-  getPublicKey(): Uint8Array | string;
-  getPublicKey_asU8(): Uint8Array;
-  getPublicKey_asB64(): string;
-  setPublicKey(value: Uint8Array | string): void;
+  getPublicKey(): string;
+  setPublicKey(value: string): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): AddSignatory.AsObject;
@@ -72,7 +70,7 @@ export class AddSignatory extends jspb.Message {
 export namespace AddSignatory {
   export type AsObject = {
     accountId: string,
-    publicKey: Uint8Array | string,
+    publicKey: string,
   }
 }
 
@@ -111,10 +109,8 @@ export class CreateAccount extends jspb.Message {
   getDomainId(): string;
   setDomainId(value: string): void;
 
-  getPublicKey(): Uint8Array | string;
-  getPublicKey_asU8(): Uint8Array;
-  getPublicKey_asB64(): string;
-  setPublicKey(value: Uint8Array | string): void;
+  getPublicKey(): string;
+  setPublicKey(value: string): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CreateAccount.AsObject;
@@ -130,7 +126,7 @@ export namespace CreateAccount {
   export type AsObject = {
     accountName: string,
     domainId: string,
-    publicKey: Uint8Array | string,
+    publicKey: string,
   }
 }
 
@@ -190,10 +186,8 @@ export class RemoveSignatory extends jspb.Message {
   getAccountId(): string;
   setAccountId(value: string): void;
 
-  getPublicKey(): Uint8Array | string;
-  getPublicKey_asU8(): Uint8Array;
-  getPublicKey_asB64(): string;
-  setPublicKey(value: Uint8Array | string): void;
+  getPublicKey(): string;
+  setPublicKey(value: string): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): RemoveSignatory.AsObject;
@@ -208,7 +202,7 @@ export class RemoveSignatory extends jspb.Message {
 export namespace RemoveSignatory {
   export type AsObject = {
     accountId: string,
-    publicKey: Uint8Array | string,
+    publicKey: string,
   }
 }
 

@@ -261,6 +261,9 @@ export class ErrorResponse extends jspb.Message {
   getMessage(): string;
   setMessage(value: string): void;
 
+  getErrorCode(): number;
+  setErrorCode(value: number): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ErrorResponse.AsObject;
   static toObject(includeInstance: boolean, msg: ErrorResponse): ErrorResponse.AsObject;
@@ -275,6 +278,7 @@ export namespace ErrorResponse {
   export type AsObject = {
     reason: ErrorResponse.Reason,
     message: string,
+    errorCode: number,
   }
 
   export enum Reason {
@@ -292,11 +296,9 @@ export namespace ErrorResponse {
 
 export class SignatoriesResponse extends jspb.Message {
   clearKeysList(): void;
-  getKeysList(): Array<Uint8Array | string>;
-  getKeysList_asU8(): Array<Uint8Array>;
-  getKeysList_asB64(): Array<string>;
-  setKeysList(value: Array<Uint8Array | string>): void;
-  addKeys(value: Uint8Array | string, index?: number): Uint8Array | string;
+  getKeysList(): Array<string>;
+  setKeysList(value: Array<string>): void;
+  addKeys(value: string, index?: number): string;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): SignatoriesResponse.AsObject;
@@ -310,7 +312,7 @@ export class SignatoriesResponse extends jspb.Message {
 
 export namespace SignatoriesResponse {
   export type AsObject = {
-    keysList: Array<Uint8Array | string>,
+    keysList: Array<string>,
   }
 }
 
@@ -333,6 +335,44 @@ export class TransactionsResponse extends jspb.Message {
 export namespace TransactionsResponse {
   export type AsObject = {
     transactionsList: Array<transaction_pb.Transaction.AsObject>,
+  }
+}
+
+export class TransactionsPageResponse extends jspb.Message {
+  clearTransactionsList(): void;
+  getTransactionsList(): Array<transaction_pb.Transaction>;
+  setTransactionsList(value: Array<transaction_pb.Transaction>): void;
+  addTransactions(value?: transaction_pb.Transaction, index?: number): transaction_pb.Transaction;
+
+  getAllTransactionsSize(): number;
+  setAllTransactionsSize(value: number): void;
+
+  hasNextTxHash(): boolean;
+  clearNextTxHash(): void;
+  getNextTxHash(): string;
+  setNextTxHash(value: string): void;
+
+  getNextPageTagCase(): TransactionsPageResponse.NextPageTagCase;
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): TransactionsPageResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: TransactionsPageResponse): TransactionsPageResponse.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: TransactionsPageResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): TransactionsPageResponse;
+  static deserializeBinaryFromReader(message: TransactionsPageResponse, reader: jspb.BinaryReader): TransactionsPageResponse;
+}
+
+export namespace TransactionsPageResponse {
+  export type AsObject = {
+    transactionsList: Array<transaction_pb.Transaction.AsObject>,
+    allTransactionsSize: number,
+    nextTxHash: string,
+  }
+
+  export enum NextPageTagCase {
+    NEXT_PAGE_TAG_NOT_SET = 0,
+    NEXT_TX_HASH = 3,
   }
 }
 
@@ -382,6 +422,11 @@ export class QueryResponse extends jspb.Message {
   getRolePermissionsResponse(): RolePermissionsResponse | undefined;
   setRolePermissionsResponse(value?: RolePermissionsResponse): void;
 
+  hasTransactionsPageResponse(): boolean;
+  clearTransactionsPageResponse(): void;
+  getTransactionsPageResponse(): TransactionsPageResponse | undefined;
+  setTransactionsPageResponse(value?: TransactionsPageResponse): void;
+
   getQueryHash(): string;
   setQueryHash(value: string): void;
 
@@ -407,6 +452,7 @@ export namespace QueryResponse {
     assetResponse?: AssetResponse.AsObject,
     rolesResponse?: RolesResponse.AsObject,
     rolePermissionsResponse?: RolePermissionsResponse.AsObject,
+    transactionsPageResponse?: TransactionsPageResponse.AsObject,
     queryHash: string,
   }
 
@@ -421,6 +467,7 @@ export namespace QueryResponse {
     ASSET_RESPONSE = 7,
     ROLES_RESPONSE = 8,
     ROLE_PERMISSIONS_RESPONSE = 9,
+    TRANSACTIONS_PAGE_RESPONSE = 11,
   }
 }
 

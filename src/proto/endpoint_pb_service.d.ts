@@ -78,62 +78,79 @@ export class QueryService_v1 {
 
 export type ServiceError = { message: string, code: number; metadata: grpc.Metadata }
 export type Status = { details: string, code: number; metadata: grpc.Metadata }
-export type ServiceClientOptions = { transport: grpc.TransportConstructor }
 
+interface UnaryResponse {
+  cancel(): void;
+}
 interface ResponseStream<T> {
   cancel(): void;
   on(type: 'data', handler: (message: T) => void): ResponseStream<T>;
   on(type: 'end', handler: () => void): ResponseStream<T>;
   on(type: 'status', handler: (status: Status) => void): ResponseStream<T>;
 }
+interface RequestStream<T> {
+  write(message: T): RequestStream<T>;
+  end(): void;
+  cancel(): void;
+  on(type: 'end', handler: () => void): RequestStream<T>;
+  on(type: 'status', handler: (status: Status) => void): RequestStream<T>;
+}
+interface BidirectionalStream<ReqT, ResT> {
+  write(message: ReqT): BidirectionalStream<ReqT, ResT>;
+  end(): void;
+  cancel(): void;
+  on(type: 'data', handler: (message: ResT) => void): BidirectionalStream<ReqT, ResT>;
+  on(type: 'end', handler: () => void): BidirectionalStream<ReqT, ResT>;
+  on(type: 'status', handler: (status: Status) => void): BidirectionalStream<ReqT, ResT>;
+}
 
 export class CommandService_v1Client {
   readonly serviceHost: string;
 
-  constructor(serviceHost: string, options?: ServiceClientOptions);
+  constructor(serviceHost: string, options?: grpc.RpcOptions);
   torii(
     requestMessage: transaction_pb.Transaction,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError, responseMessage: google_protobuf_empty_pb.Empty|null) => void
-  ): void;
+    callback: (error: ServiceError|null, responseMessage: google_protobuf_empty_pb.Empty|null) => void
+  ): UnaryResponse;
   torii(
     requestMessage: transaction_pb.Transaction,
-    callback: (error: ServiceError, responseMessage: google_protobuf_empty_pb.Empty|null) => void
-  ): void;
+    callback: (error: ServiceError|null, responseMessage: google_protobuf_empty_pb.Empty|null) => void
+  ): UnaryResponse;
   listTorii(
     requestMessage: endpoint_pb.TxList,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError, responseMessage: google_protobuf_empty_pb.Empty|null) => void
-  ): void;
+    callback: (error: ServiceError|null, responseMessage: google_protobuf_empty_pb.Empty|null) => void
+  ): UnaryResponse;
   listTorii(
     requestMessage: endpoint_pb.TxList,
-    callback: (error: ServiceError, responseMessage: google_protobuf_empty_pb.Empty|null) => void
-  ): void;
+    callback: (error: ServiceError|null, responseMessage: google_protobuf_empty_pb.Empty|null) => void
+  ): UnaryResponse;
   status(
     requestMessage: endpoint_pb.TxStatusRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError, responseMessage: endpoint_pb.ToriiResponse|null) => void
-  ): void;
+    callback: (error: ServiceError|null, responseMessage: endpoint_pb.ToriiResponse|null) => void
+  ): UnaryResponse;
   status(
     requestMessage: endpoint_pb.TxStatusRequest,
-    callback: (error: ServiceError, responseMessage: endpoint_pb.ToriiResponse|null) => void
-  ): void;
+    callback: (error: ServiceError|null, responseMessage: endpoint_pb.ToriiResponse|null) => void
+  ): UnaryResponse;
   statusStream(requestMessage: endpoint_pb.TxStatusRequest, metadata?: grpc.Metadata): ResponseStream<endpoint_pb.ToriiResponse>;
 }
 
 export class QueryService_v1Client {
   readonly serviceHost: string;
 
-  constructor(serviceHost: string, options?: ServiceClientOptions);
+  constructor(serviceHost: string, options?: grpc.RpcOptions);
   find(
     requestMessage: queries_pb.Query,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError, responseMessage: qry_responses_pb.QueryResponse|null) => void
-  ): void;
+    callback: (error: ServiceError|null, responseMessage: qry_responses_pb.QueryResponse|null) => void
+  ): UnaryResponse;
   find(
     requestMessage: queries_pb.Query,
-    callback: (error: ServiceError, responseMessage: qry_responses_pb.QueryResponse|null) => void
-  ): void;
+    callback: (error: ServiceError|null, responseMessage: qry_responses_pb.QueryResponse|null) => void
+  ): UnaryResponse;
   fetchCommits(requestMessage: queries_pb.BlocksQuery, metadata?: grpc.Metadata): ResponseStream<qry_responses_pb.BlockQueryResponse>;
 }
 

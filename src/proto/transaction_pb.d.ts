@@ -43,7 +43,7 @@ export namespace Transaction {
     getBatch(): Transaction.Payload.BatchMeta | undefined;
     setBatch(value?: Transaction.Payload.BatchMeta): void;
 
-    getOptional_batch_metaCase(): Payload.Optional_batch_metaCase;
+    getOptionalBatchMetaCase(): Payload.OptionalBatchMetaCase;
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Payload.AsObject;
     static toObject(includeInstance: boolean, msg: Payload): Payload.AsObject;
@@ -65,11 +65,9 @@ export namespace Transaction {
       setType(value: Transaction.Payload.BatchMeta.BatchType): void;
 
       clearReducedHashesList(): void;
-      getReducedHashesList(): Array<Uint8Array | string>;
-      getReducedHashesList_asU8(): Array<Uint8Array>;
-      getReducedHashesList_asB64(): Array<string>;
-      setReducedHashesList(value: Array<Uint8Array | string>): void;
-      addReducedHashes(value: Uint8Array | string, index?: number): Uint8Array | string;
+      getReducedHashesList(): Array<string>;
+      setReducedHashesList(value: Array<string>): void;
+      addReducedHashes(value: string, index?: number): string;
 
       serializeBinary(): Uint8Array;
       toObject(includeInstance?: boolean): BatchMeta.AsObject;
@@ -84,7 +82,7 @@ export namespace Transaction {
     export namespace BatchMeta {
       export type AsObject = {
         type: Transaction.Payload.BatchMeta.BatchType,
-        reducedHashesList: Array<Uint8Array | string>,
+        reducedHashesList: Array<string>,
       }
 
       export enum BatchType {
@@ -127,7 +125,7 @@ export namespace Transaction {
       }
     }
 
-    export enum Optional_batch_metaCase {
+    export enum OptionalBatchMetaCase {
       OPTIONAL_BATCH_META_NOT_SET = 0,
       BATCH = 5,
     }

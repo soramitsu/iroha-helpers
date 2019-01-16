@@ -4,15 +4,11 @@
 import * as jspb from "google-protobuf";
 
 export class Signature extends jspb.Message {
-  getPublicKey(): Uint8Array | string;
-  getPublicKey_asU8(): Uint8Array;
-  getPublicKey_asB64(): string;
-  setPublicKey(value: Uint8Array | string): void;
+  getPublicKey(): string;
+  setPublicKey(value: string): void;
 
-  getSignature(): Uint8Array | string;
-  getSignature_asU8(): Uint8Array;
-  getSignature_asB64(): string;
-  setSignature(value: Uint8Array | string): void;
+  getSignature(): string;
+  setSignature(value: string): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Signature.AsObject;
@@ -26,8 +22,8 @@ export class Signature extends jspb.Message {
 
 export namespace Signature {
   export type AsObject = {
-    publicKey: Uint8Array | string,
-    signature: Uint8Array | string,
+    publicKey: string,
+    signature: string,
   }
 }
 
@@ -35,10 +31,8 @@ export class Peer extends jspb.Message {
   getAddress(): string;
   setAddress(value: string): void;
 
-  getPeerKey(): Uint8Array | string;
-  getPeerKey_asU8(): Uint8Array;
-  getPeerKey_asB64(): string;
-  setPeerKey(value: Uint8Array | string): void;
+  getPeerKey(): string;
+  setPeerKey(value: string): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Peer.AsObject;
@@ -53,7 +47,7 @@ export class Peer extends jspb.Message {
 export namespace Peer {
   export type AsObject = {
     address: string,
-    peerKey: Uint8Array | string,
+    peerKey: string,
   }
 }
 
@@ -73,6 +67,8 @@ export enum RolePermission {
   CAN_TRANSFER = 12,
   CAN_RECEIVE = 13,
   CAN_CREATE_DOMAIN = 14,
+  CAN_ADD_DOMAIN_ASSET_QTY = 43,
+  CAN_SUBTRACT_DOMAIN_ASSET_QTY = 44,
   CAN_READ_ASSETS = 15,
   CAN_GET_ROLES = 16,
   CAN_GET_MY_ACCOUNT = 17,

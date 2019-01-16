@@ -62,8 +62,8 @@ proto.iroha.protocol.Signature.prototype.toObject = function(opt_includeInstance
  */
 proto.iroha.protocol.Signature.toObject = function(includeInstance, msg) {
   var f, obj = {
-    publicKey: msg.getPublicKey_asB64(),
-    signature: msg.getSignature_asB64()
+    publicKey: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    signature: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
   if (includeInstance) {
@@ -101,11 +101,11 @@ proto.iroha.protocol.Signature.deserializeBinaryFromReader = function(msg, reade
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      var value = /** @type {string} */ (reader.readString());
       msg.setPublicKey(value);
       break;
     case 2:
-      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      var value = /** @type {string} */ (reader.readString());
       msg.setSignature(value);
       break;
     default:
@@ -137,16 +137,16 @@ proto.iroha.protocol.Signature.prototype.serializeBinary = function() {
  */
 proto.iroha.protocol.Signature.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getPublicKey_asU8();
+  f = message.getPublicKey();
   if (f.length > 0) {
-    writer.writeBytes(
+    writer.writeString(
       1,
       f
     );
   }
-  f = message.getSignature_asU8();
+  f = message.getSignature();
   if (f.length > 0) {
-    writer.writeBytes(
+    writer.writeString(
       2,
       f
     );
@@ -155,80 +155,32 @@ proto.iroha.protocol.Signature.serializeBinaryToWriter = function(message, write
 
 
 /**
- * optional bytes public_key = 1;
- * @return {!(string|Uint8Array)}
+ * optional string public_key = 1;
+ * @return {string}
  */
 proto.iroha.protocol.Signature.prototype.getPublicKey = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
-/**
- * optional bytes public_key = 1;
- * This is a type-conversion wrapper around `getPublicKey()`
- * @return {string}
- */
-proto.iroha.protocol.Signature.prototype.getPublicKey_asB64 = function() {
-  return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getPublicKey()));
-};
-
-
-/**
- * optional bytes public_key = 1;
- * Note that Uint8Array is not supported on all browsers.
- * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getPublicKey()`
- * @return {!Uint8Array}
- */
-proto.iroha.protocol.Signature.prototype.getPublicKey_asU8 = function() {
-  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getPublicKey()));
-};
-
-
-/** @param {!(string|Uint8Array)} value */
+/** @param {string} value */
 proto.iroha.protocol.Signature.prototype.setPublicKey = function(value) {
-  jspb.Message.setProto3BytesField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
 /**
- * optional bytes signature = 2;
- * @return {!(string|Uint8Array)}
+ * optional string signature = 2;
+ * @return {string}
  */
 proto.iroha.protocol.Signature.prototype.getSignature = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
-/**
- * optional bytes signature = 2;
- * This is a type-conversion wrapper around `getSignature()`
- * @return {string}
- */
-proto.iroha.protocol.Signature.prototype.getSignature_asB64 = function() {
-  return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getSignature()));
-};
-
-
-/**
- * optional bytes signature = 2;
- * Note that Uint8Array is not supported on all browsers.
- * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getSignature()`
- * @return {!Uint8Array}
- */
-proto.iroha.protocol.Signature.prototype.getSignature_asU8 = function() {
-  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getSignature()));
-};
-
-
-/** @param {!(string|Uint8Array)} value */
+/** @param {string} value */
 proto.iroha.protocol.Signature.prototype.setSignature = function(value) {
-  jspb.Message.setProto3BytesField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -280,7 +232,7 @@ proto.iroha.protocol.Peer.prototype.toObject = function(opt_includeInstance) {
 proto.iroha.protocol.Peer.toObject = function(includeInstance, msg) {
   var f, obj = {
     address: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    peerKey: msg.getPeerKey_asB64()
+    peerKey: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
   if (includeInstance) {
@@ -322,7 +274,7 @@ proto.iroha.protocol.Peer.deserializeBinaryFromReader = function(msg, reader) {
       msg.setAddress(value);
       break;
     case 2:
-      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      var value = /** @type {string} */ (reader.readString());
       msg.setPeerKey(value);
       break;
     default:
@@ -361,9 +313,9 @@ proto.iroha.protocol.Peer.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = message.getPeerKey_asU8();
+  f = message.getPeerKey();
   if (f.length > 0) {
-    writer.writeBytes(
+    writer.writeString(
       2,
       f
     );
@@ -382,46 +334,22 @@ proto.iroha.protocol.Peer.prototype.getAddress = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.Peer.prototype.setAddress = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
 /**
- * optional bytes peer_key = 2;
- * @return {!(string|Uint8Array)}
- */
-proto.iroha.protocol.Peer.prototype.getPeerKey = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * optional bytes peer_key = 2;
- * This is a type-conversion wrapper around `getPeerKey()`
+ * optional string peer_key = 2;
  * @return {string}
  */
-proto.iroha.protocol.Peer.prototype.getPeerKey_asB64 = function() {
-  return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getPeerKey()));
+proto.iroha.protocol.Peer.prototype.getPeerKey = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
-/**
- * optional bytes peer_key = 2;
- * Note that Uint8Array is not supported on all browsers.
- * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getPeerKey()`
- * @return {!Uint8Array}
- */
-proto.iroha.protocol.Peer.prototype.getPeerKey_asU8 = function() {
-  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getPeerKey()));
-};
-
-
-/** @param {!(string|Uint8Array)} value */
+/** @param {string} value */
 proto.iroha.protocol.Peer.prototype.setPeerKey = function(value) {
-  jspb.Message.setProto3BytesField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -444,6 +372,8 @@ proto.iroha.protocol.RolePermission = {
   CAN_TRANSFER: 12,
   CAN_RECEIVE: 13,
   CAN_CREATE_DOMAIN: 14,
+  CAN_ADD_DOMAIN_ASSET_QTY: 43,
+  CAN_SUBTRACT_DOMAIN_ASSET_QTY: 44,
   CAN_READ_ASSETS: 15,
   CAN_GET_ROLES: 16,
   CAN_GET_MY_ACCOUNT: 17,

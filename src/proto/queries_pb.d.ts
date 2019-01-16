@@ -4,6 +4,38 @@
 import * as jspb from "google-protobuf";
 import * as primitive_pb from "./primitive_pb";
 
+export class TxPaginationMeta extends jspb.Message {
+  getPageSize(): number;
+  setPageSize(value: number): void;
+
+  hasFirstTxHash(): boolean;
+  clearFirstTxHash(): void;
+  getFirstTxHash(): string;
+  setFirstTxHash(value: string): void;
+
+  getOptFirstTxHashCase(): TxPaginationMeta.OptFirstTxHashCase;
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): TxPaginationMeta.AsObject;
+  static toObject(includeInstance: boolean, msg: TxPaginationMeta): TxPaginationMeta.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: TxPaginationMeta, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): TxPaginationMeta;
+  static deserializeBinaryFromReader(message: TxPaginationMeta, reader: jspb.BinaryReader): TxPaginationMeta;
+}
+
+export namespace TxPaginationMeta {
+  export type AsObject = {
+    pageSize: number,
+    firstTxHash: string,
+  }
+
+  export enum OptFirstTxHashCase {
+    OPT_FIRST_TX_HASH_NOT_SET = 0,
+    FIRST_TX_HASH = 2,
+  }
+}
+
 export class GetAccount extends jspb.Message {
   getAccountId(): string;
   setAccountId(value: string): void;
@@ -48,6 +80,11 @@ export class GetAccountTransactions extends jspb.Message {
   getAccountId(): string;
   setAccountId(value: string): void;
 
+  hasPaginationMeta(): boolean;
+  clearPaginationMeta(): void;
+  getPaginationMeta(): TxPaginationMeta | undefined;
+  setPaginationMeta(value?: TxPaginationMeta): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetAccountTransactions.AsObject;
   static toObject(includeInstance: boolean, msg: GetAccountTransactions): GetAccountTransactions.AsObject;
@@ -61,6 +98,7 @@ export class GetAccountTransactions extends jspb.Message {
 export namespace GetAccountTransactions {
   export type AsObject = {
     accountId: string,
+    paginationMeta?: TxPaginationMeta.AsObject,
   }
 }
 
@@ -70,6 +108,11 @@ export class GetAccountAssetTransactions extends jspb.Message {
 
   getAssetId(): string;
   setAssetId(value: string): void;
+
+  hasPaginationMeta(): boolean;
+  clearPaginationMeta(): void;
+  getPaginationMeta(): TxPaginationMeta | undefined;
+  setPaginationMeta(value?: TxPaginationMeta): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetAccountAssetTransactions.AsObject;
@@ -85,16 +128,15 @@ export namespace GetAccountAssetTransactions {
   export type AsObject = {
     accountId: string,
     assetId: string,
+    paginationMeta?: TxPaginationMeta.AsObject,
   }
 }
 
 export class GetTransactions extends jspb.Message {
   clearTxHashesList(): void;
-  getTxHashesList(): Array<Uint8Array | string>;
-  getTxHashesList_asU8(): Array<Uint8Array>;
-  getTxHashesList_asB64(): Array<string>;
-  setTxHashesList(value: Array<Uint8Array | string>): void;
-  addTxHashes(value: Uint8Array | string, index?: number): Uint8Array | string;
+  getTxHashesList(): Array<string>;
+  setTxHashesList(value: Array<string>): void;
+  addTxHashes(value: string, index?: number): string;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetTransactions.AsObject;
@@ -108,7 +150,7 @@ export class GetTransactions extends jspb.Message {
 
 export namespace GetTransactions {
   export type AsObject = {
-    txHashesList: Array<Uint8Array | string>,
+    txHashesList: Array<string>,
   }
 }
 
@@ -148,9 +190,9 @@ export class GetAccountDetail extends jspb.Message {
   getWriter(): string;
   setWriter(value: string): void;
 
-  getOpt_account_idCase(): GetAccountDetail.Opt_account_idCase;
-  getOpt_keyCase(): GetAccountDetail.Opt_keyCase;
-  getOpt_writerCase(): GetAccountDetail.Opt_writerCase;
+  getOptAccountIdCase(): GetAccountDetail.OptAccountIdCase;
+  getOptKeyCase(): GetAccountDetail.OptKeyCase;
+  getOptWriterCase(): GetAccountDetail.OptWriterCase;
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetAccountDetail.AsObject;
   static toObject(includeInstance: boolean, msg: GetAccountDetail): GetAccountDetail.AsObject;
@@ -168,17 +210,17 @@ export namespace GetAccountDetail {
     writer: string,
   }
 
-  export enum Opt_account_idCase {
+  export enum OptAccountIdCase {
     OPT_ACCOUNT_ID_NOT_SET = 0,
     ACCOUNT_ID = 1,
   }
 
-  export enum Opt_keyCase {
+  export enum OptKeyCase {
     OPT_KEY_NOT_SET = 0,
     KEY = 2,
   }
 
-  export enum Opt_writerCase {
+  export enum OptWriterCase {
     OPT_WRITER_NOT_SET = 0,
     WRITER = 3,
   }

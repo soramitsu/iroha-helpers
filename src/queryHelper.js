@@ -2,7 +2,6 @@ import { Buffer } from 'buffer'
 import { sign as signQuery, derivePublicKey } from 'ed25519.js'
 import { sha3_256 as sha3 } from 'js-sha3'
 import cloneDeep from 'lodash.clonedeep'
-import forEach from 'lodash.foreach'
 import { Signature } from './proto/primitive_pb'
 import * as Queries from './proto/queries_pb'
 import { capitalize } from './util.js'
@@ -13,7 +12,9 @@ const emptyQuery = () => new Queries.Query()
  * Returns payload from the query or a new one
  * @param {Object} query
  */
-const getOrCreatePayload = query => query.hasPayload() ? cloneDeep(query.getPayload()) : new Queries.Query.Payload()
+const getOrCreatePayload = query => query.hasPayload()
+  ? cloneDeep(query.getPayload())
+  : new Queries.Query.Payload()
 
 /**
  * Returns new query with added command.
@@ -24,9 +25,17 @@ const getOrCreatePayload = query => query.hasPayload() ? cloneDeep(query.getPayl
 const addQuery = (query, queryName, params) => {
   let payloadQuery = new Queries[capitalize(queryName)]()
 
-  forEach(params, (value, key) => {
-    payloadQuery['set' + capitalize(key)](value)
-  })
+  for (let [key, value] of Object.entries(params)) {
+    if ('set' + capitalize(key) === 'setPaginationMeta') {
+      let paginationMeta = new Queries.TxPaginationMeta()
+      paginationMeta.setPageSize(value.pageSize)
+      paginationMeta.setFirstTxHash(value.firstTxHash)
+
+      payloadQuery['set' + capitalize(key)](paginationMeta)
+    } else {
+      payloadQuery['set' + capitalize(key)](value)
+    }
+  }
 
   let payload = getOrCreatePayload(query)
   payload['set' + capitalize(queryName)](payloadQuery)
@@ -74,8 +83,8 @@ const sign = (query, privateKeyHex) => {
   const signatory = signQuery(payloadHash, publicKey, privateKey)
 
   let s = new Signature()
-  s.setPublicKey(publicKey)
-  s.setSignature(signatory)
+  s.setPublicKey(publicKey.toString('hex'))
+  s.setSignature(signatory.toString('hex'))
 
   let signedQueryWithSignature = cloneDeep(query)
   signedQueryWithSignature.setSignature(s)

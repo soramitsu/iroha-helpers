@@ -5,11 +5,11 @@ import * as jspb from "google-protobuf";
 import * as primitive_pb from "./primitive_pb";
 import * as transaction_pb from "./transaction_pb";
 
-export class Block extends jspb.Message {
+export class Block_v1 extends jspb.Message {
   hasPayload(): boolean;
   clearPayload(): void;
-  getPayload(): Block.Payload | undefined;
-  setPayload(value?: Block.Payload): void;
+  getPayload(): Block_v1.Payload | undefined;
+  setPayload(value?: Block_v1.Payload): void;
 
   clearSignaturesList(): void;
   getSignaturesList(): Array<primitive_pb.Signature>;
@@ -17,18 +17,18 @@ export class Block extends jspb.Message {
   addSignatures(value?: primitive_pb.Signature, index?: number): primitive_pb.Signature;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): Block.AsObject;
-  static toObject(includeInstance: boolean, msg: Block): Block.AsObject;
+  toObject(includeInstance?: boolean): Block_v1.AsObject;
+  static toObject(includeInstance: boolean, msg: Block_v1): Block_v1.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: Block, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): Block;
-  static deserializeBinaryFromReader(message: Block, reader: jspb.BinaryReader): Block;
+  static serializeBinaryToWriter(message: Block_v1, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): Block_v1;
+  static deserializeBinaryFromReader(message: Block_v1, reader: jspb.BinaryReader): Block_v1;
 }
 
-export namespace Block {
+export namespace Block_v1 {
   export type AsObject = {
-    payload?: Block.Payload.AsObject,
+    payload?: Block_v1.Payload.AsObject,
     signaturesList: Array<primitive_pb.Signature.AsObject>,
   }
 
@@ -44,20 +44,16 @@ export namespace Block {
     getHeight(): number;
     setHeight(value: number): void;
 
-    getPrevBlockHash(): Uint8Array | string;
-    getPrevBlockHash_asU8(): Uint8Array;
-    getPrevBlockHash_asB64(): string;
-    setPrevBlockHash(value: Uint8Array | string): void;
+    getPrevBlockHash(): string;
+    setPrevBlockHash(value: string): void;
 
     getCreatedTime(): number;
     setCreatedTime(value: number): void;
 
     clearRejectedTransactionsHashesList(): void;
-    getRejectedTransactionsHashesList(): Array<Uint8Array | string>;
-    getRejectedTransactionsHashesList_asU8(): Array<Uint8Array>;
-    getRejectedTransactionsHashesList_asB64(): Array<string>;
-    setRejectedTransactionsHashesList(value: Array<Uint8Array | string>): void;
-    addRejectedTransactionsHashes(value: Uint8Array | string, index?: number): Uint8Array | string;
+    getRejectedTransactionsHashesList(): Array<string>;
+    setRejectedTransactionsHashesList(value: Array<string>): void;
+    addRejectedTransactionsHashes(value: string, index?: number): string;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Payload.AsObject;
@@ -74,10 +70,38 @@ export namespace Block {
       transactionsList: Array<transaction_pb.Transaction.AsObject>,
       txNumber: number,
       height: number,
-      prevBlockHash: Uint8Array | string,
+      prevBlockHash: string,
       createdTime: number,
-      rejectedTransactionsHashesList: Array<Uint8Array | string>,
+      rejectedTransactionsHashesList: Array<string>,
     }
+  }
+}
+
+export class Block extends jspb.Message {
+  hasBlockV1(): boolean;
+  clearBlockV1(): void;
+  getBlockV1(): Block_v1 | undefined;
+  setBlockV1(value?: Block_v1): void;
+
+  getBlockVersionCase(): Block.BlockVersionCase;
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): Block.AsObject;
+  static toObject(includeInstance: boolean, msg: Block): Block.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: Block, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): Block;
+  static deserializeBinaryFromReader(message: Block, reader: jspb.BinaryReader): Block;
+}
+
+export namespace Block {
+  export type AsObject = {
+    blockV1?: Block_v1.AsObject,
+  }
+
+  export enum BlockVersionCase {
+    BLOCK_VERSION_NOT_SET = 0,
+    BLOCK_V1 = 1,
   }
 }
 

@@ -67,7 +67,7 @@ proto.iroha.protocol.ToriiResponse.prototype.toObject = function(opt_includeInst
 proto.iroha.protocol.ToriiResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     txStatus: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    txHash: msg.getTxHash_asB64(),
+    txHash: jspb.Message.getFieldWithDefault(msg, 2, ""),
     errOrCmdName: jspb.Message.getFieldWithDefault(msg, 3, ""),
     failedCmdIndex: jspb.Message.getFieldWithDefault(msg, 4, 0),
     errorCode: jspb.Message.getFieldWithDefault(msg, 5, 0)
@@ -112,7 +112,7 @@ proto.iroha.protocol.ToriiResponse.deserializeBinaryFromReader = function(msg, r
       msg.setTxStatus(value);
       break;
     case 2:
-      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      var value = /** @type {string} */ (reader.readString());
       msg.setTxHash(value);
       break;
     case 3:
@@ -163,9 +163,9 @@ proto.iroha.protocol.ToriiResponse.serializeBinaryToWriter = function(message, w
       f
     );
   }
-  f = message.getTxHash_asU8();
+  f = message.getTxHash();
   if (f.length > 0) {
-    writer.writeBytes(
+    writer.writeString(
       2,
       f
     );
@@ -205,46 +205,22 @@ proto.iroha.protocol.ToriiResponse.prototype.getTxStatus = function() {
 
 /** @param {!proto.iroha.protocol.TxStatus} value */
 proto.iroha.protocol.ToriiResponse.prototype.setTxStatus = function(value) {
-  jspb.Message.setProto3EnumField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
 /**
- * optional bytes tx_hash = 2;
- * @return {!(string|Uint8Array)}
- */
-proto.iroha.protocol.ToriiResponse.prototype.getTxHash = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * optional bytes tx_hash = 2;
- * This is a type-conversion wrapper around `getTxHash()`
+ * optional string tx_hash = 2;
  * @return {string}
  */
-proto.iroha.protocol.ToriiResponse.prototype.getTxHash_asB64 = function() {
-  return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getTxHash()));
+proto.iroha.protocol.ToriiResponse.prototype.getTxHash = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
-/**
- * optional bytes tx_hash = 2;
- * Note that Uint8Array is not supported on all browsers.
- * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getTxHash()`
- * @return {!Uint8Array}
- */
-proto.iroha.protocol.ToriiResponse.prototype.getTxHash_asU8 = function() {
-  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getTxHash()));
-};
-
-
-/** @param {!(string|Uint8Array)} value */
+/** @param {string} value */
 proto.iroha.protocol.ToriiResponse.prototype.setTxHash = function(value) {
-  jspb.Message.setProto3BytesField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -259,7 +235,7 @@ proto.iroha.protocol.ToriiResponse.prototype.getErrOrCmdName = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.ToriiResponse.prototype.setErrOrCmdName = function(value) {
-  jspb.Message.setProto3StringField(this, 3, value);
+  jspb.Message.setField(this, 3, value);
 };
 
 
@@ -274,7 +250,7 @@ proto.iroha.protocol.ToriiResponse.prototype.getFailedCmdIndex = function() {
 
 /** @param {number} value */
 proto.iroha.protocol.ToriiResponse.prototype.setFailedCmdIndex = function(value) {
-  jspb.Message.setProto3IntField(this, 4, value);
+  jspb.Message.setField(this, 4, value);
 };
 
 
@@ -289,7 +265,7 @@ proto.iroha.protocol.ToriiResponse.prototype.getErrorCode = function() {
 
 /** @param {number} value */
 proto.iroha.protocol.ToriiResponse.prototype.setErrorCode = function(value) {
-  jspb.Message.setProto3IntField(this, 5, value);
+  jspb.Message.setField(this, 5, value);
 };
 
 
@@ -340,7 +316,7 @@ proto.iroha.protocol.TxStatusRequest.prototype.toObject = function(opt_includeIn
  */
 proto.iroha.protocol.TxStatusRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    txHash: msg.getTxHash_asB64()
+    txHash: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -378,7 +354,7 @@ proto.iroha.protocol.TxStatusRequest.deserializeBinaryFromReader = function(msg,
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      var value = /** @type {string} */ (reader.readString());
       msg.setTxHash(value);
       break;
     default:
@@ -410,9 +386,9 @@ proto.iroha.protocol.TxStatusRequest.prototype.serializeBinary = function() {
  */
 proto.iroha.protocol.TxStatusRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getTxHash_asU8();
+  f = message.getTxHash();
   if (f.length > 0) {
-    writer.writeBytes(
+    writer.writeString(
       1,
       f
     );
@@ -421,41 +397,17 @@ proto.iroha.protocol.TxStatusRequest.serializeBinaryToWriter = function(message,
 
 
 /**
- * optional bytes tx_hash = 1;
- * @return {!(string|Uint8Array)}
- */
-proto.iroha.protocol.TxStatusRequest.prototype.getTxHash = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/**
- * optional bytes tx_hash = 1;
- * This is a type-conversion wrapper around `getTxHash()`
+ * optional string tx_hash = 1;
  * @return {string}
  */
-proto.iroha.protocol.TxStatusRequest.prototype.getTxHash_asB64 = function() {
-  return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getTxHash()));
+proto.iroha.protocol.TxStatusRequest.prototype.getTxHash = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
-/**
- * optional bytes tx_hash = 1;
- * Note that Uint8Array is not supported on all browsers.
- * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getTxHash()`
- * @return {!Uint8Array}
- */
-proto.iroha.protocol.TxStatusRequest.prototype.getTxHash_asU8 = function() {
-  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getTxHash()));
-};
-
-
-/** @param {!(string|Uint8Array)} value */
+/** @param {string} value */
 proto.iroha.protocol.TxStatusRequest.prototype.setTxHash = function(value) {
-  jspb.Message.setProto3BytesField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
