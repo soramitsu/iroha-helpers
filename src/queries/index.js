@@ -4,11 +4,11 @@ import queryHelper from '../queryHelper'
 import * as pbResponse from '../proto/qry_responses_pb'
 import { getProtoEnumName } from '../util'
 
-const DEFAULT_TIMEOUT_LIMIT = 5000
 const DEFAULT_OPTIONS = {
   privateKey: '',
   creatorAccountId: '',
-  queryService: null
+  queryService: null,
+  timeoutLimit: 5000
 }
 
 /**
@@ -16,17 +16,16 @@ const DEFAULT_OPTIONS = {
  * @param {Object} queryOptions
  * @param {Object} query
  * @param {Function} onResponse
- * @param {Number} timeoutLimit
  */
 function sendQuery (
   {
     privateKey,
     creatorAccountId,
-    queryService
+    queryService,
+    timeoutLimit
   } = DEFAULT_OPTIONS,
   query,
-  onResponse = function (resolve, reject, responseName, response) {},
-  timeoutLimit = DEFAULT_TIMEOUT_LIMIT
+  onResponse = function (resolve, reject, responseName, response) {}
 ) {
   return new Promise((resolve, reject) => {
     const queryClient = queryService
