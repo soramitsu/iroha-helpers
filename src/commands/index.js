@@ -385,15 +385,15 @@ function substractAssetQuantity (commandOptions, { assetId, amount }) {
  * @property {Number} args.amount
  * @link https://iroha.readthedocs.io/en/latest/api/commands.html#transfer-asset
  */
-function transferAsset (commandOptions, { fromAccountId, toAccountId, assetId, description, amount }) {
+function transferAsset (commandOptions, { srcAccountId, destAccountId, assetId, description, amount }) {
   return command(
     commandOptions,
     txHelper.addCommand(
       txHelper.emptyTransaction(),
       'transferAsset',
       {
-        fromAccountId,
-        toAccountId,
+        srcAccountId,
+        destAccountId,
         assetId,
         description,
         amount
