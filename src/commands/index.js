@@ -378,8 +378,8 @@ function substractAssetQuantity (commandOptions, { assetId, amount }) {
  * transferAsset
  * @param {Object} commandOptions
  * @param {Object} args
- * @property {String} args.fromAccountId
- * @property {String} args.toAccountId
+ * @property {String} args.srcAccountId
+ * @property {String} args.destAccountId
  * @property {String} args.assetId
  * @property {String} args.description
  * @property {Number} args.amount
