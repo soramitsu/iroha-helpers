@@ -91,7 +91,7 @@ const commandOptions = {
 - [x] [createDomain](https://iroha.readthedocs.io/en/latest/api/commands.html#create-domain)
 - [x] [createRole](https://iroha.readthedocs.io/en/latest/api/commands.html#create-role)
 - [x] [detachRole](https://iroha.readthedocs.io/en/latest/api/commands.html#detach-role)
-- [x] [grandPermission](https://iroha.readthedocs.io/en/latest/api/commands.html#grant-permission)
+- [x] [grantPermission](https://iroha.readthedocs.io/en/latest/api/commands.html#grant-permission)
 - [x] [removeSignatory](https://iroha.readthedocs.io/en/latest/api/commands.html#remove-signatory)
 - [x] [revokePermission](https://iroha.readthedocs.io/en/latest/api/commands.html#revoke-permission)
 - [x] [setAccountDetail](https://iroha.readthedocs.io/en/latest/api/commands.html#set-account-detail)
