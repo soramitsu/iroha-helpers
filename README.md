@@ -121,6 +121,7 @@ const queryOptions = {
 - [x] [getAssetInfo](https://iroha.readthedocs.io/en/latest/api/queries.html#get-asset-info)
 - [x] [getRoles](https://iroha.readthedocs.io/en/latest/api/queries.html#get-roles)
 - [x] [getRolePermissions](https://iroha.readthedocs.io/en/latest/api/queries.html#get-role-permissions)
+- [x] [getBlock](https://iroha.readthedocs.io/en/latest/api/queries.html#get-block)
 
 ## Known issues
  - Please be careful: API might and WILL change.
