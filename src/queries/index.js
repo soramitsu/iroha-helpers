@@ -126,17 +126,17 @@ function getSignatories (queryOptions, { accountId }) {
  * getTransactions
  * @param {Object} queryOptions
  * @param {Object} args
- * @property {String[]} args.transactionsHashes
+ * @property {String[]} args.txHashesList
  * @link https://iroha.readthedocs.io/en/latest/api/queries.html#get-transactions
  */
-function getTransactions (queryOptions, { transactionsHashes }) {
+function getTransactions (queryOptions, { txHashesList }) {
   return sendQuery(
     queryOptions,
     queryHelper.addQuery(
       queryHelper.emptyQuery(),
       'getTransactions',
       {
-        transactionsHashes
+        txHashesList
       }
     ),
     (resolve, reject, responseName, response) => {
