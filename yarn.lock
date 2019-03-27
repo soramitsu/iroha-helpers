@@ -628,6 +628,13 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
+"@improbable-eng/grpc-web@^0.9.1":
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/@improbable-eng/grpc-web/-/grpc-web-0.9.1.tgz#61a36fb04f6f2a202fe01b3a35d1fc891cc93933"
+  integrity sha512-KAF0C1ev6fqTF4gC5Bwj4yB1L3Z17oCJe5teNFkETBuDyUKSf/0k9WaBiV/DsIXI3ulv4lA4qEOB4PO9jd0X7w==
+  dependencies:
+    browser-headers "^0.4.0"
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
