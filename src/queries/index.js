@@ -468,7 +468,7 @@ function getBlock (queryOptions, { height }) {
         return reject(new Error(`Query response error: expected=BLOCK_RESPONSE, actual=${responseName}\nReason: ${error}`))
       }
 
-      const block = response.getBlockResponse()
+      const block = response.getBlockResponse().toObject().block.blockV1
       resolve(block)
     }
   )
