@@ -1,5 +1,5 @@
 
-import flow from 'lodash/fp/flow'
+import flow from 'lodash.flow'
 import queryHelper from '../queryHelper'
 import * as pbResponse from '../proto/qry_responses_pb'
 import { getProtoEnumName } from '../util'
