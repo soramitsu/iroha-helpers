@@ -1,6 +1,6 @@
 {
   "name": "iroha-helpers",
-  "version": "0.6.6",
+  "version": "0.6.7",
   "description": "Some helpers function for transaction/query generation for Hyperledger Iroha",
   "main": "lib/index.js",
   "repository": {
@@ -30,7 +30,8 @@
     "google-protobuf": "^3.7.1",
     "grpc-web-client": "^0.7.0",
     "js-sha3": "^0.8.0",
-    "lodash.clonedeep": "^4.5.0"
+    "lodash.clonedeep": "^4.5.0",
+    "lodash.flow": "^3.5.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -43,7 +44,6 @@
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
-    "grpc": "^1.19.0",
-    "lodash.flow": "^3.5.0"
+    "grpc": "^1.19.0"
   }
 }
