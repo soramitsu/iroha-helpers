@@ -1,5 +1,6 @@
 import txHelper from '../txHelper'
 import { signWithArrayOfKeys, sendTransactions } from '../util'
+import validate from '../validate'
 
 const DEFAULT_OPTIONS = {
   privateKeys: [''],
@@ -39,21 +40,18 @@ function command (
 /**
  * addAssetQuantity
  * @param {Object} commandOptions
- * @param {Object} args
- * @property {String} args.assetId
- * @property {Number} args.amount
+ * @param {Object} params
+ * @property {String} params.assetId
+ * @property {Number} params.amount
  * @link https://iroha.readthedocs.io/en/latest/api/commands.html#add-asset-quantity
  */
-function addAssetQuantity (commandOptions, { assetId, amount }) {
+function addAssetQuantity (commandOptions, params) {
   return command(
     commandOptions,
     txHelper.addCommand(
       txHelper.emptyTransaction(),
       'addAssetQuantity',
-      {
-        assetId,
-        amount
-      }
+      validate(params, ['assetId', 'amount'])
     )
   )
 }
@@ -61,22 +59,19 @@ function addAssetQuantity (commandOptions, { assetId, amount }) {
 /**
  * addPeer
  * @param {Object} commandOptions
- * @param {Object} args
- * @property {String} args.address
- * @property {String} args.peerKey
+ * @param {Object} params
+ * @property {String} params.address
+ * @property {String} params.peerKey
  * @link https://iroha.readthedocs.io/en/latest/api/commands.html#add-peer
  */
-function addPeer (commandOptions, { address, peerKey }) {
+function addPeer (commandOptions, params) {
   return command(
     commandOptions,
     txHelper.addCommand(
       txHelper.emptyTransaction(),
       'addPeer',
       {
-        peer: {
-          address,
-          peerKey
-        }
+        peer: validate(params, ['address', 'peerKey'])
       }
     )
   )
@@ -85,21 +80,18 @@ function addPeer (commandOptions, { address, peerKey }) {
 /**
  * addSignatory
  * @param {Object} commandOptions
- * @param {Object} args
- * @property {String} args.accountId
- * @property {String} args.publicKey
+ * @param {Object} params
+ * @property {String} params.accountId
+ * @property {String} params.publicKey
  * @link https://iroha.readthedocs.io/en/latest/api/commands.html#add-signatory
  */
-function addSignatory (commandOptions, { accountId, publicKey }) {
+function addSignatory (commandOptions, params) {
   return command(
     commandOptions,
     txHelper.addCommand(
       txHelper.emptyTransaction(),
       'addSignatory',
-      {
-        accountId,
-        publicKey
-      }
+      validate(params, ['accountId', 'publicKey'])
     )
   )
 }
@@ -107,21 +99,18 @@ function addSignatory (commandOptions, { accountId, publicKey }) {
 /**
  * appendRole
  * @param {Object} commandOptions
- * @param {Object} args
- * @property {String} args.accountId
- * @property {String} args.roleName
+ * @param {Object} params
+ * @property {String} params.accountId
+ * @property {String} params.roleName
  * @link https://iroha.readthedocs.io/en/latest/api/commands.html#append-role
  */
-function appendRole (commandOptions, { accountId, roleName }) {
+function appendRole (commandOptions, params) {
   return command(
     commandOptions,
     txHelper.addCommand(
       txHelper.emptyTransaction(),
       'appendRole',
-      {
-        accountId,
-        roleName
-      }
+      validate(params, ['accountId', 'roleName'])
     )
   )
 }
@@ -129,23 +118,19 @@ function appendRole (commandOptions, { accountId, roleName }) {
 /**
  * createAccount
  * @param {Object} commandOptions
- * @param {Object} args
- * @property {String} args.accountName
- * @property {String} args.domainId
- * @property {String} args.publicKey
+ * @param {Object} params
+ * @property {String} params.accountName
+ * @property {String} params.domainId
+ * @property {String} params.publicKey
  * @link https://iroha.readthedocs.io/en/latest/api/commands.html#create-account
  */
-function createAccount (commandOptions, { accountName, domainId, publicKey }) {
+function createAccount (commandOptions, params) {
   return command(
     commandOptions,
     txHelper.addCommand(
       txHelper.emptyTransaction(),
       'createAccount',
-      {
-        accountName,
-        domainId,
-        publicKey
-      }
+      validate(params, ['accountName', 'domainId', 'publicKey'])
     )
   )
 }
@@ -153,23 +138,19 @@ function createAccount (commandOptions, { accountName, domainId, publicKey }) {
 /**
  * createAsset
  * @param {Object} commandOptions
- * @param {Object} args
- * @property {String} args.assetName
- * @property {String} args.domainId
- * @property {Number} args.precision
+ * @param {Object} params
+ * @property {String} params.assetName
+ * @property {String} params.domainId
+ * @property {Number} params.precision
  * @link https://iroha.readthedocs.io/en/latest/api/commands.html#create-asset
  */
-function createAsset (commandOptions, { assetName, domainId, precision }) {
+function createAsset (commandOptions, params) {
   return command(
     commandOptions,
     txHelper.addCommand(
       txHelper.emptyTransaction(),
       'createAsset',
-      {
-        assetName,
-        domainId,
-        precision
-      }
+      validate(params, ['assetName', 'domainId', 'precision'])
     )
   )
 }
@@ -177,21 +158,18 @@ function createAsset (commandOptions, { assetName, domainId, precision }) {
 /**
  * createDomain
  * @param {Object} commandOptions
- * @param {Object} args
- * @property {String} args.domainId
- * @property {String} args.defaultRole
+ * @param {Object} params
+ * @property {String} params.domainId
+ * @property {String} params.defaultRole
  * @link https://iroha.readthedocs.io/en/latest/api/commands.html#create-domain
  */
-function createDomain (commandOptions, { domainId, defaultRole }) {
+function createDomain (commandOptions, params) {
   return command(
     commandOptions,
     txHelper.addCommand(
       txHelper.emptyTransaction(),
       'createDomain',
-      {
-        domainId,
-        defaultRole
-      }
+      validate(params, ['domainId', 'defaultRole'])
     )
   )
 }
@@ -199,21 +177,18 @@ function createDomain (commandOptions, { domainId, defaultRole }) {
 /**
  * createRole
  * @param {Object} commandOptions
- * @param {Object} args
- * @property {String} args.roleName
- * @property {Number[]} args.permissionsList
+ * @param {Object} params
+ * @property {String} params.roleName
+ * @property {Number[]} params.permissionsList
  * @link https://iroha.readthedocs.io/en/latest/api/commands.html#create-role
  */
-function createRole (commandOptions, { roleName, permissionsList }) {
+function createRole (commandOptions, params) {
   return command(
     commandOptions,
     txHelper.addCommand(
       txHelper.emptyTransaction(),
       'createRole',
-      {
-        roleName,
-        permissionsList
-      }
+      validate(params, ['roleName', 'permissionsList'])
     )
   )
 }
@@ -221,21 +196,18 @@ function createRole (commandOptions, { roleName, permissionsList }) {
 /**
  * detachRole
  * @param {Object} commandOptions
- * @param {Object} args
- * @property {String} args.accountId
- * @property {String} args.roleName
+ * @param {Object} params
+ * @property {String} params.accountId
+ * @property {String} params.roleName
  * @link https://iroha.readthedocs.io/en/latest/api/commands.html#detach-role
  */
-function detachRole (commandOptions, { accountId, roleName }) {
+function detachRole (commandOptions, params) {
   return command(
     commandOptions,
     txHelper.addCommand(
       txHelper.emptyTransaction(),
       'detachRole',
-      {
-        accountId,
-        roleName
-      }
+      validate(params, ['accountId', 'roleName'])
     )
   )
 }
@@ -243,21 +215,18 @@ function detachRole (commandOptions, { accountId, roleName }) {
 /**
  * grantPermission
  * @param {Object} commandOptions
- * @param {Object} args
- * @property {String} args.accountId
- * @property {String} args.grantablePermissionName
+ * @param {Object} params
+ * @property {String} params.accountId
+ * @property {String} params.grantablePermissionName
  * @link https://iroha.readthedocs.io/en/latest/api/commands.html#grant-permission
  */
-function grantPermission (commandOptions, { accountId, grantablePermissionName }) {
+function grantPermission (commandOptions, params) {
   return command(
     commandOptions,
     txHelper.addCommand(
       txHelper.emptyTransaction(),
       'grantPermission',
-      {
-        accountId,
-        grantablePermissionName
-      }
+      validate(params, ['accountId', 'grantablePermissionName'])
     )
   )
 }
@@ -265,21 +234,18 @@ function grantPermission (commandOptions, { accountId, grantablePermissionName }
 /**
  * removeSignatory
  * @param {Object} commandOptions
- * @param {Object} args
- * @property {String} args.accountId
- * @property {String} args.publicKey
+ * @param {Object} params
+ * @property {String} params.accountId
+ * @property {String} params.publicKey
  * @link https://iroha.readthedocs.io/en/latest/api/commands.html#remove-signatory
  */
-function removeSignatory (commandOptions, { accountId, publicKey }) {
+function removeSignatory (commandOptions, params) {
   return command(
     commandOptions,
     txHelper.addCommand(
       txHelper.emptyTransaction(),
       'removeSignatory',
-      {
-        accountId,
-        publicKey
-      }
+      validate(params, ['accountId', 'publicKey'])
     )
   )
 }
@@ -287,21 +253,18 @@ function removeSignatory (commandOptions, { accountId, publicKey }) {
 /**
  * revokePermission
  * @param {Object} commandOptions
- * @param {Object} args
- * @property {String} args.accountId
- * @property {String} args.grantablePermissionName
+ * @param {Object} params
+ * @property {String} params.accountId
+ * @property {String} params.grantablePermissionName
  * @link https://iroha.readthedocs.io/en/latest/api/commands.html#revoke-permission
  */
-function revokePermission (commandOptions, { accountId, grantablePermissionName }) {
+function revokePermission (commandOptions, params) {
   return command(
     commandOptions,
     txHelper.addCommand(
       txHelper.emptyTransaction(),
       'revokePermission',
-      {
-        accountId,
-        grantablePermissionName
-      }
+      validate(params, ['accountId', 'grantablePermissionName'])
     )
   )
 }
@@ -309,23 +272,19 @@ function revokePermission (commandOptions, { accountId, grantablePermissionName 
 /**
  * setAccountDetail
  * @param {Object} commandOptions
- * @param {Object} args
- * @property {String} args.accountId
- * @property {String} args.key
- * @property {String} args.value
+ * @param {Object} params
+ * @property {String} params.accountId
+ * @property {String} params.key
+ * @property {String} params.value
  * @link https://iroha.readthedocs.io/en/latest/api/commands.html#set-account-detail
  */
-function setAccountDetail (commandOptions, { accountId, key, value }) {
+function setAccountDetail (commandOptions, params) {
   return command(
     commandOptions,
     txHelper.addCommand(
       txHelper.emptyTransaction(),
       'setAccountDetail',
-      {
-        accountId,
-        key,
-        value
-      }
+      validate(params, ['accountId', 'key', 'value'])
     )
   )
 }
@@ -333,21 +292,18 @@ function setAccountDetail (commandOptions, { accountId, key, value }) {
 /**
  * setAccountQuorum
  * @param {Object} commandOptions
- * @param {Object} args
- * @property {String} args.accountId
- * @property {Number} args.quorum
+ * @param {Object} params
+ * @property {String} params.accountId
+ * @property {Number} params.quorum
  * @link https://iroha.readthedocs.io/en/latest/api/commands.html#set-account-quorum
  */
-function setAccountQuorum (commandOptions, { accountId, quorum }) {
+function setAccountQuorum (commandOptions, params) {
   return command(
     commandOptions,
     txHelper.addCommand(
       txHelper.emptyTransaction(),
       'setAccountQuorum',
-      {
-        accountId,
-        quorum
-      }
+      validate(params, ['accountId', 'quorum'])
     )
   )
 }
@@ -355,21 +311,18 @@ function setAccountQuorum (commandOptions, { accountId, quorum }) {
 /**
  * substractAssetQuantity
  * @param {Object} commandOptions
- * @param {Object} args
- * @property {String} args.assetId
- * @property {Number} args.amount
+ * @param {Object} params
+ * @property {String} params.assetId
+ * @property {Number} params.amount
  * @link https://iroha.readthedocs.io/en/latest/api/commands.html#subtract-asset-quantity
  */
-function substractAssetQuantity (commandOptions, { assetId, amount }) {
+function substractAssetQuantity (commandOptions, params) {
   return command(
     commandOptions,
     txHelper.addCommand(
       txHelper.emptyTransaction(),
       'substractAssetQuantity',
-      {
-        assetId,
-        amount
-      }
+      validate(params, ['assetId', 'amount'])
     )
   )
 }
@@ -377,27 +330,21 @@ function substractAssetQuantity (commandOptions, { assetId, amount }) {
 /**
  * transferAsset
  * @param {Object} commandOptions
- * @param {Object} args
- * @property {String} args.srcAccountId
- * @property {String} args.destAccountId
- * @property {String} args.assetId
- * @property {String} args.description
- * @property {Number} args.amount
+ * @param {Object} params
+ * @property {String} params.srcAccountId
+ * @property {String} params.destAccountId
+ * @property {String} params.assetId
+ * @property {String} params.description
+ * @property {Number} params.amount
  * @link https://iroha.readthedocs.io/en/latest/api/commands.html#transfer-asset
  */
-function transferAsset (commandOptions, { srcAccountId, destAccountId, assetId, description, amount }) {
+function transferAsset (commandOptions, params) {
   return command(
     commandOptions,
     txHelper.addCommand(
       txHelper.emptyTransaction(),
       'transferAsset',
-      {
-        srcAccountId,
-        destAccountId,
-        assetId,
-        description,
-        amount
-      }
+      validate(params, ['srcAccountId', 'destAccountId', 'assetId', 'description', 'amount'])
     )
   )
 }

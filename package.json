@@ -31,7 +31,8 @@
     "grpc-web-client": "^0.7.0",
     "js-sha3": "^0.8.0",
     "lodash.clonedeep": "^4.5.0",
-    "lodash.flow": "^3.5.0"
+    "lodash.flow": "^3.5.0",
+    "lodash.isequal": "^4.5.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
