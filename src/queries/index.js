@@ -328,16 +328,16 @@ function getAccountAssets (queryOptions, params) {
  * @param {Object} params
  * @property {String} params.accountId
  * @property {String} params.key
- * @property {String} params.writerId
+ * @property {String} params.writer
  * @link https://iroha.readthedocs.io/en/latest/api/queries.html#get-account-detail
  */
-function getAccountDetail (queryOptions, { accountId, key, writerId }) {
+function getAccountDetail (queryOptions, params) {
   return sendQuery(
     queryOptions,
     queryHelper.addQuery(
       queryHelper.emptyQuery(),
       'getAccountDetail',
-      validate({ accountId }, ['accountId'])
+      validate(params, ['accountId', 'key', 'writer'])
     ),
     (resolve, reject, responseName, response) => {
       if (responseName !== 'ACCOUNT_DETAIL_RESPONSE') {

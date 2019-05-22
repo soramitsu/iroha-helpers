@@ -1,6 +1,6 @@
 {
   "name": "iroha-helpers",
-  "version": "0.6.8",
+  "version": "0.6.9",
   "description": "Some helpers function for transaction/query generation for Hyperledger Iroha",
   "main": "lib/index.js",
   "repository": {
@@ -32,7 +32,8 @@
     "js-sha3": "^0.8.0",
     "lodash.clonedeep": "^4.5.0",
     "lodash.flow": "^3.5.0",
-    "lodash.isequal": "^4.5.0"
+    "lodash.isequal": "^4.5.0",
+    "lodash.isplainobject": "^4.0.6"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

@@ -1,4 +1,5 @@
 import isEqual from 'lodash.isequal'
+import isPlainObject from 'lodash.isplainobject'
 
 const assetIdDelimiter = '#'
 const accountIdDelimiter = '@'
@@ -10,6 +11,11 @@ const accountPattern = /^[a-z_0-9]{1,32}$/
 const domainPattern = /^[a-z_0-9]{1,9}$/
 const roleNamePattern = /^[a-z_0-9]{1,32}$/
 const assetNamePattern = /^[a-z_0-9]{1,32}$/
+
+const allowEmpty = [
+  'key',
+  'writer'
+]
 
 const schema = {
   amount: checkAmount,
@@ -28,6 +34,7 @@ const schema = {
   key: checkAccountDetailsKey,
   value: checkAccountDetailsValue,
   roleId: checkRoleName,
+  writer: checkAccountId,
 
   peerKey: toImplement,
   publicKey: toImplement,
@@ -47,16 +54,35 @@ function toImplement () {
 const compare = (a, b) => a - b
 
 function validateParams (object, required) {
+  if (!isPlainObject(object)) {
+    throw new Error(
+      `Expected type of arguments: object, actual: ${typeof object}`
+    )
+  }
+
   const isEquals = isEqual(
     Object.keys(object).sort(compare),
     required.sort(compare)
   )
 
-  if (!isEquals) throw new Error(`Expected arguments: ${required}, actual: ${object}`)
+  if (!isEquals) {
+    throw new Error(
+      `Expected arguments: ${required}, actual: ${Object.keys(object)}`
+    )
+  }
 
   const errors = required
     .map(property => {
       const validator = schema[property]
+
+      // TODO: Create better way to handle not required arguments
+      if (allowEmpty.includes(property)) {
+        return [
+          property,
+          { isValid: true }
+        ]
+      }
+
       return [property, validator(object[property])]
     })
     .reduce((errors, pair) => {

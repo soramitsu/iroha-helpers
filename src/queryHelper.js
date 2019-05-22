@@ -26,14 +26,15 @@ const addQuery = (query, queryName, params) => {
   let payloadQuery = new Queries[capitalize(queryName)]()
 
   for (let [key, value] of Object.entries(params)) {
-    if ('set' + capitalize(key) === 'setPaginationMeta') {
+    const capitalizedKeyName = `set${capitalize(key)}`
+    if (capitalizedKeyName === 'setPaginationMeta') {
       let paginationMeta = new Queries.TxPaginationMeta()
       paginationMeta.setPageSize(value.pageSize)
       paginationMeta.setFirstTxHash(value.firstTxHash)
 
-      payloadQuery['set' + capitalize(key)](paginationMeta)
+      payloadQuery[capitalizedKeyName](paginationMeta)
     } else {
-      payloadQuery['set' + capitalize(key)](value)
+      payloadQuery[capitalizedKeyName](value)
     }
   }
 
