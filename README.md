@@ -65,7 +65,9 @@ Promise.all([
     queryService,
     timeoutLimit: 5000
   }, {
-    accountId: 'admin@test'
+    accountId: 'admin@test',
+    key: undefined,
+    writer: undefined
   })
 ])
   .then(a => console.log(a))
