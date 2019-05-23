@@ -104,21 +104,23 @@ function validateParams (object, required) {
 }
 
 function checkAmount (amount) {
-  if (!Number.isInteger(amount)) {
+  const formattedAmount = Number(amount)
+
+  if (!Number.isFinite(formattedAmount)) {
     return {
       isValid: false,
       reason: 'Amount should be a number'
     }
   }
 
-  if (amount < 0) {
+  if (formattedAmount < 0) {
     return {
       isValid: false,
       reason: 'Amount should be positive'
     }
   }
 
-  if (amount > Number.MAX_SAFE_INTEGER) {
+  if (formattedAmount > Number.MAX_SAFE_INTEGER) {
     return {
       isValid: false,
       reason: 'Amount does not fit into MAX_SAFE_INTEGER'
