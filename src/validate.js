@@ -104,7 +104,7 @@ function validateParams (object, required) {
 }
 
 function checkAmount (amount) {
-  if (!isNaN(amount)) {
+  if (!Number.isInteger(amount)) {
     return {
       isValid: false,
       reason: 'Amount should be a number'
