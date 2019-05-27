@@ -75,18 +75,20 @@ function sendTransactions (txs, txClient, timeoutLimit, requiredStatuses = [
           })
 
           stream.on('end', function (end) {
-            statuses.length > 0 ? resolve(statuses[statuses.length - 1].getTxStatus()) : resolve(null)
+            statuses.length > 0 ? resolve(statuses.map(t => t.getTxStatus())) : resolve(null)
           })
         }))
 
         Promise.all(requests)
-          .then(values => {
+          .then(([values]) => {
             let statuses = values.map(x => x !== null ? getProtoEnumName(
               TxStatus,
               'iroha.protocol.TxStatus',
               x
             ) : null)
-            statuses.some(x => requiredStatuses.includes(x))
+            statuses.some(x => {
+              return requiredStatuses.includes(x)
+            })
               ? resolve()
               : reject(
                 new Error(`Your transaction wasn't commited: expected: ${requiredStatuses}, actual=${statuses}`)
