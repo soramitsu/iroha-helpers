@@ -74,8 +74,14 @@ function sendTransactions (txs, txClient, timeoutLimit, requiredStatuses = [
             statuses.push(response)
           })
 
+          stream.on('status', function (status) {})
+
           stream.on('end', function (end) {
-            statuses.length > 0 ? resolve(statuses.map(t => t.getTxStatus())) : resolve(null)
+            if (statuses[statuses.length - 1].getTxStatus() === 9) {
+              stream = txClient.statusStream(request)
+            } else {
+              statuses.length > 0 ? resolve(statuses.map(t => t.getTxStatus())) : resolve(null)
+            }
           })
         }))
 
