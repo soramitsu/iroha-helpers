@@ -134,7 +134,7 @@ function checkPresission (precision) {
   if (precision < 0 || precision > 255) {
     return {
       isValid: false,
-      reason: 'Precision should be 0 <= quorum <= 255'
+      reason: 'Precision should be 0 <= precision <= 255'
     }
   }
 

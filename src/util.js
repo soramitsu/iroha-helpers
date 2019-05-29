@@ -1,6 +1,58 @@
 import txHelper from './txHelper'
 import { TxStatus, TxStatusRequest } from './proto/endpoint_pb'
 
+import { from, Observable } from 'rxjs'
+import { map, retryWhen, delay, exhaustMap, first } from 'rxjs/operators'
+
+function _listToTorii (txs, txClient, timeoutLimit) {
+  const txList = txHelper.createTxListFromArray(txs)
+  return new Promise((resolve, reject) => {
+    /**
+     * grpc-node hangs against unresponsive server, which possibly occur when
+     * invalid node IP is set. To avoid this problem, we use timeout timer.
+     * c.f. {@link https://github.com/grpc/grpc/issues/13163 Grpc issue 13163}
+     */
+
+    const timer = setTimeout(() => {
+      txClient.$channel.close()
+      reject(new Error('Please check IP address OR your internet connection'))
+    }, timeoutLimit)
+
+    // Sending even 1 transaction to listTorii is absolutely ok and valid.
+    txClient.listTorii(txList, (err, data) => {
+      clearTimeout(timer)
+
+      if (err) {
+        return reject(err)
+      }
+
+      const hashes = txs.map(x => txHelper.hash(x))
+      resolve(hashes)
+    })
+  })
+}
+
+function _handleStream (hash, txClient) {
+  const request = new TxStatusRequest()
+  request.setTxHash(hash.toString('hex'))
+  return txClient.statusStream(request)
+}
+
+function fromStream (stream) {
+  return new Observable((observer) => {
+    function dataHandler (data) {
+      observer.next(data)
+    }
+
+    function endHandler () {
+      observer.complete()
+    }
+
+    stream.on('data', dataHandler)
+    stream.on('end', endHandler)
+  })
+}
+
 /**
  * Capitalizes string
  * @param {String} string
@@ -34,73 +86,47 @@ function sendTransactions (txs, txClient, timeoutLimit, requiredStatuses = [
   'MST_PENDING',
   'COMMITTED'
 ]) {
-  const hashes = txs.map(x => txHelper.hash(x))
-  const txList = txHelper.createTxListFromArray(txs)
+  const terminalStatuses = [
+    TxStatus.STATELESS_VALIDATION_FAILED,
+    TxStatus.STATEFUL_VALIDATION_FAILED,
+    TxStatus.COMMITTED,
+    TxStatus.MST_EXPIRED,
+    TxStatus.NOT_RECEIVED,
+    TxStatus.REJECTED,
+    TxStatus.UNRECOGNIZED
+  ]
 
-  return new Promise((resolve, reject) => {
-    /**
-     * grpc-node hangs against unresponsive server, which possibly occur when
-     * invalid node IP is set. To avoid this problem, we use timeout timer.
-     * c.f. {@link https://github.com/grpc/grpc/issues/13163 Grpc issue 13163}
-     */
-
-    const timer = setTimeout(() => {
-      txClient.$channel.close()
-      reject(new Error('Please check IP address OR your internet connection'))
-    }, timeoutLimit)
-
-    // Sending even 1 transaction to listTorii is absolutely ok and valid.
-    txClient.listTorii(txList, (err, data) => {
-      clearTimeout(timer)
-
-      if (err) {
-        return reject(err)
+  return _listToTorii(txs, txClient, timeoutLimit)
+    .then(hashes => {
+      return from(hashes)
+        .pipe(
+          exhaustMap(hash => fromStream(
+            _handleStream(hash, txClient))
+          ),
+          map(tx => {
+            if (!terminalStatuses.includes(tx.getTxStatus())) {
+              throw tx
+            }
+            return tx
+          }),
+          retryWhen(err => err.pipe(
+            delay(1000)
+          )),
+          first(tx => terminalStatuses.includes(
+            tx.getTxStatus()
+          ))
+        )
+        .toPromise()
+    })
+    .then(tx => {
+      const status = getProtoEnumName(TxStatus, 'iroha.protocol.TxStatus', tx.getTxStatus())
+      if (requiredStatuses.includes(status)) {
+        return Promise.resolve(tx.toObject())
       }
 
-      resolve()
-    })
-  })
-    .then(() => {
-      return new Promise((resolve, reject) => {
-        // Status requests promises
-        let requests = hashes.map(hash => new Promise((resolve, reject) => {
-          let statuses = []
-
-          let request = new TxStatusRequest()
-          request.setTxHash(hash.toString('hex'))
-
-          let stream = txClient.statusStream(request)
-          stream.on('data', function (response) {
-            statuses.push(response)
-          })
-
-          stream.on('status', function (status) {})
-
-          stream.on('end', function (end) {
-            if (statuses[statuses.length - 1].getTxStatus() === 9) {
-              stream = txClient.statusStream(request)
-            } else {
-              statuses.length > 0 ? resolve(statuses.map(t => t.getTxStatus())) : resolve(null)
-            }
-          })
-        }))
-
-        Promise.all(requests)
-          .then(([values]) => {
-            let statuses = values.map(x => x !== null ? getProtoEnumName(
-              TxStatus,
-              'iroha.protocol.TxStatus',
-              x
-            ) : null)
-            statuses.some(x => {
-              return requiredStatuses.includes(x)
-            })
-              ? resolve()
-              : reject(
-                new Error(`Your transaction wasn't commited: expected: ${requiredStatuses}, actual=${statuses}`)
-              )
-          })
-      })
+      return Promise.reject(
+        new Error(`Command response error: expected=${requiredStatuses}, actual=${status}`)
+      )
     })
 }
 
