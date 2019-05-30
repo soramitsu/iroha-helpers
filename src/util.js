@@ -118,9 +118,10 @@ function sendTransactions (txs, txClient, timeoutLimit, requiredStatusesStr = [
           retryWhen(err => err.pipe(
             delay(1000)
           )),
-          first(tx => isTerminal(
-            tx.getTxStatus()
-          ))
+          first(tx => {
+            const status = tx.getTxStatus()
+            return isRequired(status) || isTerminal(status)
+          })
         )
         .toPromise()
     })
