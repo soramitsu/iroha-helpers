@@ -82,7 +82,7 @@ function getProtoEnumName (obj, key, value) {
   }
 }
 
-function sendTransactions (txs, txClient, timeoutLimit, requiredStatuses = [
+function sendTransactions (txs, txClient, timeoutLimit, requiredStatusesStr = [
   'MST_PENDING',
   'COMMITTED'
 ]) {
@@ -95,6 +95,10 @@ function sendTransactions (txs, txClient, timeoutLimit, requiredStatuses = [
     TxStatus.REJECTED,
     TxStatus.UNRECOGNIZED
   ]
+  const requiredStatuses = requiredStatusesStr.map(s => TxStatus[s])
+
+  const isTerminal = (status) => terminalStatuses.includes(status)
+  const isRequired = (status) => requiredStatuses.includes(status)
 
   return _listToTorii(txs, txClient, timeoutLimit)
     .then(hashes => {
@@ -104,7 +108,9 @@ function sendTransactions (txs, txClient, timeoutLimit, requiredStatuses = [
             _handleStream(hash, txClient))
           ),
           map(tx => {
-            if (!terminalStatuses.includes(tx.getTxStatus())) {
+            const status = tx.getTxStatus()
+            const requiredStatus = isRequired(status) || isTerminal(status)
+            if (!requiredStatus) {
               throw tx
             }
             return tx
@@ -112,7 +118,7 @@ function sendTransactions (txs, txClient, timeoutLimit, requiredStatuses = [
           retryWhen(err => err.pipe(
             delay(1000)
           )),
-          first(tx => terminalStatuses.includes(
+          first(tx => isTerminal(
             tx.getTxStatus()
           ))
         )
@@ -125,7 +131,7 @@ function sendTransactions (txs, txClient, timeoutLimit, requiredStatuses = [
       }
 
       return Promise.reject(
-        new Error(`Command response error: expected=${requiredStatuses}, actual=${status}`)
+        new Error(`Command response error: expected=${requiredStatusesStr}, actual=${status}`)
       )
     })
 }
