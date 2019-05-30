@@ -126,7 +126,7 @@ function sendTransactions (txs, txClient, timeoutLimit, requiredStatusesStr = [
     })
     .then(tx => {
       const status = getProtoEnumName(TxStatus, 'iroha.protocol.TxStatus', tx.getTxStatus())
-      if (requiredStatuses.includes(status)) {
+      if (requiredStatuses.includes(tx.getTxStatus())) {
         return Promise.resolve(tx.toObject())
       }
 
