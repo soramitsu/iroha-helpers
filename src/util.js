@@ -1,9 +1,6 @@
 import txHelper from './txHelper'
 import { TxStatus, TxStatusRequest } from './proto/endpoint_pb'
 
-import { from, Observable } from 'rxjs'
-import { map, retryWhen, delay, exhaustMap, first } from 'rxjs/operators'
-
 function _listToTorii (txs, txClient, timeoutLimit) {
   const txList = txHelper.createTxListFromArray(txs)
   return new Promise((resolve, reject) => {
@@ -38,19 +35,65 @@ function _handleStream (hash, txClient) {
   return txClient.statusStream(request)
 }
 
-function fromStream (stream) {
-  return new Observable((observer) => {
-    function dataHandler (data) {
-      observer.next(data)
+function _fromStream (stream, requiredStatusesStr) {
+  const terminalStatuses = [
+    TxStatus.STATELESS_VALIDATION_FAILED,
+    TxStatus.STATEFUL_VALIDATION_FAILED,
+    TxStatus.COMMITTED,
+    TxStatus.MST_EXPIRED,
+    TxStatus.NOT_RECEIVED,
+    TxStatus.REJECTED
+  ]
+  const requiredStatuses = requiredStatusesStr.map(s => TxStatus[s])
+
+  const successStatuses = [
+    TxStatus.COMMITTED,
+    ...requiredStatuses
+  ]
+
+  const isTerminal = (status) => terminalStatuses.includes(status)
+  const isRequired = (status) => requiredStatuses.includes(status)
+  const isError = (status) => !successStatuses.includes(status)
+
+  return new Promise((resolve, reject) => {
+    const dataHandler = (tx) => {
+      const status = tx.getTxStatus()
+      if (isTerminal(status) || isRequired(status)) {
+        resolve({
+          tx,
+          status: true,
+          error: isError(status)
+        })
+      }
     }
 
-    function endHandler () {
-      observer.complete()
+    const closeStream = () => {
+      const timer = setTimeout(() => {
+        clearTimeout(timer)
+        resolve({ status: false })
+      }, 5000)
     }
 
     stream.on('data', dataHandler)
-    stream.on('end', endHandler)
+    closeStream()
   })
+}
+
+async function _streamCheker (hash, txClient, requiredStatusesStr) {
+  let isChecking = true
+  let result = null
+
+  while (isChecking) {
+    result = await _fromStream(
+      _handleStream(hash, txClient),
+      requiredStatusesStr
+    )
+    if (result.status) {
+      isChecking = false
+    }
+  }
+
+  return result
 }
 
 /**
@@ -83,57 +126,34 @@ function getProtoEnumName (obj, key, value) {
 }
 
 function sendTransactions (txs, txClient, timeoutLimit, requiredStatusesStr = [
-  'MST_PENDING',
   'COMMITTED'
 ]) {
-  const terminalStatuses = [
-    TxStatus.STATELESS_VALIDATION_FAILED,
-    TxStatus.STATEFUL_VALIDATION_FAILED,
-    TxStatus.COMMITTED,
-    TxStatus.MST_EXPIRED,
-    TxStatus.NOT_RECEIVED,
-    TxStatus.REJECTED,
-    TxStatus.UNRECOGNIZED
-  ]
-  const requiredStatuses = requiredStatusesStr.map(s => TxStatus[s])
-
-  const isTerminal = (status) => terminalStatuses.includes(status)
-  const isRequired = (status) => requiredStatuses.includes(status)
-
   return _listToTorii(txs, txClient, timeoutLimit)
     .then(hashes => {
-      return from(hashes)
-        .pipe(
-          exhaustMap(hash => fromStream(
-            _handleStream(hash, txClient))
-          ),
-          map(tx => {
-            const status = tx.getTxStatus()
-            const requiredStatus = isRequired(status) || isTerminal(status)
-            if (!requiredStatus) {
-              throw tx
-            }
-            return tx
-          }),
-          retryWhen(err => err.pipe(
-            delay(1000)
-          )),
-          first(tx => {
-            const status = tx.getTxStatus()
-            return isRequired(status) || isTerminal(status)
-          })
-        )
-        .toPromise()
-    })
-    .then(tx => {
-      const status = getProtoEnumName(TxStatus, 'iroha.protocol.TxStatus', tx.getTxStatus())
-      if (requiredStatuses.includes(tx.getTxStatus())) {
-        return Promise.resolve(tx.toObject())
-      }
+      return new Promise((resolve, reject) => {
+        const requests = hashes
+          .map(h => _streamCheker(h, txClient, requiredStatusesStr))
 
-      return Promise.reject(
-        new Error(`Command response error: expected=${requiredStatusesStr}, actual=${status}`)
-      )
+        Promise.all(requests)
+          .then(res => {
+            const status = res
+              .map(r =>
+                getProtoEnumName(
+                  TxStatus,
+                  'iroha.protocol.TxStatus',
+                  r.tx.getTxStatus()
+                )
+              )
+
+            return res.some(r => r.error)
+              ? reject(
+                new Error(
+                  `Command response error: expected=${requiredStatusesStr}, actual=${status}`
+                )
+              )
+              : resolve()
+          })
+      })
     })
 }
 
