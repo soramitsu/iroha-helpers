@@ -35,7 +35,7 @@ function _handleStream (hash, txClient) {
   return txClient.statusStream(request)
 }
 
-function _fromStream (stream, requiredStatusesStr) {
+function _fromStream ({ hash, txClient }, requiredStatusesStr) {
   const terminalStatuses = [
     TxStatus.STATELESS_VALIDATION_FAILED,
     TxStatus.STATEFUL_VALIDATION_FAILED,
@@ -56,43 +56,36 @@ function _fromStream (stream, requiredStatusesStr) {
   const isError = (status) => !successStatuses.includes(status)
 
   return new Promise((resolve, reject) => {
+    let timer
+
+    const connect = () => {
+      const stream = _handleStream(hash, txClient)
+      stream.on('data', dataHandler)
+    }
+
+    const resetTimer = () => {
+      clearTimeout(timer)
+      timer = setTimeout(connect, 5000)
+    }
+
     const dataHandler = (tx) => {
+      resetTimer()
       const status = tx.getTxStatus()
       if (isTerminal(status) || isRequired(status)) {
+        clearTimeout(timer)
         resolve({
           tx,
-          status: true,
           error: isError(status)
         })
       }
     }
 
-    const closeStream = () => {
-      const timer = setTimeout(() => {
-        clearTimeout(timer)
-        resolve({ status: false })
-      }, 5000)
-    }
-
-    stream.on('data', dataHandler)
-    closeStream()
+    connect()
   })
 }
 
-async function _streamCheker (hash, txClient, requiredStatusesStr) {
-  let isChecking = true
-  let result = null
-
-  while (isChecking) {
-    result = await _fromStream(
-      _handleStream(hash, txClient),
-      requiredStatusesStr
-    )
-    if (result.status) {
-      isChecking = false
-    }
-  }
-
+async function _streamVerifier (hash, txClient, requiredStatusesStr) {
+  const result = await _fromStream({ hash, txClient }, requiredStatusesStr)
   return result
 }
 
@@ -132,7 +125,7 @@ function sendTransactions (txs, txClient, timeoutLimit, requiredStatusesStr = [
     .then(hashes => {
       return new Promise((resolve, reject) => {
         const requests = hashes
-          .map(h => _streamCheker(h, txClient, requiredStatusesStr))
+          .map(h => _streamVerifier(h, txClient, requiredStatusesStr))
 
         Promise.all(requests)
           .then(res => {
