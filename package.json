@@ -1,6 +1,6 @@
 {
   "name": "iroha-helpers",
-  "version": "0.6.19",
+  "version": "0.6.20",
   "description": "Some helpers function for transaction/query generation for Hyperledger Iroha",
   "main": "lib/index.js",
   "repository": {
@@ -24,6 +24,7 @@
     "build": "babel src --delete-dir-on-start --out-dir lib"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.4.4",
     "@improbable-eng/grpc-web": "^0.9.1",
     "babel-preset-minify": "^0.5.0",
     "buffer": "^5.2.1",
@@ -38,7 +39,6 @@
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
-    "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "@babel/register": "^7.4.4",
     "eslint": "^5.15.3",

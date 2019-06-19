@@ -40,7 +40,6 @@ function _fromStream ({ hash, txClient }, requiredStatusesStr) {
     TxStatus.STATELESS_VALIDATION_FAILED,
     TxStatus.STATEFUL_VALIDATION_FAILED,
     TxStatus.COMMITTED,
-    TxStatus.MST_EXPIRED,
     TxStatus.NOT_RECEIVED,
     TxStatus.REJECTED
   ]
