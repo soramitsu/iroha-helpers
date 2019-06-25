@@ -217,7 +217,7 @@ function detachRole (commandOptions, params) {
  * @param {Object} commandOptions
  * @param {Object} params
  * @property {String} params.accountId
- * @property {String} params.grantablePermissionName
+ * @property {String} params.permission
  * @link https://iroha.readthedocs.io/en/latest/api/commands.html#grant-permission
  */
 function grantPermission (commandOptions, params) {
@@ -226,7 +226,7 @@ function grantPermission (commandOptions, params) {
     txHelper.addCommand(
       txHelper.emptyTransaction(),
       'grantPermission',
-      validate(params, ['accountId', 'grantablePermissionName'])
+      validate(params, ['accountId', 'permission'])
     )
   )
 }
@@ -255,7 +255,7 @@ function removeSignatory (commandOptions, params) {
  * @param {Object} commandOptions
  * @param {Object} params
  * @property {String} params.accountId
- * @property {String} params.grantablePermissionName
+ * @property {String} params.permission
  * @link https://iroha.readthedocs.io/en/latest/api/commands.html#revoke-permission
  */
 function revokePermission (commandOptions, params) {
@@ -264,7 +264,7 @@ function revokePermission (commandOptions, params) {
     txHelper.addCommand(
       txHelper.emptyTransaction(),
       'revokePermission',
-      validate(params, ['accountId', 'grantablePermissionName'])
+      validate(params, ['accountId', 'permission'])
     )
   )
 }

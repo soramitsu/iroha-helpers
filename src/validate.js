@@ -39,7 +39,7 @@ const schema = {
   peerKey: toImplement,
   publicKey: toImplement,
   permissionsList: toImplement,
-  grantablePermissionName: toImplement,
+  permission: toImplement,
   txHashesList: toImplement,
   address: toImplement,
   pageSize: toImplement,
