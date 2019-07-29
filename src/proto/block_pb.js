@@ -406,7 +406,7 @@ proto.iroha.protocol.Block_v1.Payload.prototype.getTxNumber = function() {
 
 /** @param {number} value */
 proto.iroha.protocol.Block_v1.Payload.prototype.setTxNumber = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setProto3IntField(this, 2, value);
 };
 
 
@@ -421,7 +421,7 @@ proto.iroha.protocol.Block_v1.Payload.prototype.getHeight = function() {
 
 /** @param {number} value */
 proto.iroha.protocol.Block_v1.Payload.prototype.setHeight = function(value) {
-  jspb.Message.setField(this, 3, value);
+  jspb.Message.setProto3IntField(this, 3, value);
 };
 
 
@@ -436,7 +436,7 @@ proto.iroha.protocol.Block_v1.Payload.prototype.getPrevBlockHash = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.Block_v1.Payload.prototype.setPrevBlockHash = function(value) {
-  jspb.Message.setField(this, 4, value);
+  jspb.Message.setProto3StringField(this, 4, value);
 };
 
 
@@ -451,7 +451,7 @@ proto.iroha.protocol.Block_v1.Payload.prototype.getCreatedTime = function() {
 
 /** @param {number} value */
 proto.iroha.protocol.Block_v1.Payload.prototype.setCreatedTime = function(value) {
-  jspb.Message.setField(this, 5, value);
+  jspb.Message.setProto3IntField(this, 5, value);
 };
 
 

@@ -185,7 +185,7 @@ proto.iroha.protocol.Proposal.prototype.getHeight = function() {
 
 /** @param {number} value */
 proto.iroha.protocol.Proposal.prototype.setHeight = function(value) {
-  jspb.Message.setField(this, 1, value);
+  jspb.Message.setProto3IntField(this, 1, value);
 };
 
 
@@ -231,7 +231,7 @@ proto.iroha.protocol.Proposal.prototype.getCreatedTime = function() {
 
 /** @param {number} value */
 proto.iroha.protocol.Proposal.prototype.setCreatedTime = function(value) {
-  jspb.Message.setField(this, 3, value);
+  jspb.Message.setProto3IntField(this, 3, value);
 };
 
 

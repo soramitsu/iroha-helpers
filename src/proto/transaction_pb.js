@@ -502,7 +502,7 @@ proto.iroha.protocol.Transaction.Payload.BatchMeta.prototype.getType = function(
 
 /** @param {!proto.iroha.protocol.Transaction.Payload.BatchMeta.BatchType} value */
 proto.iroha.protocol.Transaction.Payload.BatchMeta.prototype.setType = function(value) {
-  jspb.Message.setField(this, 1, value);
+  jspb.Message.setProto3EnumField(this, 1, value);
 };
 
 
@@ -750,7 +750,7 @@ proto.iroha.protocol.Transaction.Payload.ReducedPayload.prototype.getCreatorAcco
 
 /** @param {string} value */
 proto.iroha.protocol.Transaction.Payload.ReducedPayload.prototype.setCreatorAccountId = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
@@ -765,7 +765,7 @@ proto.iroha.protocol.Transaction.Payload.ReducedPayload.prototype.getCreatedTime
 
 /** @param {number} value */
 proto.iroha.protocol.Transaction.Payload.ReducedPayload.prototype.setCreatedTime = function(value) {
-  jspb.Message.setField(this, 3, value);
+  jspb.Message.setProto3IntField(this, 3, value);
 };
 
 
@@ -780,7 +780,7 @@ proto.iroha.protocol.Transaction.Payload.ReducedPayload.prototype.getQuorum = fu
 
 /** @param {number} value */
 proto.iroha.protocol.Transaction.Payload.ReducedPayload.prototype.setQuorum = function(value) {
-  jspb.Message.setField(this, 4, value);
+  jspb.Message.setProto3IntField(this, 4, value);
 };
 
 

@@ -116,6 +116,32 @@ function appendRole (commandOptions, params) {
 }
 
 /**
+ * compareAndSetAccountDetail
+ * @param {Object} commandOptions
+ * @param {Object} args
+ * @property {String} args.accountId
+ * @property {String} args.key
+ * @property {String} args.value
+ * @property {String} args.oldValue
+ * @link https://iroha.readthedocs.io/en/latest/api/commands.html#compare-and-set-account-detail
+ */
+function compareAndSetAccountDetail (commandOptions, { accountId, key, value, oldValue }) {
+  return command(
+    commandOptions,
+    txHelper.addCommand(
+      txHelper.emptyTransaction(),
+      'compareAndSetAccountDetail',
+      {
+        accountId,
+        key,
+        value,
+        oldValue
+      }
+    )
+  )
+}
+
+/**
  * createAccount
  * @param {Object} commandOptions
  * @param {Object} params
@@ -227,6 +253,26 @@ function grantPermission (commandOptions, params) {
       txHelper.emptyTransaction(),
       'grantPermission',
       validate(params, ['accountId', 'permission'])
+    )
+  )
+}
+
+/**
+ * removePeer
+ * @param {Object} commandOptions
+ * @param {Object} args
+ * @property {String} args.publicKey
+ * @link https://iroha.readthedocs.io/en/latest/api/commands.html#remove-peer
+ */
+function removePeer (commandOptions, { publicKey }) {
+  return command(
+    commandOptions,
+    txHelper.addCommand(
+      txHelper.emptyTransaction(),
+      'removePeer',
+      {
+        publicKey
+      }
     )
   )
 }
@@ -354,12 +400,14 @@ export default {
   addPeer,
   addSignatory,
   appendRole,
+  compareAndSetAccountDetail,  
   createAccount,
   createAsset,
   createDomain,
   createRole,
   detachRole,
   grantPermission,
+  removePeer,
   removeSignatory,
   revokePermission,
   setAccountDetail,

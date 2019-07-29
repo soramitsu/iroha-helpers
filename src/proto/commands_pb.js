@@ -17,12 +17,14 @@ goog.exportSymbol('proto.iroha.protocol.AddPeer', null, global);
 goog.exportSymbol('proto.iroha.protocol.AddSignatory', null, global);
 goog.exportSymbol('proto.iroha.protocol.AppendRole', null, global);
 goog.exportSymbol('proto.iroha.protocol.Command', null, global);
+goog.exportSymbol('proto.iroha.protocol.CompareAndSetAccountDetail', null, global);
 goog.exportSymbol('proto.iroha.protocol.CreateAccount', null, global);
 goog.exportSymbol('proto.iroha.protocol.CreateAsset', null, global);
 goog.exportSymbol('proto.iroha.protocol.CreateDomain', null, global);
 goog.exportSymbol('proto.iroha.protocol.CreateRole', null, global);
 goog.exportSymbol('proto.iroha.protocol.DetachRole', null, global);
 goog.exportSymbol('proto.iroha.protocol.GrantPermission', null, global);
+goog.exportSymbol('proto.iroha.protocol.RemovePeer', null, global);
 goog.exportSymbol('proto.iroha.protocol.RemoveSignatory', null, global);
 goog.exportSymbol('proto.iroha.protocol.RevokePermission', null, global);
 goog.exportSymbol('proto.iroha.protocol.SetAccountDetail', null, global);
@@ -179,7 +181,7 @@ proto.iroha.protocol.AddAssetQuantity.prototype.getAssetId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.AddAssetQuantity.prototype.setAssetId = function(value) {
-  jspb.Message.setField(this, 1, value);
+  jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -194,7 +196,7 @@ proto.iroha.protocol.AddAssetQuantity.prototype.getAmount = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.AddAssetQuantity.prototype.setAmount = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
@@ -368,6 +370,148 @@ proto.iroha.protocol.AddPeer.prototype.hasPeer = function() {
  * @extends {jspb.Message}
  * @constructor
  */
+proto.iroha.protocol.RemovePeer = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.iroha.protocol.RemovePeer, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.iroha.protocol.RemovePeer.displayName = 'proto.iroha.protocol.RemovePeer';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.iroha.protocol.RemovePeer.prototype.toObject = function(opt_includeInstance) {
+  return proto.iroha.protocol.RemovePeer.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.iroha.protocol.RemovePeer} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.iroha.protocol.RemovePeer.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    publicKey: jspb.Message.getFieldWithDefault(msg, 1, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.iroha.protocol.RemovePeer}
+ */
+proto.iroha.protocol.RemovePeer.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.iroha.protocol.RemovePeer;
+  return proto.iroha.protocol.RemovePeer.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.iroha.protocol.RemovePeer} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.iroha.protocol.RemovePeer}
+ */
+proto.iroha.protocol.RemovePeer.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPublicKey(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.iroha.protocol.RemovePeer.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.iroha.protocol.RemovePeer.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.iroha.protocol.RemovePeer} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.iroha.protocol.RemovePeer.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getPublicKey();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string public_key = 1;
+ * @return {string}
+ */
+proto.iroha.protocol.RemovePeer.prototype.getPublicKey = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.iroha.protocol.RemovePeer.prototype.setPublicKey = function(value) {
+  jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
 proto.iroha.protocol.AddSignatory = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
@@ -507,7 +651,7 @@ proto.iroha.protocol.AddSignatory.prototype.getAccountId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.AddSignatory.prototype.setAccountId = function(value) {
-  jspb.Message.setField(this, 1, value);
+  jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -522,7 +666,7 @@ proto.iroha.protocol.AddSignatory.prototype.getPublicKey = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.AddSignatory.prototype.setPublicKey = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
@@ -688,7 +832,7 @@ proto.iroha.protocol.CreateAsset.prototype.getAssetName = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.CreateAsset.prototype.setAssetName = function(value) {
-  jspb.Message.setField(this, 1, value);
+  jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -703,7 +847,7 @@ proto.iroha.protocol.CreateAsset.prototype.getDomainId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.CreateAsset.prototype.setDomainId = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
@@ -718,7 +862,7 @@ proto.iroha.protocol.CreateAsset.prototype.getPrecision = function() {
 
 /** @param {number} value */
 proto.iroha.protocol.CreateAsset.prototype.setPrecision = function(value) {
-  jspb.Message.setField(this, 3, value);
+  jspb.Message.setProto3IntField(this, 3, value);
 };
 
 
@@ -884,7 +1028,7 @@ proto.iroha.protocol.CreateAccount.prototype.getAccountName = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.CreateAccount.prototype.setAccountName = function(value) {
-  jspb.Message.setField(this, 1, value);
+  jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -899,7 +1043,7 @@ proto.iroha.protocol.CreateAccount.prototype.getDomainId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.CreateAccount.prototype.setDomainId = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
@@ -914,7 +1058,7 @@ proto.iroha.protocol.CreateAccount.prototype.getPublicKey = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.CreateAccount.prototype.setPublicKey = function(value) {
-  jspb.Message.setField(this, 3, value);
+  jspb.Message.setProto3StringField(this, 3, value);
 };
 
 
@@ -1080,7 +1224,7 @@ proto.iroha.protocol.SetAccountDetail.prototype.getAccountId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.SetAccountDetail.prototype.setAccountId = function(value) {
-  jspb.Message.setField(this, 1, value);
+  jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -1095,7 +1239,7 @@ proto.iroha.protocol.SetAccountDetail.prototype.getKey = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.SetAccountDetail.prototype.setKey = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
@@ -1110,7 +1254,7 @@ proto.iroha.protocol.SetAccountDetail.prototype.getValue = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.SetAccountDetail.prototype.setValue = function(value) {
-  jspb.Message.setField(this, 3, value);
+  jspb.Message.setProto3StringField(this, 3, value);
 };
 
 
@@ -1264,7 +1408,7 @@ proto.iroha.protocol.CreateDomain.prototype.getDomainId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.CreateDomain.prototype.setDomainId = function(value) {
-  jspb.Message.setField(this, 1, value);
+  jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -1279,7 +1423,7 @@ proto.iroha.protocol.CreateDomain.prototype.getDefaultRole = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.CreateDomain.prototype.setDefaultRole = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
@@ -1433,7 +1577,7 @@ proto.iroha.protocol.RemoveSignatory.prototype.getAccountId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.RemoveSignatory.prototype.setAccountId = function(value) {
-  jspb.Message.setField(this, 1, value);
+  jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -1448,7 +1592,7 @@ proto.iroha.protocol.RemoveSignatory.prototype.getPublicKey = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.RemoveSignatory.prototype.setPublicKey = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
@@ -1602,7 +1746,7 @@ proto.iroha.protocol.SetAccountQuorum.prototype.getAccountId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.SetAccountQuorum.prototype.setAccountId = function(value) {
-  jspb.Message.setField(this, 1, value);
+  jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -1617,7 +1761,7 @@ proto.iroha.protocol.SetAccountQuorum.prototype.getQuorum = function() {
 
 /** @param {number} value */
 proto.iroha.protocol.SetAccountQuorum.prototype.setQuorum = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setProto3IntField(this, 2, value);
 };
 
 
@@ -1807,7 +1951,7 @@ proto.iroha.protocol.TransferAsset.prototype.getSrcAccountId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.TransferAsset.prototype.setSrcAccountId = function(value) {
-  jspb.Message.setField(this, 1, value);
+  jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -1822,7 +1966,7 @@ proto.iroha.protocol.TransferAsset.prototype.getDestAccountId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.TransferAsset.prototype.setDestAccountId = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
@@ -1837,7 +1981,7 @@ proto.iroha.protocol.TransferAsset.prototype.getAssetId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.TransferAsset.prototype.setAssetId = function(value) {
-  jspb.Message.setField(this, 3, value);
+  jspb.Message.setProto3StringField(this, 3, value);
 };
 
 
@@ -1852,7 +1996,7 @@ proto.iroha.protocol.TransferAsset.prototype.getDescription = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.TransferAsset.prototype.setDescription = function(value) {
-  jspb.Message.setField(this, 4, value);
+  jspb.Message.setProto3StringField(this, 4, value);
 };
 
 
@@ -1867,7 +2011,7 @@ proto.iroha.protocol.TransferAsset.prototype.getAmount = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.TransferAsset.prototype.setAmount = function(value) {
-  jspb.Message.setField(this, 5, value);
+  jspb.Message.setProto3StringField(this, 5, value);
 };
 
 
@@ -2021,7 +2165,7 @@ proto.iroha.protocol.AppendRole.prototype.getAccountId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.AppendRole.prototype.setAccountId = function(value) {
-  jspb.Message.setField(this, 1, value);
+  jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -2036,7 +2180,7 @@ proto.iroha.protocol.AppendRole.prototype.getRoleName = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.AppendRole.prototype.setRoleName = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
@@ -2190,7 +2334,7 @@ proto.iroha.protocol.DetachRole.prototype.getAccountId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.DetachRole.prototype.setAccountId = function(value) {
-  jspb.Message.setField(this, 1, value);
+  jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -2205,7 +2349,7 @@ proto.iroha.protocol.DetachRole.prototype.getRoleName = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.DetachRole.prototype.setRoleName = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
@@ -2366,7 +2510,7 @@ proto.iroha.protocol.CreateRole.prototype.getRoleName = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.CreateRole.prototype.setRoleName = function(value) {
-  jspb.Message.setField(this, 1, value);
+  jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -2549,7 +2693,7 @@ proto.iroha.protocol.GrantPermission.prototype.getAccountId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.GrantPermission.prototype.setAccountId = function(value) {
-  jspb.Message.setField(this, 1, value);
+  jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -2564,7 +2708,7 @@ proto.iroha.protocol.GrantPermission.prototype.getPermission = function() {
 
 /** @param {!proto.iroha.protocol.GrantablePermission} value */
 proto.iroha.protocol.GrantPermission.prototype.setPermission = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setProto3EnumField(this, 2, value);
 };
 
 
@@ -2718,7 +2862,7 @@ proto.iroha.protocol.RevokePermission.prototype.getAccountId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.RevokePermission.prototype.setAccountId = function(value) {
-  jspb.Message.setField(this, 1, value);
+  jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -2733,7 +2877,7 @@ proto.iroha.protocol.RevokePermission.prototype.getPermission = function() {
 
 /** @param {!proto.iroha.protocol.GrantablePermission} value */
 proto.iroha.protocol.RevokePermission.prototype.setPermission = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setProto3EnumField(this, 2, value);
 };
 
 
@@ -2887,7 +3031,7 @@ proto.iroha.protocol.SubtractAssetQuantity.prototype.getAssetId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.SubtractAssetQuantity.prototype.setAssetId = function(value) {
-  jspb.Message.setField(this, 1, value);
+  jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -2902,7 +3046,269 @@ proto.iroha.protocol.SubtractAssetQuantity.prototype.getAmount = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.SubtractAssetQuantity.prototype.setAmount = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.iroha.protocol.CompareAndSetAccountDetail = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, proto.iroha.protocol.CompareAndSetAccountDetail.oneofGroups_);
+};
+goog.inherits(proto.iroha.protocol.CompareAndSetAccountDetail, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.iroha.protocol.CompareAndSetAccountDetail.displayName = 'proto.iroha.protocol.CompareAndSetAccountDetail';
+}
+/**
+ * Oneof group definitions for this message. Each group defines the field
+ * numbers belonging to that group. When of these fields' value is set, all
+ * other fields in the group are cleared. During deserialization, if multiple
+ * fields are encountered for a group, only the last value seen will be kept.
+ * @private {!Array<!Array<number>>}
+ * @const
+ */
+proto.iroha.protocol.CompareAndSetAccountDetail.oneofGroups_ = [[4]];
+
+/**
+ * @enum {number}
+ */
+proto.iroha.protocol.CompareAndSetAccountDetail.OptOldValueCase = {
+  OPT_OLD_VALUE_NOT_SET: 0,
+  OLD_VALUE: 4
+};
+
+/**
+ * @return {proto.iroha.protocol.CompareAndSetAccountDetail.OptOldValueCase}
+ */
+proto.iroha.protocol.CompareAndSetAccountDetail.prototype.getOptOldValueCase = function() {
+  return /** @type {proto.iroha.protocol.CompareAndSetAccountDetail.OptOldValueCase} */(jspb.Message.computeOneofCase(this, proto.iroha.protocol.CompareAndSetAccountDetail.oneofGroups_[0]));
+};
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.iroha.protocol.CompareAndSetAccountDetail.prototype.toObject = function(opt_includeInstance) {
+  return proto.iroha.protocol.CompareAndSetAccountDetail.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.iroha.protocol.CompareAndSetAccountDetail} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.iroha.protocol.CompareAndSetAccountDetail.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    accountId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    key: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    value: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    oldValue: jspb.Message.getFieldWithDefault(msg, 4, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.iroha.protocol.CompareAndSetAccountDetail}
+ */
+proto.iroha.protocol.CompareAndSetAccountDetail.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.iroha.protocol.CompareAndSetAccountDetail;
+  return proto.iroha.protocol.CompareAndSetAccountDetail.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.iroha.protocol.CompareAndSetAccountDetail} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.iroha.protocol.CompareAndSetAccountDetail}
+ */
+proto.iroha.protocol.CompareAndSetAccountDetail.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setAccountId(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setKey(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setValue(value);
+      break;
+    case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setOldValue(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.iroha.protocol.CompareAndSetAccountDetail.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.iroha.protocol.CompareAndSetAccountDetail.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.iroha.protocol.CompareAndSetAccountDetail} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.iroha.protocol.CompareAndSetAccountDetail.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getAccountId();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getKey();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = message.getValue();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = /** @type {string} */ (jspb.Message.getField(message, 4));
+  if (f != null) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string account_id = 1;
+ * @return {string}
+ */
+proto.iroha.protocol.CompareAndSetAccountDetail.prototype.getAccountId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.iroha.protocol.CompareAndSetAccountDetail.prototype.setAccountId = function(value) {
+  jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string key = 2;
+ * @return {string}
+ */
+proto.iroha.protocol.CompareAndSetAccountDetail.prototype.getKey = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.iroha.protocol.CompareAndSetAccountDetail.prototype.setKey = function(value) {
+  jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional string value = 3;
+ * @return {string}
+ */
+proto.iroha.protocol.CompareAndSetAccountDetail.prototype.getValue = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.iroha.protocol.CompareAndSetAccountDetail.prototype.setValue = function(value) {
+  jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional string old_value = 4;
+ * @return {string}
+ */
+proto.iroha.protocol.CompareAndSetAccountDetail.prototype.getOldValue = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/** @param {string} value */
+proto.iroha.protocol.CompareAndSetAccountDetail.prototype.setOldValue = function(value) {
+  jspb.Message.setOneofField(this, 4, proto.iroha.protocol.CompareAndSetAccountDetail.oneofGroups_[0], value);
+};
+
+
+proto.iroha.protocol.CompareAndSetAccountDetail.prototype.clearOldValue = function() {
+  jspb.Message.setOneofField(this, 4, proto.iroha.protocol.CompareAndSetAccountDetail.oneofGroups_[0], undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.iroha.protocol.CompareAndSetAccountDetail.prototype.hasOldValue = function() {
+  return jspb.Message.getField(this, 4) != null;
 };
 
 
@@ -2932,7 +3338,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<!Array<number>>}
  * @const
  */
-proto.iroha.protocol.Command.oneofGroups_ = [[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]];
+proto.iroha.protocol.Command.oneofGroups_ = [[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]];
 
 /**
  * @enum {number}
@@ -2954,7 +3360,9 @@ proto.iroha.protocol.Command.CommandCase = {
   SET_ACCOUNT_DETAIL: 13,
   SET_ACCOUNT_QUORUM: 14,
   SUBTRACT_ASSET_QUANTITY: 15,
-  TRANSFER_ASSET: 16
+  TRANSFER_ASSET: 16,
+  REMOVE_PEER: 17,
+  COMPARE_AND_SET_ACCOUNT_DETAIL: 18
 };
 
 /**
@@ -3008,7 +3416,9 @@ proto.iroha.protocol.Command.toObject = function(includeInstance, msg) {
     setAccountDetail: (f = msg.getSetAccountDetail()) && proto.iroha.protocol.SetAccountDetail.toObject(includeInstance, f),
     setAccountQuorum: (f = msg.getSetAccountQuorum()) && proto.iroha.protocol.SetAccountQuorum.toObject(includeInstance, f),
     subtractAssetQuantity: (f = msg.getSubtractAssetQuantity()) && proto.iroha.protocol.SubtractAssetQuantity.toObject(includeInstance, f),
-    transferAsset: (f = msg.getTransferAsset()) && proto.iroha.protocol.TransferAsset.toObject(includeInstance, f)
+    transferAsset: (f = msg.getTransferAsset()) && proto.iroha.protocol.TransferAsset.toObject(includeInstance, f),
+    removePeer: (f = msg.getRemovePeer()) && proto.iroha.protocol.RemovePeer.toObject(includeInstance, f),
+    compareAndSetAccountDetail: (f = msg.getCompareAndSetAccountDetail()) && proto.iroha.protocol.CompareAndSetAccountDetail.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -3124,6 +3534,16 @@ proto.iroha.protocol.Command.deserializeBinaryFromReader = function(msg, reader)
       var value = new proto.iroha.protocol.TransferAsset;
       reader.readMessage(value,proto.iroha.protocol.TransferAsset.deserializeBinaryFromReader);
       msg.setTransferAsset(value);
+      break;
+    case 17:
+      var value = new proto.iroha.protocol.RemovePeer;
+      reader.readMessage(value,proto.iroha.protocol.RemovePeer.deserializeBinaryFromReader);
+      msg.setRemovePeer(value);
+      break;
+    case 18:
+      var value = new proto.iroha.protocol.CompareAndSetAccountDetail;
+      reader.readMessage(value,proto.iroha.protocol.CompareAndSetAccountDetail.deserializeBinaryFromReader);
+      msg.setCompareAndSetAccountDetail(value);
       break;
     default:
       reader.skipField();
@@ -3280,6 +3700,22 @@ proto.iroha.protocol.Command.serializeBinaryToWriter = function(message, writer)
       16,
       f,
       proto.iroha.protocol.TransferAsset.serializeBinaryToWriter
+    );
+  }
+  f = message.getRemovePeer();
+  if (f != null) {
+    writer.writeMessage(
+      17,
+      f,
+      proto.iroha.protocol.RemovePeer.serializeBinaryToWriter
+    );
+  }
+  f = message.getCompareAndSetAccountDetail();
+  if (f != null) {
+    writer.writeMessage(
+      18,
+      f,
+      proto.iroha.protocol.CompareAndSetAccountDetail.serializeBinaryToWriter
     );
   }
 };
@@ -3762,6 +4198,66 @@ proto.iroha.protocol.Command.prototype.clearTransferAsset = function() {
  */
 proto.iroha.protocol.Command.prototype.hasTransferAsset = function() {
   return jspb.Message.getField(this, 16) != null;
+};
+
+
+/**
+ * optional RemovePeer remove_peer = 17;
+ * @return {?proto.iroha.protocol.RemovePeer}
+ */
+proto.iroha.protocol.Command.prototype.getRemovePeer = function() {
+  return /** @type{?proto.iroha.protocol.RemovePeer} */ (
+    jspb.Message.getWrapperField(this, proto.iroha.protocol.RemovePeer, 17));
+};
+
+
+/** @param {?proto.iroha.protocol.RemovePeer|undefined} value */
+proto.iroha.protocol.Command.prototype.setRemovePeer = function(value) {
+  jspb.Message.setOneofWrapperField(this, 17, proto.iroha.protocol.Command.oneofGroups_[0], value);
+};
+
+
+proto.iroha.protocol.Command.prototype.clearRemovePeer = function() {
+  this.setRemovePeer(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.iroha.protocol.Command.prototype.hasRemovePeer = function() {
+  return jspb.Message.getField(this, 17) != null;
+};
+
+
+/**
+ * optional CompareAndSetAccountDetail compare_and_set_account_detail = 18;
+ * @return {?proto.iroha.protocol.CompareAndSetAccountDetail}
+ */
+proto.iroha.protocol.Command.prototype.getCompareAndSetAccountDetail = function() {
+  return /** @type{?proto.iroha.protocol.CompareAndSetAccountDetail} */ (
+    jspb.Message.getWrapperField(this, proto.iroha.protocol.CompareAndSetAccountDetail, 18));
+};
+
+
+/** @param {?proto.iroha.protocol.CompareAndSetAccountDetail|undefined} value */
+proto.iroha.protocol.Command.prototype.setCompareAndSetAccountDetail = function(value) {
+  jspb.Message.setOneofWrapperField(this, 18, proto.iroha.protocol.Command.oneofGroups_[0], value);
+};
+
+
+proto.iroha.protocol.Command.prototype.clearCompareAndSetAccountDetail = function() {
+  this.setCompareAndSetAccountDetail(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.iroha.protocol.Command.prototype.hasCompareAndSetAccountDetail = function() {
+  return jspb.Message.getField(this, 18) != null;
 };
 
 
