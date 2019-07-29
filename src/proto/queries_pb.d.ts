@@ -36,6 +36,38 @@ export namespace TxPaginationMeta {
   }
 }
 
+export class AssetPaginationMeta extends jspb.Message {
+  getPageSize(): number;
+  setPageSize(value: number): void;
+
+  hasFirstAssetId(): boolean;
+  clearFirstAssetId(): void;
+  getFirstAssetId(): string;
+  setFirstAssetId(value: string): void;
+
+  getOptFirstAssetIdCase(): AssetPaginationMeta.OptFirstAssetIdCase;
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): AssetPaginationMeta.AsObject;
+  static toObject(includeInstance: boolean, msg: AssetPaginationMeta): AssetPaginationMeta.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: AssetPaginationMeta, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): AssetPaginationMeta;
+  static deserializeBinaryFromReader(message: AssetPaginationMeta, reader: jspb.BinaryReader): AssetPaginationMeta;
+}
+
+export namespace AssetPaginationMeta {
+  export type AsObject = {
+    pageSize: number,
+    firstAssetId: string,
+  }
+
+  export enum OptFirstAssetIdCase {
+    OPT_FIRST_ASSET_ID_NOT_SET = 0,
+    FIRST_ASSET_ID = 2,
+  }
+}
+
 export class GetAccount extends jspb.Message {
   getAccountId(): string;
   setAccountId(value: string): void;
@@ -178,6 +210,11 @@ export class GetAccountAssets extends jspb.Message {
   getAccountId(): string;
   setAccountId(value: string): void;
 
+  hasPaginationMeta(): boolean;
+  clearPaginationMeta(): void;
+  getPaginationMeta(): AssetPaginationMeta | undefined;
+  setPaginationMeta(value?: AssetPaginationMeta): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetAccountAssets.AsObject;
   static toObject(includeInstance: boolean, msg: GetAccountAssets): GetAccountAssets.AsObject;
@@ -191,6 +228,33 @@ export class GetAccountAssets extends jspb.Message {
 export namespace GetAccountAssets {
   export type AsObject = {
     accountId: string,
+    paginationMeta?: AssetPaginationMeta.AsObject,
+  }
+}
+
+export class AccountDetailPaginationMeta extends jspb.Message {
+  getPageSize(): number;
+  setPageSize(value: number): void;
+
+  hasFirstRecordId(): boolean;
+  clearFirstRecordId(): void;
+  getFirstRecordId(): primitive_pb.AccountDetailRecordId | undefined;
+  setFirstRecordId(value?: primitive_pb.AccountDetailRecordId): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): AccountDetailPaginationMeta.AsObject;
+  static toObject(includeInstance: boolean, msg: AccountDetailPaginationMeta): AccountDetailPaginationMeta.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: AccountDetailPaginationMeta, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): AccountDetailPaginationMeta;
+  static deserializeBinaryFromReader(message: AccountDetailPaginationMeta, reader: jspb.BinaryReader): AccountDetailPaginationMeta;
+}
+
+export namespace AccountDetailPaginationMeta {
+  export type AsObject = {
+    pageSize: number,
+    firstRecordId?: primitive_pb.AccountDetailRecordId.AsObject,
   }
 }
 
@@ -210,6 +274,11 @@ export class GetAccountDetail extends jspb.Message {
   getWriter(): string;
   setWriter(value: string): void;
 
+  hasPaginationMeta(): boolean;
+  clearPaginationMeta(): void;
+  getPaginationMeta(): AccountDetailPaginationMeta | undefined;
+  setPaginationMeta(value?: AccountDetailPaginationMeta): void;
+
   getOptAccountIdCase(): GetAccountDetail.OptAccountIdCase;
   getOptKeyCase(): GetAccountDetail.OptKeyCase;
   getOptWriterCase(): GetAccountDetail.OptWriterCase;
@@ -228,6 +297,7 @@ export namespace GetAccountDetail {
     accountId: string,
     key: string,
     writer: string,
+    paginationMeta?: AccountDetailPaginationMeta.AsObject,
   }
 
   export enum OptAccountIdCase {
@@ -303,6 +373,11 @@ export namespace GetRolePermissions {
 }
 
 export class GetPendingTransactions extends jspb.Message {
+  hasPaginationMeta(): boolean;
+  clearPaginationMeta(): void;
+  getPaginationMeta(): TxPaginationMeta | undefined;
+  setPaginationMeta(value?: TxPaginationMeta): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetPendingTransactions.AsObject;
   static toObject(includeInstance: boolean, msg: GetPendingTransactions): GetPendingTransactions.AsObject;
@@ -314,6 +389,23 @@ export class GetPendingTransactions extends jspb.Message {
 }
 
 export namespace GetPendingTransactions {
+  export type AsObject = {
+    paginationMeta?: TxPaginationMeta.AsObject,
+  }
+}
+
+export class GetPeers extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetPeers.AsObject;
+  static toObject(includeInstance: boolean, msg: GetPeers): GetPeers.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: GetPeers, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetPeers;
+  static deserializeBinaryFromReader(message: GetPeers, reader: jspb.BinaryReader): GetPeers;
+}
+
+export namespace GetPeers {
   export type AsObject = {
   }
 }
@@ -439,6 +531,11 @@ export namespace Query {
     getGetBlock(): GetBlock | undefined;
     setGetBlock(value?: GetBlock): void;
 
+    hasGetPeers(): boolean;
+    clearGetPeers(): void;
+    getGetPeers(): GetPeers | undefined;
+    setGetPeers(value?: GetPeers): void;
+
     getQueryCase(): Payload.QueryCase;
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Payload.AsObject;
@@ -465,6 +562,7 @@ export namespace Query {
       getAssetInfo?: GetAssetInfo.AsObject,
       getPendingTransactions?: GetPendingTransactions.AsObject,
       getBlock?: GetBlock.AsObject,
+      getPeers?: GetPeers.AsObject,
     }
 
     export enum QueryCase {
@@ -481,6 +579,7 @@ export namespace Query {
       GET_ASSET_INFO = 12,
       GET_PENDING_TRANSACTIONS = 13,
       GET_BLOCK = 14,
+      GET_PEERS = 15,
     }
   }
 }

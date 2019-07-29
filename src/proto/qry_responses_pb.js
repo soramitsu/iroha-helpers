@@ -27,6 +27,9 @@ goog.exportSymbol('proto.iroha.protocol.BlockResponse', null, global);
 goog.exportSymbol('proto.iroha.protocol.Domain', null, global);
 goog.exportSymbol('proto.iroha.protocol.ErrorResponse', null, global);
 goog.exportSymbol('proto.iroha.protocol.ErrorResponse.Reason', null, global);
+goog.exportSymbol('proto.iroha.protocol.PeersResponse', null, global);
+goog.exportSymbol('proto.iroha.protocol.PendingTransactionsPageResponse', null, global);
+goog.exportSymbol('proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo', null, global);
 goog.exportSymbol('proto.iroha.protocol.QueryResponse', null, global);
 goog.exportSymbol('proto.iroha.protocol.RolePermissionsResponse', null, global);
 goog.exportSymbol('proto.iroha.protocol.RolesResponse', null, global);
@@ -195,7 +198,7 @@ proto.iroha.protocol.Asset.prototype.getAssetId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.Asset.prototype.setAssetId = function(value) {
-  jspb.Message.setField(this, 1, value);
+  jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -210,7 +213,7 @@ proto.iroha.protocol.Asset.prototype.getDomainId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.Asset.prototype.setDomainId = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
@@ -225,7 +228,7 @@ proto.iroha.protocol.Asset.prototype.getPrecision = function() {
 
 /** @param {number} value */
 proto.iroha.protocol.Asset.prototype.setPrecision = function(value) {
-  jspb.Message.setField(this, 3, value);
+  jspb.Message.setProto3IntField(this, 3, value);
 };
 
 
@@ -379,7 +382,7 @@ proto.iroha.protocol.Domain.prototype.getDomainId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.Domain.prototype.setDomainId = function(value) {
-  jspb.Message.setField(this, 1, value);
+  jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -394,7 +397,7 @@ proto.iroha.protocol.Domain.prototype.getDefaultRole = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.Domain.prototype.setDefaultRole = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
@@ -572,7 +575,7 @@ proto.iroha.protocol.Account.prototype.getAccountId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.Account.prototype.setAccountId = function(value) {
-  jspb.Message.setField(this, 1, value);
+  jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -587,7 +590,7 @@ proto.iroha.protocol.Account.prototype.getDomainId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.Account.prototype.setDomainId = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
@@ -602,7 +605,7 @@ proto.iroha.protocol.Account.prototype.getQuorum = function() {
 
 /** @param {number} value */
 proto.iroha.protocol.Account.prototype.setQuorum = function(value) {
-  jspb.Message.setField(this, 3, value);
+  jspb.Message.setProto3IntField(this, 3, value);
 };
 
 
@@ -617,7 +620,7 @@ proto.iroha.protocol.Account.prototype.getJsonData = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.Account.prototype.setJsonData = function(value) {
-  jspb.Message.setField(this, 4, value);
+  jspb.Message.setProto3StringField(this, 4, value);
 };
 
 
@@ -783,7 +786,7 @@ proto.iroha.protocol.AccountAsset.prototype.getAssetId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.AccountAsset.prototype.setAssetId = function(value) {
-  jspb.Message.setField(this, 1, value);
+  jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -798,7 +801,7 @@ proto.iroha.protocol.AccountAsset.prototype.getAccountId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.AccountAsset.prototype.setAccountId = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
@@ -813,7 +816,7 @@ proto.iroha.protocol.AccountAsset.prototype.getBalance = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.AccountAsset.prototype.setBalance = function(value) {
-  jspb.Message.setField(this, 3, value);
+  jspb.Message.setProto3StringField(this, 3, value);
 };
 
 
@@ -829,7 +832,7 @@ proto.iroha.protocol.AccountAsset.prototype.setBalance = function(value) {
  * @constructor
  */
 proto.iroha.protocol.AccountAssetResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.iroha.protocol.AccountAssetResponse.repeatedFields_, null);
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.iroha.protocol.AccountAssetResponse.repeatedFields_, proto.iroha.protocol.AccountAssetResponse.oneofGroups_);
 };
 goog.inherits(proto.iroha.protocol.AccountAssetResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
@@ -841,6 +844,31 @@ if (goog.DEBUG && !COMPILED) {
  * @const
  */
 proto.iroha.protocol.AccountAssetResponse.repeatedFields_ = [1];
+
+/**
+ * Oneof group definitions for this message. Each group defines the field
+ * numbers belonging to that group. When of these fields' value is set, all
+ * other fields in the group are cleared. During deserialization, if multiple
+ * fields are encountered for a group, only the last value seen will be kept.
+ * @private {!Array<!Array<number>>}
+ * @const
+ */
+proto.iroha.protocol.AccountAssetResponse.oneofGroups_ = [[3]];
+
+/**
+ * @enum {number}
+ */
+proto.iroha.protocol.AccountAssetResponse.OptNextAssetIdCase = {
+  OPT_NEXT_ASSET_ID_NOT_SET: 0,
+  NEXT_ASSET_ID: 3
+};
+
+/**
+ * @return {proto.iroha.protocol.AccountAssetResponse.OptNextAssetIdCase}
+ */
+proto.iroha.protocol.AccountAssetResponse.prototype.getOptNextAssetIdCase = function() {
+  return /** @type {proto.iroha.protocol.AccountAssetResponse.OptNextAssetIdCase} */(jspb.Message.computeOneofCase(this, proto.iroha.protocol.AccountAssetResponse.oneofGroups_[0]));
+};
 
 
 
@@ -872,7 +900,9 @@ proto.iroha.protocol.AccountAssetResponse.prototype.toObject = function(opt_incl
 proto.iroha.protocol.AccountAssetResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     accountAssetsList: jspb.Message.toObjectList(msg.getAccountAssetsList(),
-    proto.iroha.protocol.AccountAsset.toObject, includeInstance)
+    proto.iroha.protocol.AccountAsset.toObject, includeInstance),
+    totalNumber: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    nextAssetId: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
   if (includeInstance) {
@@ -914,6 +944,14 @@ proto.iroha.protocol.AccountAssetResponse.deserializeBinaryFromReader = function
       reader.readMessage(value,proto.iroha.protocol.AccountAsset.deserializeBinaryFromReader);
       msg.addAccountAssets(value);
       break;
+    case 2:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setTotalNumber(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setNextAssetId(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -951,6 +989,20 @@ proto.iroha.protocol.AccountAssetResponse.serializeBinaryToWriter = function(mes
       proto.iroha.protocol.AccountAsset.serializeBinaryToWriter
     );
   }
+  f = message.getTotalNumber();
+  if (f !== 0) {
+    writer.writeUint32(
+      2,
+      f
+    );
+  }
+  f = /** @type {string} */ (jspb.Message.getField(message, 3));
+  if (f != null) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
 };
 
 
@@ -982,6 +1034,50 @@ proto.iroha.protocol.AccountAssetResponse.prototype.addAccountAssets = function(
 
 proto.iroha.protocol.AccountAssetResponse.prototype.clearAccountAssetsList = function() {
   this.setAccountAssetsList([]);
+};
+
+
+/**
+ * optional uint32 total_number = 2;
+ * @return {number}
+ */
+proto.iroha.protocol.AccountAssetResponse.prototype.getTotalNumber = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/** @param {number} value */
+proto.iroha.protocol.AccountAssetResponse.prototype.setTotalNumber = function(value) {
+  jspb.Message.setProto3IntField(this, 2, value);
+};
+
+
+/**
+ * optional string next_asset_id = 3;
+ * @return {string}
+ */
+proto.iroha.protocol.AccountAssetResponse.prototype.getNextAssetId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.iroha.protocol.AccountAssetResponse.prototype.setNextAssetId = function(value) {
+  jspb.Message.setOneofField(this, 3, proto.iroha.protocol.AccountAssetResponse.oneofGroups_[0], value);
+};
+
+
+proto.iroha.protocol.AccountAssetResponse.prototype.clearNextAssetId = function() {
+  jspb.Message.setOneofField(this, 3, proto.iroha.protocol.AccountAssetResponse.oneofGroups_[0], undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.iroha.protocol.AccountAssetResponse.prototype.hasNextAssetId = function() {
+  return jspb.Message.getField(this, 3) != null;
 };
 
 
@@ -1032,7 +1128,9 @@ proto.iroha.protocol.AccountDetailResponse.prototype.toObject = function(opt_inc
  */
 proto.iroha.protocol.AccountDetailResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-    detail: jspb.Message.getFieldWithDefault(msg, 1, "")
+    detail: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    totalNumber: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    nextRecordId: (f = msg.getNextRecordId()) && primitive_pb.AccountDetailRecordId.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -1073,6 +1171,15 @@ proto.iroha.protocol.AccountDetailResponse.deserializeBinaryFromReader = functio
       var value = /** @type {string} */ (reader.readString());
       msg.setDetail(value);
       break;
+    case 2:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setTotalNumber(value);
+      break;
+    case 3:
+      var value = new primitive_pb.AccountDetailRecordId;
+      reader.readMessage(value,primitive_pb.AccountDetailRecordId.deserializeBinaryFromReader);
+      msg.setNextRecordId(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -1109,6 +1216,21 @@ proto.iroha.protocol.AccountDetailResponse.serializeBinaryToWriter = function(me
       f
     );
   }
+  f = message.getTotalNumber();
+  if (f !== 0) {
+    writer.writeUint64(
+      2,
+      f
+    );
+  }
+  f = message.getNextRecordId();
+  if (f != null) {
+    writer.writeMessage(
+      3,
+      f,
+      primitive_pb.AccountDetailRecordId.serializeBinaryToWriter
+    );
+  }
 };
 
 
@@ -1123,7 +1245,52 @@ proto.iroha.protocol.AccountDetailResponse.prototype.getDetail = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.AccountDetailResponse.prototype.setDetail = function(value) {
-  jspb.Message.setField(this, 1, value);
+  jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional uint64 total_number = 2;
+ * @return {number}
+ */
+proto.iroha.protocol.AccountDetailResponse.prototype.getTotalNumber = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/** @param {number} value */
+proto.iroha.protocol.AccountDetailResponse.prototype.setTotalNumber = function(value) {
+  jspb.Message.setProto3IntField(this, 2, value);
+};
+
+
+/**
+ * optional AccountDetailRecordId next_record_id = 3;
+ * @return {?proto.iroha.protocol.AccountDetailRecordId}
+ */
+proto.iroha.protocol.AccountDetailResponse.prototype.getNextRecordId = function() {
+  return /** @type{?proto.iroha.protocol.AccountDetailRecordId} */ (
+    jspb.Message.getWrapperField(this, primitive_pb.AccountDetailRecordId, 3));
+};
+
+
+/** @param {?proto.iroha.protocol.AccountDetailRecordId|undefined} value */
+proto.iroha.protocol.AccountDetailResponse.prototype.setNextRecordId = function(value) {
+  jspb.Message.setWrapperField(this, 3, value);
+};
+
+
+proto.iroha.protocol.AccountDetailResponse.prototype.clearNextRecordId = function() {
+  this.setNextRecordId(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.iroha.protocol.AccountDetailResponse.prototype.hasNextRecordId = function() {
+  return jspb.Message.getField(this, 3) != null;
 };
 
 
@@ -1996,7 +2163,7 @@ proto.iroha.protocol.ErrorResponse.prototype.getReason = function() {
 
 /** @param {!proto.iroha.protocol.ErrorResponse.Reason} value */
 proto.iroha.protocol.ErrorResponse.prototype.setReason = function(value) {
-  jspb.Message.setField(this, 1, value);
+  jspb.Message.setProto3EnumField(this, 1, value);
 };
 
 
@@ -2011,7 +2178,7 @@ proto.iroha.protocol.ErrorResponse.prototype.getMessage = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.ErrorResponse.prototype.setMessage = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
@@ -2026,7 +2193,7 @@ proto.iroha.protocol.ErrorResponse.prototype.getErrorCode = function() {
 
 /** @param {number} value */
 proto.iroha.protocol.ErrorResponse.prototype.setErrorCode = function(value) {
-  jspb.Message.setField(this, 3, value);
+  jspb.Message.setProto3IntField(this, 3, value);
 };
 
 
@@ -2589,7 +2756,7 @@ proto.iroha.protocol.TransactionsPageResponse.prototype.getAllTransactionsSize =
 
 /** @param {number} value */
 proto.iroha.protocol.TransactionsPageResponse.prototype.setAllTransactionsSize = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setProto3IntField(this, 2, value);
 };
 
 
@@ -2633,6 +2800,582 @@ proto.iroha.protocol.TransactionsPageResponse.prototype.hasNextTxHash = function
  * @extends {jspb.Message}
  * @constructor
  */
+proto.iroha.protocol.PendingTransactionsPageResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.iroha.protocol.PendingTransactionsPageResponse.repeatedFields_, null);
+};
+goog.inherits(proto.iroha.protocol.PendingTransactionsPageResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.iroha.protocol.PendingTransactionsPageResponse.displayName = 'proto.iroha.protocol.PendingTransactionsPageResponse';
+}
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.iroha.protocol.PendingTransactionsPageResponse.repeatedFields_ = [1];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.iroha.protocol.PendingTransactionsPageResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.iroha.protocol.PendingTransactionsPageResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.iroha.protocol.PendingTransactionsPageResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.iroha.protocol.PendingTransactionsPageResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    transactionsList: jspb.Message.toObjectList(msg.getTransactionsList(),
+    transaction_pb.Transaction.toObject, includeInstance),
+    allTransactionsSize: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    nextBatchInfo: (f = msg.getNextBatchInfo()) && proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.iroha.protocol.PendingTransactionsPageResponse}
+ */
+proto.iroha.protocol.PendingTransactionsPageResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.iroha.protocol.PendingTransactionsPageResponse;
+  return proto.iroha.protocol.PendingTransactionsPageResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.iroha.protocol.PendingTransactionsPageResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.iroha.protocol.PendingTransactionsPageResponse}
+ */
+proto.iroha.protocol.PendingTransactionsPageResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new transaction_pb.Transaction;
+      reader.readMessage(value,transaction_pb.Transaction.deserializeBinaryFromReader);
+      msg.addTransactions(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setAllTransactionsSize(value);
+      break;
+    case 3:
+      var value = new proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo;
+      reader.readMessage(value,proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo.deserializeBinaryFromReader);
+      msg.setNextBatchInfo(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.iroha.protocol.PendingTransactionsPageResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.iroha.protocol.PendingTransactionsPageResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.iroha.protocol.PendingTransactionsPageResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.iroha.protocol.PendingTransactionsPageResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getTransactionsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      1,
+      f,
+      transaction_pb.Transaction.serializeBinaryToWriter
+    );
+  }
+  f = message.getAllTransactionsSize();
+  if (f !== 0) {
+    writer.writeUint32(
+      2,
+      f
+    );
+  }
+  f = message.getNextBatchInfo();
+  if (f != null) {
+    writer.writeMessage(
+      3,
+      f,
+      proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo.serializeBinaryToWriter
+    );
+  }
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo.displayName = 'proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo.prototype.toObject = function(opt_includeInstance) {
+  return proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    firstTxHash: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    batchSize: jspb.Message.getFieldWithDefault(msg, 2, 0)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo}
+ */
+proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo;
+  return proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo}
+ */
+proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setFirstTxHash(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setBatchSize(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getFirstTxHash();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getBatchSize();
+  if (f !== 0) {
+    writer.writeUint32(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string first_tx_hash = 1;
+ * @return {string}
+ */
+proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo.prototype.getFirstTxHash = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo.prototype.setFirstTxHash = function(value) {
+  jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional uint32 batch_size = 2;
+ * @return {number}
+ */
+proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo.prototype.getBatchSize = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/** @param {number} value */
+proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo.prototype.setBatchSize = function(value) {
+  jspb.Message.setProto3IntField(this, 2, value);
+};
+
+
+/**
+ * repeated Transaction transactions = 1;
+ * @return {!Array.<!proto.iroha.protocol.Transaction>}
+ */
+proto.iroha.protocol.PendingTransactionsPageResponse.prototype.getTransactionsList = function() {
+  return /** @type{!Array.<!proto.iroha.protocol.Transaction>} */ (
+    jspb.Message.getRepeatedWrapperField(this, transaction_pb.Transaction, 1));
+};
+
+
+/** @param {!Array.<!proto.iroha.protocol.Transaction>} value */
+proto.iroha.protocol.PendingTransactionsPageResponse.prototype.setTransactionsList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 1, value);
+};
+
+
+/**
+ * @param {!proto.iroha.protocol.Transaction=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.iroha.protocol.Transaction}
+ */
+proto.iroha.protocol.PendingTransactionsPageResponse.prototype.addTransactions = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.iroha.protocol.Transaction, opt_index);
+};
+
+
+proto.iroha.protocol.PendingTransactionsPageResponse.prototype.clearTransactionsList = function() {
+  this.setTransactionsList([]);
+};
+
+
+/**
+ * optional uint32 all_transactions_size = 2;
+ * @return {number}
+ */
+proto.iroha.protocol.PendingTransactionsPageResponse.prototype.getAllTransactionsSize = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/** @param {number} value */
+proto.iroha.protocol.PendingTransactionsPageResponse.prototype.setAllTransactionsSize = function(value) {
+  jspb.Message.setProto3IntField(this, 2, value);
+};
+
+
+/**
+ * optional BatchInfo next_batch_info = 3;
+ * @return {?proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo}
+ */
+proto.iroha.protocol.PendingTransactionsPageResponse.prototype.getNextBatchInfo = function() {
+  return /** @type{?proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo} */ (
+    jspb.Message.getWrapperField(this, proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo, 3));
+};
+
+
+/** @param {?proto.iroha.protocol.PendingTransactionsPageResponse.BatchInfo|undefined} value */
+proto.iroha.protocol.PendingTransactionsPageResponse.prototype.setNextBatchInfo = function(value) {
+  jspb.Message.setWrapperField(this, 3, value);
+};
+
+
+proto.iroha.protocol.PendingTransactionsPageResponse.prototype.clearNextBatchInfo = function() {
+  this.setNextBatchInfo(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.iroha.protocol.PendingTransactionsPageResponse.prototype.hasNextBatchInfo = function() {
+  return jspb.Message.getField(this, 3) != null;
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.iroha.protocol.PeersResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.iroha.protocol.PeersResponse.repeatedFields_, null);
+};
+goog.inherits(proto.iroha.protocol.PeersResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.iroha.protocol.PeersResponse.displayName = 'proto.iroha.protocol.PeersResponse';
+}
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.iroha.protocol.PeersResponse.repeatedFields_ = [1];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.iroha.protocol.PeersResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.iroha.protocol.PeersResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.iroha.protocol.PeersResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.iroha.protocol.PeersResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    peersList: jspb.Message.toObjectList(msg.getPeersList(),
+    primitive_pb.Peer.toObject, includeInstance)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.iroha.protocol.PeersResponse}
+ */
+proto.iroha.protocol.PeersResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.iroha.protocol.PeersResponse;
+  return proto.iroha.protocol.PeersResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.iroha.protocol.PeersResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.iroha.protocol.PeersResponse}
+ */
+proto.iroha.protocol.PeersResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new primitive_pb.Peer;
+      reader.readMessage(value,primitive_pb.Peer.deserializeBinaryFromReader);
+      msg.addPeers(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.iroha.protocol.PeersResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.iroha.protocol.PeersResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.iroha.protocol.PeersResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.iroha.protocol.PeersResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getPeersList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      1,
+      f,
+      primitive_pb.Peer.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * repeated Peer peers = 1;
+ * @return {!Array.<!proto.iroha.protocol.Peer>}
+ */
+proto.iroha.protocol.PeersResponse.prototype.getPeersList = function() {
+  return /** @type{!Array.<!proto.iroha.protocol.Peer>} */ (
+    jspb.Message.getRepeatedWrapperField(this, primitive_pb.Peer, 1));
+};
+
+
+/** @param {!Array.<!proto.iroha.protocol.Peer>} value */
+proto.iroha.protocol.PeersResponse.prototype.setPeersList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 1, value);
+};
+
+
+/**
+ * @param {!proto.iroha.protocol.Peer=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.iroha.protocol.Peer}
+ */
+proto.iroha.protocol.PeersResponse.prototype.addPeers = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.iroha.protocol.Peer, opt_index);
+};
+
+
+proto.iroha.protocol.PeersResponse.prototype.clearPeersList = function() {
+  this.setPeersList([]);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
 proto.iroha.protocol.QueryResponse = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, proto.iroha.protocol.QueryResponse.oneofGroups_);
 };
@@ -2648,7 +3391,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<!Array<number>>}
  * @const
  */
-proto.iroha.protocol.QueryResponse.oneofGroups_ = [[1,2,3,4,5,6,7,8,9,11,12]];
+proto.iroha.protocol.QueryResponse.oneofGroups_ = [[1,2,3,4,5,6,7,8,9,11,13,12,14]];
 
 /**
  * @enum {number}
@@ -2665,7 +3408,9 @@ proto.iroha.protocol.QueryResponse.ResponseCase = {
   ROLES_RESPONSE: 8,
   ROLE_PERMISSIONS_RESPONSE: 9,
   TRANSACTIONS_PAGE_RESPONSE: 11,
-  BLOCK_RESPONSE: 12
+  PENDING_TRANSACTIONS_PAGE_RESPONSE: 13,
+  BLOCK_RESPONSE: 12,
+  PEERS_RESPONSE: 14
 };
 
 /**
@@ -2714,7 +3459,9 @@ proto.iroha.protocol.QueryResponse.toObject = function(includeInstance, msg) {
     rolesResponse: (f = msg.getRolesResponse()) && proto.iroha.protocol.RolesResponse.toObject(includeInstance, f),
     rolePermissionsResponse: (f = msg.getRolePermissionsResponse()) && proto.iroha.protocol.RolePermissionsResponse.toObject(includeInstance, f),
     transactionsPageResponse: (f = msg.getTransactionsPageResponse()) && proto.iroha.protocol.TransactionsPageResponse.toObject(includeInstance, f),
+    pendingTransactionsPageResponse: (f = msg.getPendingTransactionsPageResponse()) && proto.iroha.protocol.PendingTransactionsPageResponse.toObject(includeInstance, f),
     blockResponse: (f = msg.getBlockResponse()) && proto.iroha.protocol.BlockResponse.toObject(includeInstance, f),
+    peersResponse: (f = msg.getPeersResponse()) && proto.iroha.protocol.PeersResponse.toObject(includeInstance, f),
     queryHash: jspb.Message.getFieldWithDefault(msg, 10, "")
   };
 
@@ -2802,10 +3549,20 @@ proto.iroha.protocol.QueryResponse.deserializeBinaryFromReader = function(msg, r
       reader.readMessage(value,proto.iroha.protocol.TransactionsPageResponse.deserializeBinaryFromReader);
       msg.setTransactionsPageResponse(value);
       break;
+    case 13:
+      var value = new proto.iroha.protocol.PendingTransactionsPageResponse;
+      reader.readMessage(value,proto.iroha.protocol.PendingTransactionsPageResponse.deserializeBinaryFromReader);
+      msg.setPendingTransactionsPageResponse(value);
+      break;
     case 12:
       var value = new proto.iroha.protocol.BlockResponse;
       reader.readMessage(value,proto.iroha.protocol.BlockResponse.deserializeBinaryFromReader);
       msg.setBlockResponse(value);
+      break;
+    case 14:
+      var value = new proto.iroha.protocol.PeersResponse;
+      reader.readMessage(value,proto.iroha.protocol.PeersResponse.deserializeBinaryFromReader);
+      msg.setPeersResponse(value);
       break;
     case 10:
       var value = /** @type {string} */ (reader.readString());
@@ -2920,12 +3677,28 @@ proto.iroha.protocol.QueryResponse.serializeBinaryToWriter = function(message, w
       proto.iroha.protocol.TransactionsPageResponse.serializeBinaryToWriter
     );
   }
+  f = message.getPendingTransactionsPageResponse();
+  if (f != null) {
+    writer.writeMessage(
+      13,
+      f,
+      proto.iroha.protocol.PendingTransactionsPageResponse.serializeBinaryToWriter
+    );
+  }
   f = message.getBlockResponse();
   if (f != null) {
     writer.writeMessage(
       12,
       f,
       proto.iroha.protocol.BlockResponse.serializeBinaryToWriter
+    );
+  }
+  f = message.getPeersResponse();
+  if (f != null) {
+    writer.writeMessage(
+      14,
+      f,
+      proto.iroha.protocol.PeersResponse.serializeBinaryToWriter
     );
   }
   f = message.getQueryHash();
@@ -3239,6 +4012,36 @@ proto.iroha.protocol.QueryResponse.prototype.hasTransactionsPageResponse = funct
 
 
 /**
+ * optional PendingTransactionsPageResponse pending_transactions_page_response = 13;
+ * @return {?proto.iroha.protocol.PendingTransactionsPageResponse}
+ */
+proto.iroha.protocol.QueryResponse.prototype.getPendingTransactionsPageResponse = function() {
+  return /** @type{?proto.iroha.protocol.PendingTransactionsPageResponse} */ (
+    jspb.Message.getWrapperField(this, proto.iroha.protocol.PendingTransactionsPageResponse, 13));
+};
+
+
+/** @param {?proto.iroha.protocol.PendingTransactionsPageResponse|undefined} value */
+proto.iroha.protocol.QueryResponse.prototype.setPendingTransactionsPageResponse = function(value) {
+  jspb.Message.setOneofWrapperField(this, 13, proto.iroha.protocol.QueryResponse.oneofGroups_[0], value);
+};
+
+
+proto.iroha.protocol.QueryResponse.prototype.clearPendingTransactionsPageResponse = function() {
+  this.setPendingTransactionsPageResponse(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.iroha.protocol.QueryResponse.prototype.hasPendingTransactionsPageResponse = function() {
+  return jspb.Message.getField(this, 13) != null;
+};
+
+
+/**
  * optional BlockResponse block_response = 12;
  * @return {?proto.iroha.protocol.BlockResponse}
  */
@@ -3269,6 +4072,36 @@ proto.iroha.protocol.QueryResponse.prototype.hasBlockResponse = function() {
 
 
 /**
+ * optional PeersResponse peers_response = 14;
+ * @return {?proto.iroha.protocol.PeersResponse}
+ */
+proto.iroha.protocol.QueryResponse.prototype.getPeersResponse = function() {
+  return /** @type{?proto.iroha.protocol.PeersResponse} */ (
+    jspb.Message.getWrapperField(this, proto.iroha.protocol.PeersResponse, 14));
+};
+
+
+/** @param {?proto.iroha.protocol.PeersResponse|undefined} value */
+proto.iroha.protocol.QueryResponse.prototype.setPeersResponse = function(value) {
+  jspb.Message.setOneofWrapperField(this, 14, proto.iroha.protocol.QueryResponse.oneofGroups_[0], value);
+};
+
+
+proto.iroha.protocol.QueryResponse.prototype.clearPeersResponse = function() {
+  this.setPeersResponse(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.iroha.protocol.QueryResponse.prototype.hasPeersResponse = function() {
+  return jspb.Message.getField(this, 14) != null;
+};
+
+
+/**
  * optional string query_hash = 10;
  * @return {string}
  */
@@ -3279,7 +4112,7 @@ proto.iroha.protocol.QueryResponse.prototype.getQueryHash = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.QueryResponse.prototype.setQueryHash = function(value) {
-  jspb.Message.setField(this, 10, value);
+  jspb.Message.setProto3StringField(this, 10, value);
 };
 
 
@@ -3580,7 +4413,7 @@ proto.iroha.protocol.BlockErrorResponse.prototype.getMessage = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.BlockErrorResponse.prototype.setMessage = function(value) {
-  jspb.Message.setField(this, 1, value);
+  jspb.Message.setProto3StringField(this, 1, value);
 };
 
 

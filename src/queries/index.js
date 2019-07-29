@@ -331,13 +331,24 @@ function getAccountAssets (queryOptions, params) {
  * @property {String} params.writer
  * @link https://iroha.readthedocs.io/en/latest/api/queries.html#get-account-detail
  */
-function getAccountDetail (queryOptions, params) {
+function getAccountDetail (queryOptions, { accountId, key, writerId, pageSize, paginationWriter, paginationKey }) {
   return sendQuery(
     queryOptions,
     queryHelper.addQuery(
       queryHelper.emptyQuery(),
       'getAccountDetail',
-      validate(params, ['accountId', 'key', 'writer'])
+      {
+        accountId,
+        key,
+        writerId,
+        paginationMeta: {
+          pageSize,
+          firstRecordId: {
+            writer: paginationWriter,
+            key: paginationKey
+          }
+        }
+      }
     ),
     (resolve, reject, responseName, response) => {
       if (responseName !== 'ACCOUNT_DETAIL_RESPONSE') {
@@ -377,6 +388,36 @@ function getAssetInfo (queryOptions, params) {
     }
   )
 }
+
+/**
+ * getPeers
+ * @param {Object} queryOptions
+ * @param {Object} args
+ * @property {Object[]} args.peersList
+ * @link https://iroha.readthedocs.io/en/latest/api/queries.html#get-peers
+ */
+function getPeers (queryOptions, { peersList }) {
+  return sendQuery(
+    queryOptions,
+    queryHelper.addQuery(
+      queryHelper.emptyQuery(),
+      'getPeers',
+      {
+        peersList
+      }
+    ),
+    (resolve, reject, responseName, response) => {
+      if (responseName !== 'PEERS_RESPONSE') {
+        const error = JSON.stringify(response.toObject().errorResponse)
+        return reject(new Error(`Query response error: expected=PEERS_RESPONSE, actual=${responseName}\nReason: ${error}`))
+      }
+
+      const transactions = response.getPeersResponse()
+      resolve(transactions)
+    }
+  )
+}
+
 
 /**
  * getRoles
@@ -513,6 +554,7 @@ export default {
   getAccountAssets,
   getAccountDetail,
   getAssetInfo,
+  getPeers,
   getRoles,
   getRolePermissions,
   getBlock,
