@@ -400,7 +400,7 @@ export default {
   addPeer,
   addSignatory,
   appendRole,
-  compareAndSetAccountDetail,  
+  compareAndSetAccountDetail,
   createAccount,
   createAsset,
   createDomain,

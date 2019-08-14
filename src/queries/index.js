@@ -178,13 +178,18 @@ function getTransactions (queryOptions, params) {
  * @param {Object} queryOptions
  * @link https://iroha.readthedocs.io/en/latest/api/queries.html#get-pending-transactions
  */
-function getPendingTransactions (queryOptions) {
+function getPendingTransactions (queryOptions, { pageSize, firstTxHash }) {
   return sendQuery(
     queryOptions,
     queryHelper.addQuery(
       queryHelper.emptyQuery(),
       'getPendingTransactions',
-      {}
+      {
+        paginationMeta: {
+          pageSize,
+          firstTxHash
+        }
+      }
     ),
     (resolve, reject, responseName, response) => {
       if (responseName !== 'TRANSACTIONS_RESPONSE') {
@@ -302,13 +307,19 @@ function getAccountAssetTransactions (queryOptions, { accountId, assetId, pageSi
  * @property {String} params.accountId
  * @link https://iroha.readthedocs.io/en/latest/api/queries.html#get-account-assets
  */
-function getAccountAssets (queryOptions, params) {
+function getAccountAssets (queryOptions, { accountId, pageSize, firstAssetId }) {
   return sendQuery(
     queryOptions,
     queryHelper.addQuery(
       queryHelper.emptyQuery(),
       'getAccountAssets',
-      validate(params, ['accountId'])
+      {
+        accountId,
+        paginationMeta: {
+          pageSize,
+          firstAssetId
+        }
+      }
     ),
     (resolve, reject, responseName, response) => {
       if (responseName !== 'ACCOUNT_ASSETS_RESPONSE') {
@@ -417,7 +428,6 @@ function getPeers (queryOptions, { peersList }) {
     }
   )
 }
-
 
 /**
  * getRoles
