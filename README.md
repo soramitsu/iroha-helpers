@@ -14,7 +14,7 @@ Some functions which will help you to interact with [Hyperledger Iroha](https://
  3. Run `grpc-web-proxy` for iroha https://gitlab.com/snippets/1713665
  4. `yarn build && node example`
 
-## Instalation
+## Installation
 Using npm:
 ``` bash
 $ npm i iroha-helpers
