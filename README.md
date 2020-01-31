@@ -138,7 +138,7 @@ const commandOptions = {
 - [x] [revokePermission](https://iroha.readthedocs.io/en/latest/api/commands.html#revoke-permission)
 - [x] [setAccountDetail](https://iroha.readthedocs.io/en/latest/api/commands.html#set-account-detail)
 - [x] [setAccountQuorum](https://iroha.readthedocs.io/en/latest/api/commands.html#set-account-quorum)
-- [x] [substractAssetQuantity](https://iroha.readthedocs.io/en/latest/api/commands.html#subtract-asset-quantity)
+- [x] [subtractAssetQuantity](https://iroha.readthedocs.io/en/latest/api/commands.html#subtract-asset-quantity)
 - [x] [transferAsset](https://iroha.readthedocs.io/en/latest/api/commands.html#transfer-asset)
 - [x] [сompareAndSetAccountDetail](https://iroha.readthedocs.io/en/latest/api/commands.html#compare-and-set-account-detail)
 - [x] [removePeer](https://iroha.readthedocs.io/en/latest/api/commands.html#remove-peer)
