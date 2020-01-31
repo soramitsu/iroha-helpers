@@ -335,19 +335,19 @@ function setAccountQuorum (commandOptions, params) {
 }
 
 /**
- * substractAssetQuantity
+ * subtractAssetQuantity
  * @param {Object} commandOptions
  * @param {Object} params
  * @property {String} params.assetId
  * @property {Number} params.amount
  * @link https://iroha.readthedocs.io/en/latest/api/commands.html#subtract-asset-quantity
  */
-function substractAssetQuantity (commandOptions, params) {
+function subtractAssetQuantity (commandOptions, params) {
   return command(
     commandOptions,
     txHelper.addCommand(
       txHelper.emptyTransaction(),
-      'substractAssetQuantity',
+      'subtractAssetQuantity',
       validate(params, ['assetId', 'amount'])
     )
   )
@@ -412,6 +412,6 @@ export default {
   revokePermission,
   setAccountDetail,
   setAccountQuorum,
-  substractAssetQuantity,
+  subtractAssetQuantity,
   transferAsset
 }
