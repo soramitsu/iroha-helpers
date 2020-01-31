@@ -181,7 +181,7 @@ proto.iroha.protocol.AddAssetQuantity.prototype.getAssetId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.AddAssetQuantity.prototype.setAssetId = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -196,7 +196,7 @@ proto.iroha.protocol.AddAssetQuantity.prototype.getAmount = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.AddAssetQuantity.prototype.setAmount = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -497,7 +497,7 @@ proto.iroha.protocol.RemovePeer.prototype.getPublicKey = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.RemovePeer.prototype.setPublicKey = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -651,7 +651,7 @@ proto.iroha.protocol.AddSignatory.prototype.getAccountId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.AddSignatory.prototype.setAccountId = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -666,7 +666,7 @@ proto.iroha.protocol.AddSignatory.prototype.getPublicKey = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.AddSignatory.prototype.setPublicKey = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -832,7 +832,7 @@ proto.iroha.protocol.CreateAsset.prototype.getAssetName = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.CreateAsset.prototype.setAssetName = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -847,7 +847,7 @@ proto.iroha.protocol.CreateAsset.prototype.getDomainId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.CreateAsset.prototype.setDomainId = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -862,7 +862,7 @@ proto.iroha.protocol.CreateAsset.prototype.getPrecision = function() {
 
 /** @param {number} value */
 proto.iroha.protocol.CreateAsset.prototype.setPrecision = function(value) {
-  jspb.Message.setProto3IntField(this, 3, value);
+  jspb.Message.setField(this, 3, value);
 };
 
 
@@ -1028,7 +1028,7 @@ proto.iroha.protocol.CreateAccount.prototype.getAccountName = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.CreateAccount.prototype.setAccountName = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -1043,7 +1043,7 @@ proto.iroha.protocol.CreateAccount.prototype.getDomainId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.CreateAccount.prototype.setDomainId = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -1058,7 +1058,7 @@ proto.iroha.protocol.CreateAccount.prototype.getPublicKey = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.CreateAccount.prototype.setPublicKey = function(value) {
-  jspb.Message.setProto3StringField(this, 3, value);
+  jspb.Message.setField(this, 3, value);
 };
 
 
@@ -1224,7 +1224,7 @@ proto.iroha.protocol.SetAccountDetail.prototype.getAccountId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.SetAccountDetail.prototype.setAccountId = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -1239,7 +1239,7 @@ proto.iroha.protocol.SetAccountDetail.prototype.getKey = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.SetAccountDetail.prototype.setKey = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -1254,7 +1254,7 @@ proto.iroha.protocol.SetAccountDetail.prototype.getValue = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.SetAccountDetail.prototype.setValue = function(value) {
-  jspb.Message.setProto3StringField(this, 3, value);
+  jspb.Message.setField(this, 3, value);
 };
 
 
@@ -1408,7 +1408,7 @@ proto.iroha.protocol.CreateDomain.prototype.getDomainId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.CreateDomain.prototype.setDomainId = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -1423,7 +1423,7 @@ proto.iroha.protocol.CreateDomain.prototype.getDefaultRole = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.CreateDomain.prototype.setDefaultRole = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -1577,7 +1577,7 @@ proto.iroha.protocol.RemoveSignatory.prototype.getAccountId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.RemoveSignatory.prototype.setAccountId = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -1592,7 +1592,7 @@ proto.iroha.protocol.RemoveSignatory.prototype.getPublicKey = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.RemoveSignatory.prototype.setPublicKey = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -1746,7 +1746,7 @@ proto.iroha.protocol.SetAccountQuorum.prototype.getAccountId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.SetAccountQuorum.prototype.setAccountId = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -1761,7 +1761,7 @@ proto.iroha.protocol.SetAccountQuorum.prototype.getQuorum = function() {
 
 /** @param {number} value */
 proto.iroha.protocol.SetAccountQuorum.prototype.setQuorum = function(value) {
-  jspb.Message.setProto3IntField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -1951,7 +1951,7 @@ proto.iroha.protocol.TransferAsset.prototype.getSrcAccountId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.TransferAsset.prototype.setSrcAccountId = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -1966,7 +1966,7 @@ proto.iroha.protocol.TransferAsset.prototype.getDestAccountId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.TransferAsset.prototype.setDestAccountId = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -1981,7 +1981,7 @@ proto.iroha.protocol.TransferAsset.prototype.getAssetId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.TransferAsset.prototype.setAssetId = function(value) {
-  jspb.Message.setProto3StringField(this, 3, value);
+  jspb.Message.setField(this, 3, value);
 };
 
 
@@ -1996,7 +1996,7 @@ proto.iroha.protocol.TransferAsset.prototype.getDescription = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.TransferAsset.prototype.setDescription = function(value) {
-  jspb.Message.setProto3StringField(this, 4, value);
+  jspb.Message.setField(this, 4, value);
 };
 
 
@@ -2011,7 +2011,7 @@ proto.iroha.protocol.TransferAsset.prototype.getAmount = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.TransferAsset.prototype.setAmount = function(value) {
-  jspb.Message.setProto3StringField(this, 5, value);
+  jspb.Message.setField(this, 5, value);
 };
 
 
@@ -2165,7 +2165,7 @@ proto.iroha.protocol.AppendRole.prototype.getAccountId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.AppendRole.prototype.setAccountId = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -2180,7 +2180,7 @@ proto.iroha.protocol.AppendRole.prototype.getRoleName = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.AppendRole.prototype.setRoleName = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -2334,7 +2334,7 @@ proto.iroha.protocol.DetachRole.prototype.getAccountId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.DetachRole.prototype.setAccountId = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -2349,7 +2349,7 @@ proto.iroha.protocol.DetachRole.prototype.getRoleName = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.DetachRole.prototype.setRoleName = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -2510,7 +2510,7 @@ proto.iroha.protocol.CreateRole.prototype.getRoleName = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.CreateRole.prototype.setRoleName = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -2693,7 +2693,7 @@ proto.iroha.protocol.GrantPermission.prototype.getAccountId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.GrantPermission.prototype.setAccountId = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -2708,7 +2708,7 @@ proto.iroha.protocol.GrantPermission.prototype.getPermission = function() {
 
 /** @param {!proto.iroha.protocol.GrantablePermission} value */
 proto.iroha.protocol.GrantPermission.prototype.setPermission = function(value) {
-  jspb.Message.setProto3EnumField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -2862,7 +2862,7 @@ proto.iroha.protocol.RevokePermission.prototype.getAccountId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.RevokePermission.prototype.setAccountId = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -2877,7 +2877,7 @@ proto.iroha.protocol.RevokePermission.prototype.getPermission = function() {
 
 /** @param {!proto.iroha.protocol.GrantablePermission} value */
 proto.iroha.protocol.RevokePermission.prototype.setPermission = function(value) {
-  jspb.Message.setProto3EnumField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -3031,7 +3031,7 @@ proto.iroha.protocol.SubtractAssetQuantity.prototype.getAssetId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.SubtractAssetQuantity.prototype.setAssetId = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -3046,7 +3046,7 @@ proto.iroha.protocol.SubtractAssetQuantity.prototype.getAmount = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.SubtractAssetQuantity.prototype.setAmount = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -3249,7 +3249,7 @@ proto.iroha.protocol.CompareAndSetAccountDetail.prototype.getAccountId = functio
 
 /** @param {string} value */
 proto.iroha.protocol.CompareAndSetAccountDetail.prototype.setAccountId = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -3264,7 +3264,7 @@ proto.iroha.protocol.CompareAndSetAccountDetail.prototype.getKey = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.CompareAndSetAccountDetail.prototype.setKey = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -3279,7 +3279,7 @@ proto.iroha.protocol.CompareAndSetAccountDetail.prototype.getValue = function() 
 
 /** @param {string} value */
 proto.iroha.protocol.CompareAndSetAccountDetail.prototype.setValue = function(value) {
-  jspb.Message.setProto3StringField(this, 3, value);
+  jspb.Message.setField(this, 3, value);
 };
 
 

@@ -1,6 +1,6 @@
 import txHelper from '../txHelper'
 import { signWithArrayOfKeys, sendTransactions } from '../util'
-import validate from '../validate'
+import validate from '../validation'
 
 const DEFAULT_OPTIONS = {
   privateKeys: [''],
@@ -32,7 +32,7 @@ function command (
 
   txToSend = signWithArrayOfKeys(txToSend, privateKeys)
 
-  let txClient = commandService
+  const txClient = commandService
 
   return sendTransactions([txToSend], txClient, timeoutLimit)
 }
@@ -258,26 +258,6 @@ function grantPermission (commandOptions, params) {
 }
 
 /**
- * removePeer
- * @param {Object} commandOptions
- * @param {Object} args
- * @property {String} args.publicKey
- * @link https://iroha.readthedocs.io/en/latest/api/commands.html#remove-peer
- */
-function removePeer (commandOptions, { publicKey }) {
-  return command(
-    commandOptions,
-    txHelper.addCommand(
-      txHelper.emptyTransaction(),
-      'removePeer',
-      {
-        publicKey
-      }
-    )
-  )
-}
-
-/**
  * removeSignatory
  * @param {Object} commandOptions
  * @param {Object} params
@@ -391,6 +371,26 @@ function transferAsset (commandOptions, params) {
       txHelper.emptyTransaction(),
       'transferAsset',
       validate(params, ['srcAccountId', 'destAccountId', 'assetId', 'description', 'amount'])
+    )
+  )
+}
+
+/**
+ * removePeer
+ * @param {Object} commandOptions
+ * @param {Object} args
+ * @property {String} args.publicKey
+ * @link https://iroha.readthedocs.io/en/latest/api/commands.html#remove-peer
+ */
+function removePeer (commandOptions, { publicKey }) {
+  return command(
+    commandOptions,
+    txHelper.addCommand(
+      txHelper.emptyTransaction(),
+      'removePeer',
+      {
+        publicKey
+      }
     )
   )
 }

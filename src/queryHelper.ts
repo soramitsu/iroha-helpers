@@ -25,12 +25,13 @@ const getOrCreatePayload = query => query.hasPayload()
  * @param {Object} params query parameters. For reference, visit http://iroha.readthedocs.io/en/latest/api/queries.html
  */
 const addQuery = (query, queryName, params) => {
-  let payloadQuery = new Queries[capitalize(queryName)]()
+  const payloadQuery = new Queries[capitalize(queryName)]()
 
-  for (let [key, value] of Object.entries(params)) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  for (const [key, value] of Object.entries<any>(params)) {
     const capitalizedKeyName = `set${capitalize(key)}`
     if (capitalizedKeyName === 'setPaginationMeta') {
-      let paginationMeta = new Queries.TxPaginationMeta()
+      const paginationMeta = new Queries.TxPaginationMeta()
       paginationMeta.setPageSize(value.pageSize)
       paginationMeta.setFirstTxHash(value.firstTxHash)
 
@@ -40,10 +41,10 @@ const addQuery = (query, queryName, params) => {
     }
   }
 
-  let payload = getOrCreatePayload(query)
+  const payload = getOrCreatePayload(query)
   payload['set' + capitalize(queryName)](payloadQuery)
 
-  let queryWithQuery = cloneDeep(query)
+  const queryWithQuery = cloneDeep(query)
   queryWithQuery.setPayload(payload)
 
   return queryWithQuery
@@ -58,14 +59,14 @@ const addQuery = (query, queryName, params) => {
  * @param {Number} meta.queryCounter query counter (will be removed soon)
  */
 const addMeta = (query, { creatorAccountId, createdTime = Date.now(), queryCounter = 1 }) => {
-  let meta = new Queries.QueryPayloadMeta()
+  const meta = new Queries.QueryPayloadMeta()
   meta.setCreatorAccountId(creatorAccountId)
   meta.setCreatedTime(createdTime)
   meta.setQueryCounter(queryCounter)
 
-  let queryWithMeta = cloneDeep(query)
+  const queryWithMeta = cloneDeep(query)
   if (query instanceof Queries.Query) {
-    let payload = getOrCreatePayload(query)
+    const payload = getOrCreatePayload(query)
     payload.setMeta(meta)
 
     queryWithMeta.setPayload(payload)
@@ -100,11 +101,11 @@ const sign = (query, privateKeyHex) => {
 
   const signatory = signQuery(payloadHash, publicKey, privateKey)
 
-  let s = new Signature()
+  const s = new Signature()
   s.setPublicKey(publicKey.toString('hex'))
   s.setSignature(signatory.toString('hex'))
 
-  let signedQueryWithSignature = cloneDeep(query)
+  const signedQueryWithSignature = cloneDeep(query)
   signedQueryWithSignature.setSignature(s)
 
   return signedQueryWithSignature

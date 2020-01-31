@@ -207,7 +207,7 @@ proto.iroha.protocol.TxPaginationMeta.prototype.getPageSize = function() {
 
 /** @param {number} value */
 proto.iroha.protocol.TxPaginationMeta.prototype.setPageSize = function(value) {
-  jspb.Message.setProto3IntField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -415,7 +415,7 @@ proto.iroha.protocol.AssetPaginationMeta.prototype.getPageSize = function() {
 
 /** @param {number} value */
 proto.iroha.protocol.AssetPaginationMeta.prototype.setPageSize = function(value) {
-  jspb.Message.setProto3IntField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -586,7 +586,7 @@ proto.iroha.protocol.GetAccount.prototype.getAccountId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.GetAccount.prototype.setAccountId = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -728,7 +728,7 @@ proto.iroha.protocol.GetBlock.prototype.getHeight = function() {
 
 /** @param {number} value */
 proto.iroha.protocol.GetBlock.prototype.setHeight = function(value) {
-  jspb.Message.setProto3IntField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -870,7 +870,7 @@ proto.iroha.protocol.GetSignatories.prototype.getAccountId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.GetSignatories.prototype.setAccountId = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -1026,7 +1026,7 @@ proto.iroha.protocol.GetAccountTransactions.prototype.getAccountId = function() 
 
 /** @param {string} value */
 proto.iroha.protocol.GetAccountTransactions.prototype.setAccountId = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -1224,7 +1224,7 @@ proto.iroha.protocol.GetAccountAssetTransactions.prototype.getAccountId = functi
 
 /** @param {string} value */
 proto.iroha.protocol.GetAccountAssetTransactions.prototype.setAccountId = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -1239,7 +1239,7 @@ proto.iroha.protocol.GetAccountAssetTransactions.prototype.getAssetId = function
 
 /** @param {string} value */
 proto.iroha.protocol.GetAccountAssetTransactions.prototype.setAssetId = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -1588,7 +1588,7 @@ proto.iroha.protocol.GetAccountAssets.prototype.getAccountId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.GetAccountAssets.prototype.setAccountId = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -1774,7 +1774,7 @@ proto.iroha.protocol.AccountDetailPaginationMeta.prototype.getPageSize = functio
 
 /** @param {number} value */
 proto.iroha.protocol.AccountDetailPaginationMeta.prototype.setPageSize = function(value) {
-  jspb.Message.setProto3IntField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -2283,7 +2283,7 @@ proto.iroha.protocol.GetAssetInfo.prototype.getAssetId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.GetAssetInfo.prototype.setAssetId = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -2541,7 +2541,7 @@ proto.iroha.protocol.GetRolePermissions.prototype.getRoleId = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.GetRolePermissions.prototype.setRoleId = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -2982,7 +2982,7 @@ proto.iroha.protocol.QueryPayloadMeta.prototype.getCreatedTime = function() {
 
 /** @param {number} value */
 proto.iroha.protocol.QueryPayloadMeta.prototype.setCreatedTime = function(value) {
-  jspb.Message.setProto3IntField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -2997,7 +2997,7 @@ proto.iroha.protocol.QueryPayloadMeta.prototype.getCreatorAccountId = function()
 
 /** @param {string} value */
 proto.iroha.protocol.QueryPayloadMeta.prototype.setCreatorAccountId = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -3012,7 +3012,7 @@ proto.iroha.protocol.QueryPayloadMeta.prototype.getQueryCounter = function() {
 
 /** @param {number} value */
 proto.iroha.protocol.QueryPayloadMeta.prototype.setQueryCounter = function(value) {
-  jspb.Message.setProto3IntField(this, 3, value);
+  jspb.Message.setField(this, 3, value);
 };
 
 

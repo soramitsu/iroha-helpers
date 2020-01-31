@@ -1,5 +1,7 @@
-import isEqual from 'lodash.isequal'
-import isPlainObject from 'lodash.isplainobject'
+interface ValidationResponse {
+  isValid: boolean;
+  reason?: string;
+}
 
 const assetIdDelimiter = '#'
 const accountIdDelimiter = '@'
@@ -12,98 +14,7 @@ const domainPattern = /^[a-z_0-9]{1,9}$/
 const roleNamePattern = /^[a-z_0-9]{1,32}$/
 const assetNamePattern = /^[a-z_0-9]{1,32}$/
 
-const allowEmpty = [
-  'key',
-  'writer'
-]
-
-const schema = {
-  amount: checkAmount,
-  precision: checkPresission,
-  accountName: checkAccountName,
-  accountId: checkAccountId,
-  domainId: checkDomain,
-  assetId: checkAssetId,
-  srcAccountId: checkAccountId,
-  destAccountId: checkAccountId,
-  description: checkDescription,
-  quorum: checkQuorum,
-  assetName: checkAssetName,
-  roleName: checkRoleName,
-  defaultRole: checkRoleName,
-  key: checkAccountDetailsKey,
-  value: checkAccountDetailsValue,
-  roleId: checkRoleName,
-  writer: checkAccountId,
-
-  peerKey: toImplement,
-  publicKey: toImplement,
-  permissionsList: toImplement,
-  permission: toImplement,
-  txHashesList: toImplement,
-  address: toImplement,
-  pageSize: toImplement,
-  firstTxHash: toImplement,
-  height: toImplement
-}
-
-function toImplement () {
-  return { isValid: true }
-}
-
-const compare = (a, b) => a - b
-
-function validateParams (object, required) {
-  if (!isPlainObject(object)) {
-    throw new Error(
-      `Expected type of arguments: object, actual: ${typeof object}`
-    )
-  }
-
-  const isEquals = isEqual(
-    Object.keys(object).sort(compare),
-    required.sort(compare)
-  )
-
-  if (!isEquals) {
-    throw new Error(
-      `Expected arguments: ${required}, actual: ${Object.keys(object)}`
-    )
-  }
-
-  const errors = required
-    .map(property => {
-      const validator = schema[property]
-
-      // TODO: Create better way to handle not required arguments
-      if (allowEmpty.includes(property)) {
-        return [
-          property,
-          { isValid: true }
-        ]
-      }
-
-      return [property, validator(object[property])]
-    })
-    .reduce((errors, pair) => {
-      if (pair[1].isValid === false) {
-        errors.push(
-          new Error(
-            `Field "${pair[0]}" (value: "${object[pair[0]]}") is incorrect\nReason: ${pair[1].reason}`
-          )
-        )
-      }
-      return errors
-    }, [])
-
-  if (errors.length) {
-    throw errors
-  }
-
-  return object
-}
-
-function checkAmount (amount) {
+function checkAmount (amount): ValidationResponse {
   const formattedAmount = Number(amount)
 
   if (!Number.isFinite(formattedAmount)) {
@@ -130,7 +41,7 @@ function checkAmount (amount) {
   return { isValid: true }
 }
 
-function checkPresission (precision) {
+function checkPresission (precision): ValidationResponse {
   if (precision < 0 || precision > 255) {
     return {
       isValid: false,
@@ -141,7 +52,7 @@ function checkPresission (precision) {
   return { isValid: true }
 }
 
-function checkAccountName (accountName) {
+function checkAccountName (accountName): ValidationResponse {
   if (!accountPattern.test(accountName)) {
     return {
       isValid: false,
@@ -152,7 +63,7 @@ function checkAccountName (accountName) {
   return { isValid: true }
 }
 
-function checkAssetName (assetName) {
+function checkAssetName (assetName): ValidationResponse {
   if (!assetNamePattern.test(assetName)) {
     return {
       isValid: false,
@@ -163,7 +74,7 @@ function checkAssetName (assetName) {
   return { isValid: true }
 }
 
-function checkDomain (domain) {
+function checkDomain (domain): ValidationResponse {
   if (!domainPattern.test(domain)) {
     return {
       isValid: false,
@@ -174,7 +85,7 @@ function checkDomain (domain) {
   return { isValid: true }
 }
 
-function checkAccountId (accountId) {
+function checkAccountId (accountId): ValidationResponse {
   const parts = accountId.split(accountIdDelimiter)
 
   if (parts.length !== 2) {
@@ -198,7 +109,7 @@ function checkAccountId (accountId) {
   return { isValid: true }
 }
 
-function checkAssetId (assetId) {
+function checkAssetId (assetId): ValidationResponse {
   const parts = assetId.split(assetIdDelimiter)
 
   if (parts.length !== 2) {
@@ -222,7 +133,7 @@ function checkAssetId (assetId) {
   return { isValid: true }
 }
 
-function checkDescription (description) {
+function checkDescription (description): ValidationResponse {
   if (description.length > 64) {
     return {
       isValid: false,
@@ -233,7 +144,7 @@ function checkDescription (description) {
   return { isValid: true }
 }
 
-function checkQuorum (quorum) {
+function checkQuorum (quorum): ValidationResponse {
   if (quorum < 0 || quorum > 128) {
     return {
       isValid: false,
@@ -244,7 +155,7 @@ function checkQuorum (quorum) {
   return { isValid: true }
 }
 
-function checkRoleName (name) {
+function checkRoleName (name): ValidationResponse {
   if (!roleNamePattern.test(name)) {
     return {
       isValid: false,
@@ -254,7 +165,7 @@ function checkRoleName (name) {
   return { isValid: true }
 }
 
-function checkAccountDetailsKey (key) {
+function checkAccountDetailsKey (key): ValidationResponse {
   if (!accountDetailsKeyPattern.test(key)) {
     return {
       isValid: false,
@@ -264,7 +175,7 @@ function checkAccountDetailsKey (key) {
   return { isValid: true }
 }
 
-function checkAccountDetailsValue (value) {
+function checkAccountDetailsValue (value): ValidationResponse {
   if (value.length > accountDetailsValueLenght) {
     return {
       isValid: false,
@@ -274,4 +185,23 @@ function checkAccountDetailsValue (value) {
   return { isValid: true }
 }
 
-export default validateParams
+function toImplement (): ValidationResponse {
+  return { isValid: true }
+}
+
+export default {
+  checkAmount,
+  checkPresission,
+  checkAccountName,
+  checkAssetName,
+  checkDomain,
+  checkAccountId,
+  checkAssetId,
+  checkDescription,
+  checkQuorum,
+  checkRoleName,
+  checkAccountDetailsKey,
+  checkAccountDetailsValue,
+
+  toImplement
+}

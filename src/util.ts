@@ -1,7 +1,7 @@
 import txHelper from './txHelper'
-import { TxStatus, TxStatusRequest } from './proto/endpoint_pb'
+import { TxStatus, TxStatusRequest, ToriiResponse } from './proto/endpoint_pb'
 
-function _listToTorii (txs, txClient, timeoutLimit) {
+function _listToTorii (txs, txClient, timeoutLimit): Promise<string[]> {
   const txList = txHelper.createTxListFromArray(txs)
   return new Promise((resolve, reject) => {
     /**
@@ -16,14 +16,14 @@ function _listToTorii (txs, txClient, timeoutLimit) {
     }, timeoutLimit)
 
     // Sending even 1 transaction to listTorii is absolutely ok and valid.
-    txClient.listTorii(txList, (err, data) => {
+    txClient.listTorii(txList, (err) => {
       clearTimeout(timer)
 
       if (err) {
         return reject(err)
       }
 
-      const hashes = txs.map(x => txHelper.hash(x))
+      const hashes: string[] = txs.map(x => txHelper.hash(x))
       resolve(hashes)
     })
   })
@@ -54,7 +54,7 @@ function _fromStream ({ hash, txClient }, requiredStatusesStr) {
   const isRequired = (status) => requiredStatuses.includes(status)
   const isError = (status) => !successStatuses.includes(status)
 
-  return new Promise((resolve, reject) => {
+  return new Promise <{ tx: ToriiResponse; error: boolean}>(resolve => {
     let timer
 
     const connect = () => {
@@ -67,7 +67,7 @@ function _fromStream ({ hash, txClient }, requiredStatusesStr) {
       timer = setTimeout(connect, 5000)
     }
 
-    const dataHandler = (tx) => {
+    const dataHandler = (tx: ToriiResponse) => {
       resetTimer()
       const status = tx.getTxStatus()
       if (isTerminal(status) || isRequired(status)) {
@@ -95,26 +95,13 @@ async function _streamVerifier (hash, txClient, requiredStatusesStr) {
  */
 const capitalize = string => string.charAt(0).toUpperCase() + string.slice(1)
 
-const protoEnumName = {}
-function getProtoEnumName (obj, key, value) {
-  if (protoEnumName.hasOwnProperty(key)) {
-    if (protoEnumName[key].length < value) {
-      return 'unknown'
-    } else {
-      return protoEnumName[key][value]
-    }
-  } else {
-    protoEnumName[key] = []
-    for (let k in obj) {
-      let idx = obj[k]
-      if (isNaN(idx)) {
-        throw Error(`getProtoEnumName:wrong enum value, now is type of ${typeof idx} should be integer`)
-      } else {
-        protoEnumName[key][idx] = k
-      }
-    }
-    return getProtoEnumName(obj, key, value)
+function reverseEnum<T> (e: T) {
+  const rmap: {[value: number]: keyof T} = {}
+  for (const [key, value] of Object.entries(e)) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    rmap[value] = key as any
   }
+  return rmap
 }
 
 function sendTransactions (txs, txClient, timeoutLimit, requiredStatusesStr = [
@@ -129,13 +116,7 @@ function sendTransactions (txs, txClient, timeoutLimit, requiredStatusesStr = [
         Promise.all(requests)
           .then(res => {
             const status = res
-              .map(r =>
-                getProtoEnumName(
-                  TxStatus,
-                  'iroha.protocol.TxStatus',
-                  r.tx.getTxStatus()
-                )
-              )
+              .map(r => reverseEnum(TxStatus)[r.tx.getTxStatus()])
 
             return res.some(r => r.error)
               ? reject(
@@ -158,7 +139,7 @@ function signWithArrayOfKeys (tx, privateKeys) {
 
 export {
   capitalize,
-  getProtoEnumName,
+  reverseEnum,
   sendTransactions,
   signWithArrayOfKeys
 }

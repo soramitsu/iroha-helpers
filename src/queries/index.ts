@@ -1,9 +1,8 @@
-
 import flow from 'lodash.flow'
 import queryHelper from '../queryHelper'
 import * as pbResponse from '../proto/qry_responses_pb'
-import { getProtoEnumName } from '../util'
-import validate from '../validate'
+import { reverseEnum } from '../util'
+import validate from '../validation'
 
 const DEFAULT_OPTIONS = {
   privateKey: '',
@@ -26,12 +25,13 @@ function sendQuery (
     timeoutLimit
   } = DEFAULT_OPTIONS,
   query,
+  // eslint-disable-next-line
   onResponse = function (resolve, reject, responseName, response) {}
 ) {
   return new Promise((resolve, reject) => {
     const queryClient = queryService
 
-    let queryToSend = flow(
+    const queryToSend = flow(
       (q) => queryHelper.addMeta(q, { creatorAccountId }),
       (q) => queryHelper.sign(q, privateKey)
     )(query)
@@ -54,11 +54,9 @@ function sendQuery (
       }
 
       const type = response.getResponseCase()
-      const responseName = getProtoEnumName(
-        pbResponse.QueryResponse.ResponseCase,
-        'iroha.protocol.QueryResponse',
-        type
-      )
+      const responseName = reverseEnum(
+        pbResponse.QueryResponse.ResponseCase
+      )[type]
 
       onResponse(resolve, reject, responseName, response)
     })
@@ -237,7 +235,7 @@ function getRawPendingTransactions (queryOptions) {
  * @property {String | undefined} params.firstTxHash
  * @link https://iroha.readthedocs.io/en/latest/api/queries.html#get-account-transactions
  */
-function getAccountTransactions (queryOptions, { accountId, pageSize, firstTxHash }) {
+function getAccountTransactions (queryOptions, { accountId, pageSize, firstTxHash = undefined }) {
   return sendQuery(
     queryOptions,
     queryHelper.addQuery(
@@ -521,8 +519,9 @@ function fetchCommits (
     creatorAccountId,
     queryService
   } = DEFAULT_OPTIONS,
+  // eslint-disable-next-line
   onBlock = function (block) {},
-  // eslint-disable-next-line handle-callback-err
+  // eslint-disable-next-line
   onError = function (error) {}
 ) {
   const query = queryHelper.emptyBlocksQuery()
@@ -536,11 +535,9 @@ function fetchCommits (
 
   stream.on('data', (response) => {
     const type = response.getResponseCase()
-    const responseName = getProtoEnumName(
-      pbResponse.BlockQueryResponse.ResponseCase,
-      'iroha.protocol.BlockQueryResponse',
-      type
-    )
+    const responseName = reverseEnum(
+      pbResponse.BlockQueryResponse.ResponseCase
+    )[type]
 
     if (responseName !== 'BLOCK_RESPONSE') {
       const error = JSON.stringify(response.toObject().blockErrorResponse)

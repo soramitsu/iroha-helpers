@@ -205,7 +205,7 @@ proto.iroha.protocol.ToriiResponse.prototype.getTxStatus = function() {
 
 /** @param {!proto.iroha.protocol.TxStatus} value */
 proto.iroha.protocol.ToriiResponse.prototype.setTxStatus = function(value) {
-  jspb.Message.setProto3EnumField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -220,7 +220,7 @@ proto.iroha.protocol.ToriiResponse.prototype.getTxHash = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.ToriiResponse.prototype.setTxHash = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -235,7 +235,7 @@ proto.iroha.protocol.ToriiResponse.prototype.getErrOrCmdName = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.ToriiResponse.prototype.setErrOrCmdName = function(value) {
-  jspb.Message.setProto3StringField(this, 3, value);
+  jspb.Message.setField(this, 3, value);
 };
 
 
@@ -250,7 +250,7 @@ proto.iroha.protocol.ToriiResponse.prototype.getFailedCmdIndex = function() {
 
 /** @param {number} value */
 proto.iroha.protocol.ToriiResponse.prototype.setFailedCmdIndex = function(value) {
-  jspb.Message.setProto3IntField(this, 4, value);
+  jspb.Message.setField(this, 4, value);
 };
 
 
@@ -265,7 +265,7 @@ proto.iroha.protocol.ToriiResponse.prototype.getErrorCode = function() {
 
 /** @param {number} value */
 proto.iroha.protocol.ToriiResponse.prototype.setErrorCode = function(value) {
-  jspb.Message.setProto3IntField(this, 5, value);
+  jspb.Message.setField(this, 5, value);
 };
 
 
@@ -407,7 +407,7 @@ proto.iroha.protocol.TxStatusRequest.prototype.getTxHash = function() {
 
 /** @param {string} value */
 proto.iroha.protocol.TxStatusRequest.prototype.setTxHash = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 

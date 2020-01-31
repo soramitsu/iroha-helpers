@@ -1,13 +1,11 @@
-import '@babel/polyfill'
-
-import { Buffer } from 'buffer'
+import { Buffer as BF } from 'buffer'
 import { sign as signTransaction, derivePublicKey } from 'ed25519.js'
 import { sha3_256 as sha3 } from 'js-sha3'
 import cloneDeep from 'lodash.clonedeep'
 import * as Commands from './proto/commands_pb'
 import { TxList } from './proto/endpoint_pb'
-import { Signature } from './proto/primitive_pb'
-import Transaction from './proto/transaction_pb'
+import { Signature, Peer } from './proto/primitive_pb'
+import * as Transaction from './proto/transaction_pb'
 import { capitalize } from './util.js'
 
 /**
@@ -41,11 +39,12 @@ const getOrCreateReducedPayload = payload => payload.hasReducedPayload()
  * @returns {Object} transaction with commands
  */
 const addCommand = (transaction, commandName, params) => {
-  let payloadCommand = new Commands[capitalize(commandName)]()
+  const payloadCommand = new Commands[capitalize(commandName)]()
 
-  for (let [key, value] of Object.entries(params)) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  for (const [key, value] of Object.entries<any>(params)) {
     if ('set' + capitalize(key) === 'setPeer') {
-      let peer = new Commands.Peer()
+      const peer = new Peer()
       peer.setAddress(value.address)
       peer.setPeerKey(value.peerKey)
       payloadCommand['set' + capitalize(key)](peer)
@@ -54,19 +53,19 @@ const addCommand = (transaction, commandName, params) => {
     }
   }
 
-  let command = new Commands.Command()
+  const command = new Commands.Command()
 
-  let commandNameSetter = 'set' + capitalize(commandName)
+  const commandNameSetter = 'set' + capitalize(commandName)
 
   command[commandNameSetter](payloadCommand)
 
-  let payload = getOrCreatePayload(transaction)
-  let reducedPayload = getOrCreateReducedPayload(payload)
+  const payload = getOrCreatePayload(transaction)
+  const reducedPayload = getOrCreateReducedPayload(payload)
 
   reducedPayload.addCommands(command, reducedPayload.getCommandsList.length)
   payload.setReducedPayload(reducedPayload)
 
-  let txWithCommand = cloneDeep(transaction)
+  const txWithCommand = cloneDeep(transaction)
   txWithCommand.setPayload(payload)
 
   return txWithCommand
@@ -81,8 +80,8 @@ const addCommand = (transaction, commandName, params) => {
  * @param {Number} meta.quorum minimum amount of signatures needed to sign a transaction
  */
 const addMeta = (transaction, { creatorAccountId, createdTime = Date.now(), quorum = 1 }) => {
-  let payload = getOrCreatePayload(transaction)
-  let reducedPayload = getOrCreateReducedPayload(payload)
+  const payload = getOrCreatePayload(transaction)
+  const reducedPayload = getOrCreateReducedPayload(payload)
 
   reducedPayload.setCreatorAccountId(creatorAccountId)
   reducedPayload.setCreatedTime(createdTime)
@@ -90,10 +89,19 @@ const addMeta = (transaction, { creatorAccountId, createdTime = Date.now(), quor
 
   payload.setReducedPayload(reducedPayload)
 
-  let transactionWithMeta = cloneDeep(transaction)
+  const transactionWithMeta = cloneDeep(transaction)
   transactionWithMeta.setPayload(payload)
 
   return transactionWithMeta
+}
+
+/**
+ * Returns buffer hash of a transaction
+ * @param {Object} transaction base transaction
+ * @returns {Buffer} transaction hash
+ */
+const hash = transaction => {
+  return BF.from(sha3.array(transaction.getPayload().serializeBinary()))
 }
 
 /**
@@ -109,22 +117,15 @@ const sign = (transaction, privateKeyHex) => {
 
   const signatory = signTransaction(payloadHash, publicKey, privateKey)
 
-  let s = new Signature()
+  const s = new Signature()
   s.setPublicKey(publicKey.toString('hex'))
   s.setSignature(signatory.toString('hex'))
 
-  let signedTransactionWithSignature = cloneDeep(transaction)
+  const signedTransactionWithSignature = cloneDeep(transaction)
   signedTransactionWithSignature.addSignatures(s, signedTransactionWithSignature.getSignaturesList.length)
 
   return signedTransactionWithSignature
 }
-
-/**
- * Returns buffer hash of a transaction
- * @param {Object} transaction base transaction
- * @returns {Buffer} transaction hash
- */
-const hash = transaction => Buffer.from(sha3.array(transaction.getPayload().serializeBinary()))
 
 /**
  * Returns array of transactions with Batch Meta in them
@@ -133,15 +134,15 @@ const hash = transaction => Buffer.from(sha3.array(transaction.getPayload().seri
  * @returns {Array} Transactions with all necessary fields
  */
 const addBatchMeta = (transactions, type) => {
-  let reducedHashes = transactions.map(tx => sha3(tx.getPayload().getReducedPayload().serializeBinary()))
+  const reducedHashes = transactions.map(tx => sha3(tx.getPayload().getReducedPayload().serializeBinary()))
 
-  let batchMeta = new Transaction.Transaction.Payload.BatchMeta()
+  const batchMeta = new Transaction.Transaction.Payload.BatchMeta()
   batchMeta.setReducedHashesList(reducedHashes)
   batchMeta.setType(type)
 
-  let transactionsWithBatchMeta = transactions.map(tx => {
-    let transaction = cloneDeep(tx)
-    let payload = getOrCreatePayload(transaction)
+  const transactionsWithBatchMeta = transactions.map(tx => {
+    const transaction = cloneDeep(tx)
+    const payload = getOrCreatePayload(transaction)
 
     payload.setBatch(batchMeta)
     transaction.setPayload(payload)
@@ -158,7 +159,7 @@ const addBatchMeta = (transactions, type) => {
  * @returns {Object} TxList with all transactions
  */
 const createTxListFromArray = (transactions) => {
-  let txList = new TxList()
+  const txList = new TxList()
   txList.setTransactionsList(transactions)
   return txList
 }
