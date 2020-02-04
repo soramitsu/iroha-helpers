@@ -21,8 +21,8 @@ const getOrCreatePayload = query => query.hasPayload()
 /**
  * Returns new query with added command.
  * @param {Object} query base query
- * @param {stringing} queryName name of a query. For reference, visit http://iroha.readthedocs.io/en/latest/api/queries.html
- * @param {Object} params query parameters. For reference, visit http://iroha.readthedocs.io/en/latest/api/queries.html
+ * @param {stringing} queryName name of a query. For reference, visit http://iroha.readthedocs.io/en/latest/develop/api/queries.html
+ * @param {Object} params query parameters. For reference, visit http://iroha.readthedocs.io/en/latest/develop/api/queries.html
  */
 const addQuery = (query, queryName, params) => {
   const payloadQuery = new Queries[capitalize(queryName)]()
