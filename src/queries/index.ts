@@ -340,7 +340,7 @@ function getAccountAssets (queryOptions, { accountId, pageSize, firstAssetId }) 
  * @property {String} params.writer
  * @link https://iroha.readthedocs.io/en/latest/api/queries.html#get-account-detail
  */
-function getAccountDetail (queryOptions, { accountId, key, writerId, pageSize, paginationWriter, paginationKey }) {
+function getAccountDetail (queryOptions, { accountId, key, writer, pageSize, paginationWriter, paginationKey }) {
   return sendQuery(
     queryOptions,
     queryHelper.addQuery(
@@ -349,7 +349,7 @@ function getAccountDetail (queryOptions, { accountId, key, writerId, pageSize, p
       {
         accountId,
         key,
-        writerId,
+        writer,
         paginationMeta: {
           pageSize,
           firstRecordId: {

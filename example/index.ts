@@ -25,7 +25,7 @@ const queryService = new QueryService(
   grpc.credentials.createInsecure()
 )
 
-queries.fetchCommits(
+/* queries.fetchCommits(
   {
     privateKey: adminPriv,
     creatorAccountId: 'admin@test',
@@ -34,7 +34,7 @@ queries.fetchCommits(
   },
   (block) => console.log('fetchCommits new block:', block),
   (error) => console.error('fetchCommits failed:', error.stack)
-)
+) */
 
 Promise.all([
   commands.setAccountDetail({
@@ -48,14 +48,14 @@ Promise.all([
     key: 'jason',
     value: 'statham'
   }),
-  queries.getAccount({
+  /* queries.getAccount({
     privateKey: adminPriv,
     creatorAccountId: 'admin@test',
     queryService,
     timeoutLimit: 5000
   }, {
     accountId: 'admin@test'
-  }),
+  }), */
   queries.getAccountDetail({
     privateKey: adminPriv,
     creatorAccountId: 'admin@test',
@@ -64,9 +64,12 @@ Promise.all([
   }, {
     accountId: 'admin@test',
     key: undefined,
-    writer: undefined
-  }),
-  queries.getSignatories({
+    writer: undefined,
+    pageSize: 1,
+    paginationKey: undefined,
+    paginationWriter: undefined
+  }).then(r => console.log(r)) // ,
+  /* queries.getSignatories({
     privateKey: adminPriv,
     creatorAccountId: 'admin@test',
     queryService,
@@ -97,7 +100,7 @@ Promise.all([
     accountId: 'admin@test',
     pageSize: 5,
     firstTxHash: undefined
-  })
+  }) */
 ])
   .then(a => console.log(a))
   .catch(e => console.error(e))
