@@ -2,7 +2,7 @@ import { Buffer } from 'buffer'
 import { sign as signQuery, derivePublicKey } from 'ed25519.js'
 import { sha3_256 as sha3 } from 'js-sha3'
 import cloneDeep from 'lodash.clonedeep'
-import { Signature } from './proto/primitive_pb'
+import { Signature, AccountDetailRecordId } from './proto/primitive_pb'
 import * as Queries from './proto/queries_pb'
 import { capitalize } from './util.js'
 
@@ -35,7 +35,10 @@ const addQuery = (query, queryName, params) => {
       if (queryName === 'getAccountDetail') {
         paginationMeta = new Queries.AccountDetailPaginationMeta()
         paginationMeta.setPageSize(value.pageSize)
-        paginationMeta.setFirstRecordId(value.firstRecordId)
+        const firstRecordId = new AccountDetailRecordId()
+        firstRecordId.setKey(value.firstRecordId.key)
+        firstRecordId.setWriter(value.firstRecordId.writer)
+        paginationMeta.setFirstRecordId(firstRecordId)
       } else {
         paginationMeta = new Queries.TxPaginationMeta()
         paginationMeta.setPageSize(value.pageSize)
