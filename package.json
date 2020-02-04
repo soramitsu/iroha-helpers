@@ -33,7 +33,8 @@
     }
   },
   "dependencies": {
-    "@improbable-eng/grpc-web": "^0.11.0",
+    "@improbable-eng/grpc-web": "^0.12.0",
+    "@improbable-eng/grpc-web-node-http-transport": "^0.12.0",
     "babel-preset-minify": "^0.5.1",
     "buffer": "^5.4.0",
     "ed25519.js": "^1.3.0",

@@ -1,106 +1,56 @@
 /* eslint-disable no-console */
 
 // for usage with grpc package use endpoint_grpc_pb file
-import grpc from 'grpc'
+import { NodeHttpTransport } from '@improbable-eng/grpc-web-node-http-transport'
 import {
   QueryService_v1Client as QueryService,
   CommandService_v1Client as CommandService
-} from '../lib/proto/endpoint_grpc_pb'
+} from '../lib/proto/endpoint_pb_service'
 
 import commands from '../lib/commands'
 import queries from '../lib/queries'
 
-const IROHA_ADDRESS = 'localhost:50051'
+const IROHA_ADDRESS = 'http://localhost:8081'
 
 const adminPriv =
-  'f101537e319568c765b2cc89698325604991dca57b9716b58016b253506cab70'
+  '0f0ce16d2afbb8eca23c7d8c2724f0c257a800ee2bbd54688cec6b898e3f7e33'
 
 const commandService = new CommandService(
   IROHA_ADDRESS,
-  grpc.credentials.createInsecure()
+  { transport: NodeHttpTransport() }
 )
 
 const queryService = new QueryService(
   IROHA_ADDRESS,
-  grpc.credentials.createInsecure()
+  { transport: NodeHttpTransport() }
 )
 
-/* queries.fetchCommits(
-  {
-    privateKey: adminPriv,
-    creatorAccountId: 'admin@test',
-    queryService,
-    timeoutLimit: 5000
-  },
-  (block) => console.log('fetchCommits new block:', block),
-  (error) => console.error('fetchCommits failed:', error.stack)
-) */
-
-Promise.all([
-  commands.setAccountDetail({
-    privateKeys: [adminPriv],
-    creatorAccountId: 'admin@test',
-    quorum: 1,
-    commandService,
-    timeoutLimit: 5000
-  }, {
-    accountId: 'admin@test',
-    key: 'jason',
-    value: 'statham'
-  }),
-  /* queries.getAccount({
-    privateKey: adminPriv,
-    creatorAccountId: 'admin@test',
-    queryService,
-    timeoutLimit: 5000
-  }, {
-    accountId: 'admin@test'
-  }), */
-  queries.getAccountDetail({
-    privateKey: adminPriv,
-    creatorAccountId: 'admin@test',
-    queryService,
-    timeoutLimit: 5000
-  }, {
-    accountId: 'admin@test',
-    key: undefined,
-    writer: undefined,
-    pageSize: 1,
-    paginationKey: undefined,
-    paginationWriter: undefined
-  }).then(r => console.log(r)) // ,
-  /* queries.getSignatories({
-    privateKey: adminPriv,
-    creatorAccountId: 'admin@test',
-    queryService,
-    timeoutLimit: 5000
-  }, {
-    accountId: 'admin@test'
-  }),
-  queries.getRoles({
-    privateKey: adminPriv,
-    creatorAccountId: 'admin@test',
-    queryService,
-    timeoutLimit: 5000
-  }),
-  queries.getAccount({
-    privateKey: adminPriv,
-    creatorAccountId: 'admin@test',
-    queryService,
-    timeoutLimit: 5000
-  }, {
-    accountId: 'admin@test'
-  }),
-  queries.getAccountTransactions({
-    privateKey: adminPriv,
-    creatorAccountId: 'admin@test',
-    queryService,
-    timeoutLimit: 5000
-  }, {
-    accountId: 'admin@test',
-    pageSize: 5,
-    firstTxHash: undefined
-  }) */
-])
-  .then(a => console.log(a))
-  .catch(e => console.error(e))
+commands.setAccountDetail({
+  privateKeys: [adminPriv],
+  creatorAccountId: 'admin@iroha',
+  quorum: 1,
+  commandService,
+  timeoutLimit: 5000
+}, {
+  accountId: 'admin@iroha',
+  key: 'jason',
+  value: 'statham'
+})
+  .then(() => {
+    console.log('datail is set')
+    queries.getAccountDetail({
+      privateKey: adminPriv,
+      creatorAccountId: 'admin@iroha',
+      quorum: 1,
+      queryService,
+      timeoutLimit: 5000
+    }, {
+      accountId: 'admin@iroha',
+      key: 'jason',
+      writer: 'admin@iroha',
+      pageSize: 1,
+      paginationKey: undefined,
+      paginationWriter: undefined
+    }).then(r => console.log(r))
+  })
+  .catch(e => console.log('11111', e))
