@@ -238,8 +238,8 @@ export class AccountDetailPaginationMeta extends jspb.Message {
 
   hasFirstRecordId(): boolean;
   clearFirstRecordId(): void;
-  getFirstRecordId(): primitive_pb.AccountDetailRecordId | undefined;
-  setFirstRecordId(value?: primitive_pb.AccountDetailRecordId): void;
+  getFirstRecordId(): primitive_pb.AccountDetailRecordId.AsObject | undefined;
+  setFirstRecordId(value?: primitive_pb.AccountDetailRecordId.AsObject): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): AccountDetailPaginationMeta.AsObject;

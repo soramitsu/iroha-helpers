@@ -34,8 +34,8 @@ const getOrCreateReducedPayload = payload => payload.hasReducedPayload()
 /**
  * Returns new query with added command.
  * @param {Object} transaction base transaction
- * @param {String} commandName name of a commandName. For reference, visit http://iroha.readthedocs.io/en/latest/api/commands.html
- * @param {Object} params command parameters. For reference, visit http://iroha.readthedocs.io/en/latest/api/commands.html
+ * @param {String} commandName name of a commandName. For reference, visit http://iroha.readthedocs.io/en/latest/develop/api/commands.html
+ * @param {Object} params command parameters. For reference, visit http://iroha.readthedocs.io/en/latest/develop/api/commands.html
  * @returns {Object} transaction with commands
  */
 const addCommand = (transaction, commandName, params) => {

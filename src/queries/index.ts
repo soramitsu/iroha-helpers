@@ -68,7 +68,7 @@ function sendQuery (
  * @param {Object} queryOptions
  * @param {Object} params
  * @property {String} params.accountId
- * @link https://iroha.readthedocs.io/en/latest/api/queries.html#get-account
+ * @link https://iroha.readthedocs.io/en/latest/develop/api/queries.html#get-account
  */
 function getAccount (queryOptions, params) {
   return sendQuery(
@@ -95,7 +95,7 @@ function getAccount (queryOptions, params) {
  * @param {Object} queryOptions
  * @param {Object} params
  * @property {String} params.accountId
- * @link https://iroha.readthedocs.io/en/latest/api/queries.html#get-account
+ * @link https://iroha.readthedocs.io/en/latest/develop/api/queries.html#get-account
  */
 function getRawAccount (queryOptions, params) {
   return sendQuery(
@@ -122,7 +122,7 @@ function getRawAccount (queryOptions, params) {
  * @param {Object} queryOptions
  * @param {Object} params
  * @property {String} params.accountId
- * @link https://iroha.readthedocs.io/en/latest/api/queries.html#get-signatories
+ * @link https://iroha.readthedocs.io/en/latest/develop/api/queries.html#get-signatories
  */
 function getSignatories (queryOptions, params) {
   return sendQuery(
@@ -149,7 +149,7 @@ function getSignatories (queryOptions, params) {
  * @param {Object} queryOptions
  * @param {Object} params
  * @property {String[]} params.txHashesList
- * @link https://iroha.readthedocs.io/en/latest/api/queries.html#get-transactions
+ * @link https://iroha.readthedocs.io/en/latest/develop/api/queries.html#get-transactions
  */
 function getTransactions (queryOptions, params) {
   return sendQuery(
@@ -174,7 +174,7 @@ function getTransactions (queryOptions, params) {
 /**
  * getPendingTransactions
  * @param {Object} queryOptions
- * @link https://iroha.readthedocs.io/en/latest/api/queries.html#get-pending-transactions
+ * @link https://iroha.readthedocs.io/en/latest/develop/api/queries.html#get-pending-transactions
  */
 function getPendingTransactions (queryOptions, { pageSize, firstTxHash }) {
   return sendQuery(
@@ -204,7 +204,7 @@ function getPendingTransactions (queryOptions, { pageSize, firstTxHash }) {
 /**
  * getRawPendingTransactions
  * @param {Object} queryOptions
- * @link https://iroha.readthedocs.io/en/latest/api/queries.html#get-pending-transactions
+ * @link https://iroha.readthedocs.io/en/latest/develop/api/queries.html#get-pending-transactions
  */
 function getRawPendingTransactions (queryOptions) {
   return sendQuery(
@@ -233,7 +233,7 @@ function getRawPendingTransactions (queryOptions) {
  * @property {String} params.accountId
  * @property {Number} params.pageSize
  * @property {String | undefined} params.firstTxHash
- * @link https://iroha.readthedocs.io/en/latest/api/queries.html#get-account-transactions
+ * @link https://iroha.readthedocs.io/en/latest/develop/api/queries.html#get-account-transactions
  */
 function getAccountTransactions (queryOptions, { accountId, pageSize, firstTxHash = undefined }) {
   return sendQuery(
@@ -269,7 +269,7 @@ function getAccountTransactions (queryOptions, { accountId, pageSize, firstTxHas
  * @property {String} params.assetId
  * @property {Number} params.pageSize
  * @property {String | undefined} params.firstTxHash
- * @link https://iroha.readthedocs.io/en/latest/api/queries.html#get-account-asset-transactions
+ * @link https://iroha.readthedocs.io/en/latest/develop/api/queries.html#get-account-asset-transactions
  */
 function getAccountAssetTransactions (queryOptions, { accountId, assetId, pageSize, firstTxHash }) {
   return sendQuery(
@@ -303,7 +303,7 @@ function getAccountAssetTransactions (queryOptions, { accountId, assetId, pageSi
  * @param {Object} queryOptions
  * @param {Object} params
  * @property {String} params.accountId
- * @link https://iroha.readthedocs.io/en/latest/api/queries.html#get-account-assets
+ * @link https://iroha.readthedocs.io/en/latest/develop/api/queries.html#get-account-assets
  */
 function getAccountAssets (queryOptions, { accountId, pageSize, firstAssetId }) {
   return sendQuery(
@@ -338,9 +338,9 @@ function getAccountAssets (queryOptions, { accountId, pageSize, firstAssetId }) 
  * @property {String} params.accountId
  * @property {String} params.key
  * @property {String} params.writer
- * @link https://iroha.readthedocs.io/en/latest/api/queries.html#get-account-detail
+ * @link https://iroha.readthedocs.io/en/latest/develop/api/queries.html#get-account-detail
  */
-function getAccountDetail (queryOptions, { accountId, key, writerId, pageSize, paginationWriter, paginationKey }) {
+function getAccountDetail (queryOptions, { accountId, key, writer, pageSize, paginationWriter, paginationKey }) {
   return sendQuery(
     queryOptions,
     queryHelper.addQuery(
@@ -349,7 +349,7 @@ function getAccountDetail (queryOptions, { accountId, key, writerId, pageSize, p
       {
         accountId,
         key,
-        writerId,
+        writer,
         paginationMeta: {
           pageSize,
           firstRecordId: {
@@ -376,7 +376,7 @@ function getAccountDetail (queryOptions, { accountId, key, writerId, pageSize, p
  * @param {Object} queryOptions
  * @param {Object} params
  * @property {String} params.assetId
- * @link https://iroha.readthedocs.io/en/latest/api/queries.html#get-asset-info
+ * @link https://iroha.readthedocs.io/en/latest/develop/api/queries.html#get-asset-info
  */
 function getAssetInfo (queryOptions, params) {
   return sendQuery(
@@ -403,7 +403,7 @@ function getAssetInfo (queryOptions, params) {
  * @param {Object} queryOptions
  * @param {Object} args
  * @property {Object[]} args.peersList
- * @link https://iroha.readthedocs.io/en/latest/api/queries.html#get-peers
+ * @link https://iroha.readthedocs.io/en/latest/develop/api/queries.html#get-peers
  */
 function getPeers (queryOptions, { peersList }) {
   return sendQuery(
@@ -430,7 +430,7 @@ function getPeers (queryOptions, { peersList }) {
 /**
  * getRoles
  * @param {Object} queryOptions
- * @link https://iroha.readthedocs.io/en/latest/api/queries.html#get-roles
+ * @link https://iroha.readthedocs.io/en/latest/develop/api/queries.html#get-roles
  */
 function getRoles (queryOptions) {
   return sendQuery(
@@ -457,7 +457,7 @@ function getRoles (queryOptions) {
  * @param {Object} queryOptions
  * @param {Object} params
  * @property {Number} params.roleId
- * @link https://iroha.readthedocs.io/en/latest/api/queries.html#get-role-permissions
+ * @link https://iroha.readthedocs.io/en/latest/develop/api/queries.html#get-role-permissions
  */
 function getRolePermissions (queryOptions, params) {
   return sendQuery(
@@ -484,7 +484,7 @@ function getRolePermissions (queryOptions, params) {
  * @param {Object} queryOptions
  * @param {Object} params
  * @property {Number} params.height
- * @link https://iroha.readthedocs.io/en/latest/api/queries.html#get-block
+ * @link https://iroha.readthedocs.io/en/latest/develop/api/queries.html#get-block
  */
 function getBlock (queryOptions, params) {
   return sendQuery(
@@ -511,7 +511,7 @@ function getBlock (queryOptions, params) {
  * @param {Object} queryOptions
  * @param {Function} onBlock
  * @param {Function} onError
- * @link https://iroha.readthedocs.io/en/latest/api/queries.html#fetchcommits
+ * @link https://iroha.readthedocs.io/en/latest/develop/api/queries.html#fetchcommits
  */
 function fetchCommits (
   {

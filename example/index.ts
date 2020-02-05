@@ -63,8 +63,11 @@ Promise.all([
     timeoutLimit: 5000
   }, {
     accountId: 'admin@test',
-    key: undefined,
-    writer: undefined
+    key: 'jason',
+    writer: 'admin@test',
+    pageSize: 1,
+    paginationKey: undefined,
+    paginationWriter: undefined
   }),
   queries.getSignatories({
     privateKey: adminPriv,

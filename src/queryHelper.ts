@@ -2,7 +2,7 @@ import { Buffer } from 'buffer'
 import { sign as signQuery, derivePublicKey } from 'ed25519.js'
 import { sha3_256 as sha3 } from 'js-sha3'
 import cloneDeep from 'lodash.clonedeep'
-import { Signature } from './proto/primitive_pb'
+import { Signature, AccountDetailRecordId } from './proto/primitive_pb'
 import * as Queries from './proto/queries_pb'
 import { capitalize } from './util.js'
 
@@ -21,8 +21,8 @@ const getOrCreatePayload = query => query.hasPayload()
 /**
  * Returns new query with added command.
  * @param {Object} query base query
- * @param {stringing} queryName name of a query. For reference, visit http://iroha.readthedocs.io/en/latest/api/queries.html
- * @param {Object} params query parameters. For reference, visit http://iroha.readthedocs.io/en/latest/api/queries.html
+ * @param {stringing} queryName name of a query. For reference, visit http://iroha.readthedocs.io/en/latest/develop/api/queries.html
+ * @param {Object} params query parameters. For reference, visit http://iroha.readthedocs.io/en/latest/develop/api/queries.html
  */
 const addQuery = (query, queryName, params) => {
   const payloadQuery = new Queries[capitalize(queryName)]()
@@ -31,9 +31,19 @@ const addQuery = (query, queryName, params) => {
   for (const [key, value] of Object.entries<any>(params)) {
     const capitalizedKeyName = `set${capitalize(key)}`
     if (capitalizedKeyName === 'setPaginationMeta') {
-      const paginationMeta = new Queries.TxPaginationMeta()
-      paginationMeta.setPageSize(value.pageSize)
-      paginationMeta.setFirstTxHash(value.firstTxHash)
+      let paginationMeta = null
+      if (queryName === 'getAccountDetail') {
+        paginationMeta = new Queries.AccountDetailPaginationMeta()
+        paginationMeta.setPageSize(value.pageSize)
+        const firstRecordId = new AccountDetailRecordId()
+        firstRecordId.setKey(value.firstRecordId.key)
+        firstRecordId.setWriter(value.firstRecordId.writer)
+        paginationMeta.setFirstRecordId(firstRecordId)
+      } else {
+        paginationMeta = new Queries.TxPaginationMeta()
+        paginationMeta.setPageSize(value.pageSize)
+        paginationMeta.setFirstTxHash(value.firstTxHash)
+      }
 
       payloadQuery[capitalizedKeyName](paginationMeta)
     } else {

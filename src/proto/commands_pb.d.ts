@@ -472,6 +472,30 @@ export namespace CompareAndSetAccountDetail {
   }
 }
 
+export class SetSettingValue extends jspb.Message {
+  getKey(): string;
+  setKey(value: string): void;
+
+  getValue(): string;
+  setValue(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SetSettingValue.AsObject;
+  static toObject(includeInstance: boolean, msg: SetSettingValue): SetSettingValue.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: SetSettingValue, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SetSettingValue;
+  static deserializeBinaryFromReader(message: SetSettingValue, reader: jspb.BinaryReader): SetSettingValue;
+}
+
+export namespace SetSettingValue {
+  export type AsObject = {
+    key: string,
+    value: string,
+  }
+}
+
 export class Command extends jspb.Message {
   hasAddAssetQuantity(): boolean;
   clearAddAssetQuantity(): void;
@@ -563,6 +587,11 @@ export class Command extends jspb.Message {
   getCompareAndSetAccountDetail(): CompareAndSetAccountDetail | undefined;
   setCompareAndSetAccountDetail(value?: CompareAndSetAccountDetail): void;
 
+  hasSetSettingValue(): boolean;
+  clearSetSettingValue(): void;
+  getSetSettingValue(): SetSettingValue | undefined;
+  setSetSettingValue(value?: SetSettingValue): void;
+
   getCommandCase(): Command.CommandCase;
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Command.AsObject;
@@ -594,6 +623,7 @@ export namespace Command {
     transferAsset?: TransferAsset.AsObject,
     removePeer?: RemovePeer.AsObject,
     compareAndSetAccountDetail?: CompareAndSetAccountDetail.AsObject,
+    setSettingValue?: SetSettingValue.AsObject,
   }
 
   export enum CommandCase {
@@ -616,6 +646,7 @@ export namespace Command {
     TRANSFER_ASSET = 16,
     REMOVE_PEER = 17,
     COMPARE_AND_SET_ACCOUNT_DETAIL = 18,
+    SET_SETTING_VALUE = 19,
   }
 }
 
