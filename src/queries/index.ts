@@ -190,9 +190,9 @@ function getPendingTransactions (queryOptions, { pageSize, firstTxHash }) {
       }
     ),
     (resolve, reject, responseName, response) => {
-      if (responseName !== 'TRANSACTIONS_RESPONSE') {
+      if (responseName !== 'PENDING_TRANSACTIONS_PAGE_RESPONSE') {
         const error = JSON.stringify(response.toObject().errorResponse)
-        return reject(new Error(`Query response error: expected=TRANSACTIONS_RESPONSE, actual=${responseName}\nReason: ${error}`))
+        return reject(new Error(`Query response error: expected=PENDING_TRANSACTIONS_PAGE_RESPONSE, actual=${responseName}\nReason: ${error}`))
       }
 
       const transactions = response.getTransactionsResponse().toObject().transactionsList
@@ -215,9 +215,9 @@ function getRawPendingTransactions (queryOptions) {
       {}
     ),
     (resolve, reject, responseName, response) => {
-      if (responseName !== 'TRANSACTIONS_RESPONSE') {
+      if (responseName !== 'PENDING_TRANSACTIONS_PAGE_RESPONSE') {
         const error = JSON.stringify(response.toObject().errorResponse)
-        return reject(new Error(`Query response error: expected=TRANSACTIONS_RESPONSE, actual=${responseName}\nReason: ${error}`))
+        return reject(new Error(`Query response error: expected=PENDING_TRANSACTIONS_PAGE_RESPONSE, actual=${responseName}\nReason: ${error}`))
       }
 
       const transactions = response.getTransactionsResponse()
