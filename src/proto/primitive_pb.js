@@ -15,7 +15,6 @@ var global = Function('return this')();
 goog.exportSymbol('proto.iroha.protocol.AccountDetailRecordId', null, global);
 goog.exportSymbol('proto.iroha.protocol.GrantablePermission', null, global);
 goog.exportSymbol('proto.iroha.protocol.Peer', null, global);
-goog.exportSymbol('proto.iroha.protocol.Peer.CertificateCase', null, global);
 goog.exportSymbol('proto.iroha.protocol.RolePermission', null, global);
 goog.exportSymbol('proto.iroha.protocol.Signature', null, global);
 /**
@@ -50,7 +49,7 @@ if (goog.DEBUG && !COMPILED) {
  * @constructor
  */
 proto.iroha.protocol.Peer = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, proto.iroha.protocol.Peer.oneofGroups_);
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.iroha.protocol.Peer, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
@@ -242,31 +241,6 @@ proto.iroha.protocol.Signature.prototype.setSignature = function(value) {
 
 
 
-/**
- * Oneof group definitions for this message. Each group defines the field
- * numbers belonging to that group. When of these fields' value is set, all
- * other fields in the group are cleared. During deserialization, if multiple
- * fields are encountered for a group, only the last value seen will be kept.
- * @private {!Array<!Array<number>>}
- * @const
- */
-proto.iroha.protocol.Peer.oneofGroups_ = [[3]];
-
-/**
- * @enum {number}
- */
-proto.iroha.protocol.Peer.CertificateCase = {
-  CERTIFICATE_NOT_SET: 0,
-  TLS_CERTIFICATE: 3
-};
-
-/**
- * @return {proto.iroha.protocol.Peer.CertificateCase}
- */
-proto.iroha.protocol.Peer.prototype.getCertificateCase = function() {
-  return /** @type {proto.iroha.protocol.Peer.CertificateCase} */(jspb.Message.computeOneofCase(this, proto.iroha.protocol.Peer.oneofGroups_[0]));
-};
-
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -299,8 +273,7 @@ proto.iroha.protocol.Peer.prototype.toObject = function(opt_includeInstance) {
 proto.iroha.protocol.Peer.toObject = function(includeInstance, msg) {
   var f, obj = {
     address: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    peerKey: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    tlsCertificate: jspb.Message.getFieldWithDefault(msg, 3, "")
+    peerKey: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
   if (includeInstance) {
@@ -345,10 +318,6 @@ proto.iroha.protocol.Peer.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {string} */ (reader.readString());
       msg.setPeerKey(value);
       break;
-    case 3:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setTlsCertificate(value);
-      break;
     default:
       reader.skipField();
       break;
@@ -392,13 +361,6 @@ proto.iroha.protocol.Peer.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = /** @type {string} */ (jspb.Message.getField(message, 3));
-  if (f != null) {
-    writer.writeString(
-      3,
-      f
-    );
-  }
 };
 
 
@@ -435,42 +397,6 @@ proto.iroha.protocol.Peer.prototype.getPeerKey = function() {
  */
 proto.iroha.protocol.Peer.prototype.setPeerKey = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
-};
-
-
-/**
- * optional string tls_certificate = 3;
- * @return {string}
- */
-proto.iroha.protocol.Peer.prototype.getTlsCertificate = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.iroha.protocol.Peer} returns this
- */
-proto.iroha.protocol.Peer.prototype.setTlsCertificate = function(value) {
-  return jspb.Message.setOneofField(this, 3, proto.iroha.protocol.Peer.oneofGroups_[0], value);
-};
-
-
-/**
- * Clears the field making it undefined.
- * @return {!proto.iroha.protocol.Peer} returns this
- */
-proto.iroha.protocol.Peer.prototype.clearTlsCertificate = function() {
-  return jspb.Message.setOneofField(this, 3, proto.iroha.protocol.Peer.oneofGroups_[0], undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {boolean}
- */
-proto.iroha.protocol.Peer.prototype.hasTlsCertificate = function() {
-  return jspb.Message.getField(this, 3) != null;
 };
 
 
@@ -684,8 +610,7 @@ proto.iroha.protocol.RolePermission = {
   CAN_GRANT_CAN_ADD_MY_SIGNATORY: 38,
   CAN_GRANT_CAN_REMOVE_MY_SIGNATORY: 39,
   CAN_GRANT_CAN_TRANSFER_MY_ASSETS: 40,
-  CAN_GRANT_CAN_SET_MY_ACCOUNT_DETAIL: 41,
-  ROOT: 47
+  CAN_GRANT_CAN_SET_MY_ACCOUNT_DETAIL: 41
 };
 
 /**
