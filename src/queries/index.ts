@@ -401,19 +401,15 @@ function getAssetInfo (queryOptions, params) {
 /**
  * getPeers
  * @param {Object} queryOptions
- * @param {Object} args
- * @property {Object[]} args.peersList
  * @link https://iroha.readthedocs.io/en/latest/develop/api/queries.html#get-peers
  */
-function getPeers (queryOptions, { peersList }) {
+function getPeers (queryOptions) {
   return sendQuery(
     queryOptions,
     queryHelper.addQuery(
       queryHelper.emptyQuery(),
       'getPeers',
-      {
-        peersList
-      }
+      {}
     ),
     (resolve, reject, responseName, response) => {
       if (responseName !== 'PEERS_RESPONSE') {
@@ -421,8 +417,8 @@ function getPeers (queryOptions, { peersList }) {
         return reject(new Error(`Query response error: expected=PEERS_RESPONSE, actual=${responseName}\nReason: ${error}`))
       }
 
-      const transactions = response.getPeersResponse()
-      resolve(transactions)
+      const peers = response.getPeersResponse().toObject().peersList
+      resolve(peers)
     }
   )
 }
