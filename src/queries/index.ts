@@ -211,8 +211,7 @@ function getRawPendingTransactions (queryOptions) {
     queryOptions,
     queryHelper.addQuery(
       queryHelper.emptyQuery(),
-      'getPendingTransactions',
-      {}
+      'getPendingTransactions'
     ),
     (resolve, reject, responseName, response) => {
       if (responseName !== 'PENDING_TRANSACTIONS_PAGE_RESPONSE') {
@@ -408,8 +407,7 @@ function getPeers (queryOptions) {
     queryOptions,
     queryHelper.addQuery(
       queryHelper.emptyQuery(),
-      'getPeers',
-      {}
+      'getPeers'
     ),
     (resolve, reject, responseName, response) => {
       if (responseName !== 'PEERS_RESPONSE') {
@@ -433,8 +431,7 @@ function getRoles (queryOptions) {
     queryOptions,
     queryHelper.addQuery(
       queryHelper.emptyQuery(),
-      'getRoles',
-      {}
+      'getRoles'
     ),
     (resolve, reject, responseName, response) => {
       if (responseName !== 'ROLES_RESPONSE') {
