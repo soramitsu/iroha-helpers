@@ -211,8 +211,7 @@ function getRawPendingTransactions (queryOptions) {
     queryOptions,
     queryHelper.addQuery(
       queryHelper.emptyQuery(),
-      'getPendingTransactions',
-      {}
+      'getPendingTransactions'
     ),
     (resolve, reject, responseName, response) => {
       if (responseName !== 'PENDING_TRANSACTIONS_PAGE_RESPONSE') {
@@ -401,19 +400,14 @@ function getAssetInfo (queryOptions, params) {
 /**
  * getPeers
  * @param {Object} queryOptions
- * @param {Object} args
- * @property {Object[]} args.peersList
  * @link https://iroha.readthedocs.io/en/latest/develop/api/queries.html#get-peers
  */
-function getPeers (queryOptions, { peersList }) {
+function getPeers (queryOptions) {
   return sendQuery(
     queryOptions,
     queryHelper.addQuery(
       queryHelper.emptyQuery(),
-      'getPeers',
-      {
-        peersList
-      }
+      'getPeers'
     ),
     (resolve, reject, responseName, response) => {
       if (responseName !== 'PEERS_RESPONSE') {
@@ -421,8 +415,8 @@ function getPeers (queryOptions, { peersList }) {
         return reject(new Error(`Query response error: expected=PEERS_RESPONSE, actual=${responseName}\nReason: ${error}`))
       }
 
-      const transactions = response.getPeersResponse()
-      resolve(transactions)
+      const peers = response.getPeersResponse().toObject().peersList
+      resolve(peers)
     }
   )
 }
@@ -437,8 +431,7 @@ function getRoles (queryOptions) {
     queryOptions,
     queryHelper.addQuery(
       queryHelper.emptyQuery(),
-      'getRoles',
-      {}
+      'getRoles'
     ),
     (resolve, reject, responseName, response) => {
       if (responseName !== 'ROLES_RESPONSE') {

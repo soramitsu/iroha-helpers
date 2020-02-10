@@ -24,7 +24,7 @@ const getOrCreatePayload = query => query.hasPayload()
  * @param {stringing} queryName name of a query. For reference, visit http://iroha.readthedocs.io/en/latest/develop/api/queries.html
  * @param {Object} params query parameters. For reference, visit http://iroha.readthedocs.io/en/latest/develop/api/queries.html
  */
-const addQuery = (query, queryName, params) => {
+const addQuery = (query, queryName, params = {}) => {
   const payloadQuery = new Queries[capitalize(queryName)]()
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
