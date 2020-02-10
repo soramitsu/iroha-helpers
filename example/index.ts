@@ -66,8 +66,8 @@ Promise.all([
     key: 'jason',
     writer: 'admin@test',
     pageSize: 1,
-    paginationKey: undefined,
-    paginationWriter: undefined
+    paginationKey: 'jason',
+    paginationWriter: 'admin@test'
   }),
   queries.getSignatories({
     privateKey: adminPriv,
