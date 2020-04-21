@@ -10,7 +10,7 @@ const accountDetailsKeyPattern = /^[A-Za-z0-9_]{1,64}$/
 const accountDetailsValueLenght = 4096
 
 const accountPattern = /^[a-z_0-9]{1,32}$/
-const domainPattern = /^[a-z_0-9]{1,9}$/
+const domainPattern = /^([a-zA-Z]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$/
 const roleNamePattern = /^[a-z_0-9]{1,32}$/
 const assetNamePattern = /^[a-z_0-9]{1,32}$/
 
