@@ -20,7 +20,8 @@ import {
   CreateRole,
   SubtractAssetQuantity,
   CompareAndSetAccountDetail,
-  RemovePeer
+  RemovePeer,
+  SetSettingValue
 } from './proto/commands_pb'
 
 class Chain {
@@ -228,6 +229,16 @@ class TxBuilder {
         this.tx,
         'compareAndSetAccountDetail',
         validate(params, ['accountId', 'key', 'value', 'oldValue'])
+      )
+    )
+  }
+
+  public setSettingValue (params: SetSettingValue.AsObject): TxBuilder {
+    return new TxBuilder(
+      txHelper.addCommand(
+        this.tx,
+        'setSettingValue',
+        validate(params, ['key', 'value'])
       )
     )
   }

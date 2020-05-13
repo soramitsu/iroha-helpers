@@ -335,6 +335,25 @@ function setAccountQuorum (commandOptions, params) {
 }
 
 /**
+ * setSettingValue
+ * @param {Object} commandOptions
+ * @param {Object} params
+ * @property {String} params.key
+ * @property {String} params.value
+ * @link https://iroha.readthedocs.io/en/latest/develop/api/commands.html#set-setting-value
+ */
+function setSettingValue (commandOptions, params) {
+  return command(
+    commandOptions,
+    txHelper.addCommand(
+      txHelper.emptyTransaction(),
+      'setSettingValue',
+      validate(params, ['key', 'value'])
+    )
+  )
+}
+
+/**
  * subtractAssetQuantity
  * @param {Object} commandOptions
  * @param {Object} params
@@ -412,6 +431,7 @@ export default {
   revokePermission,
   setAccountDetail,
   setAccountQuorum,
+  setSettingValue,
   subtractAssetQuantity,
   transferAsset
 }
