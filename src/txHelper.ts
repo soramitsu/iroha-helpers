@@ -110,7 +110,7 @@ const hash = transaction => {
  * @param {String} privateKeyHex - private key of query's creator in hex.
  */
 const sign = (transaction, privateKeyHex) => {
-  const privateKey = Buffer.from(privateKeyHex, 'hex')
+  const privateKey = BF.from(privateKeyHex, 'hex')
   const publicKey = derivePublicKey(privateKey)
 
   const payloadHash = hash(transaction)
