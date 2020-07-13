@@ -117,7 +117,7 @@ function appendRole (commandOptions, params) {
 }
 
 /**
- * callEngine
+ * appendRole
  * @param {Object} commandOptions
  * @param {Object} params
  * @property {String} params.type
