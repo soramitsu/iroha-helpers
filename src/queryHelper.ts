@@ -1,10 +1,10 @@
 import { Buffer } from 'buffer'
-import { sign as signQuery, derivePublicKey } from 'ed25519.js'
 import { sha3_256 as sha3 } from 'js-sha3'
 import cloneDeep from 'lodash.clonedeep'
 import { Signature, AccountDetailRecordId } from './proto/primitive_pb'
 import * as Queries from './proto/queries_pb'
 import { capitalize } from './util.js'
+import cryptoHelper from './cryptoHelper'
 
 const emptyQuery = () => new Queries.Query()
 
@@ -96,7 +96,7 @@ const addMeta = (query, { creatorAccountId, createdTime = Date.now(), queryCount
  */
 const sign = (query, privateKeyHex) => {
   const privateKey = Buffer.from(privateKeyHex, 'hex')
-  const publicKey = derivePublicKey(privateKey)
+  const publicKey = cryptoHelper.derivePublicKey(privateKeyHex)
 
   let payload = null
   if (query instanceof Queries.Query) {
@@ -109,7 +109,7 @@ const sign = (query, privateKeyHex) => {
 
   const payloadHash = Buffer.from(sha3.array(payload.serializeBinary()))
 
-  const signatory = signQuery(payloadHash, publicKey, privateKey)
+  const signatory = cryptoHelper.sign(payloadHash, publicKey, privateKey)
 
   const s = new Signature()
   s.setPublicKey(publicKey.toString('hex'))
