@@ -363,6 +363,7 @@ function setAccountQuorum (commandOptions, params) {
 
 /**
  * setSettingValue
+ * This command is not available for use, it was added for backward compatibility with Iroha
  * @param {Object} commandOptions
  * @param {Object} params
  * @property {String} params.key
@@ -370,14 +371,15 @@ function setAccountQuorum (commandOptions, params) {
  * @link https://iroha.readthedocs.io/en/master/develop/api/commands.html#set-setting-value
  */
 function setSettingValue (commandOptions, params) {
-  return command(
-    commandOptions,
-    txHelper.addCommand(
-      txHelper.emptyTransaction(),
-      'setSettingValue',
-      validate(params, ['key', 'value'])
-    )
-  )
+  throw new Error('Command not allowed to use')
+  // return command(
+  //   commandOptions,
+  //   txHelper.addCommand(
+  //     txHelper.emptyTransaction(),
+  //     'setSettingValue',
+  //     validate(params, ['key', 'value'])
+  //   )
+  // )
 }
 
 /**
