@@ -1,5 +1,5 @@
 import { Buffer as BF } from 'buffer'
-import ed25519sha3 from 'ed25519.js'
+import * as ed25519sha3 from 'ed25519.js'
 import ed25519sha2 from 'tweetnacl'
 
 enum CryptoAlgorithms {
@@ -42,6 +42,7 @@ const generateKeyPair = (): { publicKey: string; privateKey: string } => {
 
 const derivePublicKey = (privateKeyHex: string): Buffer => {
   const type = libraryCrypto.getAlgorithm()
+  console.log(type)
   if (type === CryptoAlgorithms.ed25519sha3) {
     return ed25519sha3.derivePublicKey(
       BF.from(privateKeyHex, 'hex')
@@ -57,7 +58,7 @@ const derivePublicKey = (privateKeyHex: string): Buffer => {
   }
 }
 
-const sign = (payload: Buffer, privateKey: Buffer, publicKey: Buffer): Buffer => {
+const sign = (payload: Buffer, publicKey: Buffer, privateKey: Buffer): Buffer => {
   const type = libraryCrypto.getAlgorithm()
   if (type === CryptoAlgorithms.ed25519sha3) {
     return ed25519sha3.sign(payload, publicKey, privateKey)
