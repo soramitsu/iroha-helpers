@@ -1,6 +1,7 @@
 import txHelper from '../txHelper'
 import { signWithArrayOfKeys, sendTransactions } from '../util'
 import validate from '../validation'
+import { CallEngine } from '../proto/commands_pb'
 
 const DEFAULT_OPTIONS = {
   privateKeys: [''],
@@ -43,7 +44,7 @@ function command (
  * @param {Object} params
  * @property {String} params.assetId
  * @property {Number} params.amount
- * @link https://iroha.readthedocs.io/en/latest/develop/api/commands.html#add-asset-quantity
+ * @link https://iroha.readthedocs.io/en/master/develop/api/commands.html#add-asset-quantity
  */
 function addAssetQuantity (commandOptions, params) {
   return command(
@@ -62,7 +63,7 @@ function addAssetQuantity (commandOptions, params) {
  * @param {Object} params
  * @property {String} params.address
  * @property {String} params.peerKey
- * @link https://iroha.readthedocs.io/en/latest/develop/api/commands.html#add-peer
+ * @link https://iroha.readthedocs.io/en/master/develop/api/commands.html#add-peer
  */
 function addPeer (commandOptions, params) {
   return command(
@@ -83,7 +84,7 @@ function addPeer (commandOptions, params) {
  * @param {Object} params
  * @property {String} params.accountId
  * @property {String} params.publicKey
- * @link https://iroha.readthedocs.io/en/latest/develop/api/commands.html#add-signatory
+ * @link https://iroha.readthedocs.io/en/master/develop/api/commands.html#add-signatory
  */
 function addSignatory (commandOptions, params) {
   return command(
@@ -102,7 +103,7 @@ function addSignatory (commandOptions, params) {
  * @param {Object} params
  * @property {String} params.accountId
  * @property {String} params.roleName
- * @link https://iroha.readthedocs.io/en/latest/develop/api/commands.html#append-role
+ * @link https://iroha.readthedocs.io/en/master/develop/api/commands.html#append-role
  */
 function appendRole (commandOptions, params) {
   return command(
@@ -116,6 +117,32 @@ function appendRole (commandOptions, params) {
 }
 
 /**
+ * callEngine
+ * @param {Object} commandOptions
+ * @param {Object} params
+ * @property {String} params.type
+ * @property {String} params.caller
+ * @property {String} params.callee
+ * @property {String} params.input
+ * @link //https://iroha.readthedocs.io/en/master/develop/api/commands.html#call-engine
+ */
+function callEngine (commandOptions, { type = CallEngine.EngineType.KSOLIDITY, caller, callee, input }) {
+  return command(
+    commandOptions,
+    txHelper.addCommand(
+      txHelper.emptyTransaction(),
+      'callEngine',
+      {
+        type,
+        caller,
+        callee,
+        input
+      }
+    )
+  )
+}
+
+/**
  * compareAndSetAccountDetail
  * @param {Object} commandOptions
  * @param {Object} args
@@ -123,7 +150,7 @@ function appendRole (commandOptions, params) {
  * @property {String} args.key
  * @property {String} args.value
  * @property {String} args.oldValue
- * @link https://iroha.readthedocs.io/en/latest/develop/api/commands.html#compare-and-set-account-detail
+ * @link https://iroha.readthedocs.io/en/master/develop/api/commands.html#compare-and-set-account-detail
  */
 function compareAndSetAccountDetail (commandOptions, { accountId, key, value, oldValue }) {
   return command(
@@ -148,7 +175,7 @@ function compareAndSetAccountDetail (commandOptions, { accountId, key, value, ol
  * @property {String} params.accountName
  * @property {String} params.domainId
  * @property {String} params.publicKey
- * @link https://iroha.readthedocs.io/en/latest/develop/api/commands.html#create-account
+ * @link https://iroha.readthedocs.io/en/master/develop/api/commands.html#create-account
  */
 function createAccount (commandOptions, params) {
   return command(
@@ -168,7 +195,7 @@ function createAccount (commandOptions, params) {
  * @property {String} params.assetName
  * @property {String} params.domainId
  * @property {Number} params.precision
- * @link https://iroha.readthedocs.io/en/latest/develop/api/commands.html#create-asset
+ * @link https://iroha.readthedocs.io/en/master/develop/api/commands.html#create-asset
  */
 function createAsset (commandOptions, params) {
   return command(
@@ -187,7 +214,7 @@ function createAsset (commandOptions, params) {
  * @param {Object} params
  * @property {String} params.domainId
  * @property {String} params.defaultRole
- * @link https://iroha.readthedocs.io/en/latest/develop/api/commands.html#create-domain
+ * @link https://iroha.readthedocs.io/en/master/develop/api/commands.html#create-domain
  */
 function createDomain (commandOptions, params) {
   return command(
@@ -206,7 +233,7 @@ function createDomain (commandOptions, params) {
  * @param {Object} params
  * @property {String} params.roleName
  * @property {Number[]} params.permissionsList
- * @link https://iroha.readthedocs.io/en/latest/develop/api/commands.html#create-role
+ * @link https://iroha.readthedocs.io/en/master/develop/api/commands.html#create-role
  */
 function createRole (commandOptions, params) {
   return command(
@@ -225,7 +252,7 @@ function createRole (commandOptions, params) {
  * @param {Object} params
  * @property {String} params.accountId
  * @property {String} params.roleName
- * @link https://iroha.readthedocs.io/en/latest/develop/api/commands.html#detach-role
+ * @link https://iroha.readthedocs.io/en/master/develop/api/commands.html#detach-role
  */
 function detachRole (commandOptions, params) {
   return command(
@@ -244,7 +271,7 @@ function detachRole (commandOptions, params) {
  * @param {Object} params
  * @property {String} params.accountId
  * @property {String} params.permission
- * @link https://iroha.readthedocs.io/en/latest/develop/api/commands.html#grant-permission
+ * @link https://iroha.readthedocs.io/en/master/develop/api/commands.html#grant-permission
  */
 function grantPermission (commandOptions, params) {
   return command(
@@ -263,7 +290,7 @@ function grantPermission (commandOptions, params) {
  * @param {Object} params
  * @property {String} params.accountId
  * @property {String} params.publicKey
- * @link https://iroha.readthedocs.io/en/latest/develop/api/commands.html#remove-signatory
+ * @link https://iroha.readthedocs.io/en/master/develop/api/commands.html#remove-signatory
  */
 function removeSignatory (commandOptions, params) {
   return command(
@@ -282,7 +309,7 @@ function removeSignatory (commandOptions, params) {
  * @param {Object} params
  * @property {String} params.accountId
  * @property {String} params.permission
- * @link https://iroha.readthedocs.io/en/latest/develop/api/commands.html#revoke-permission
+ * @link https://iroha.readthedocs.io/en/master/develop/api/commands.html#revoke-permission
  */
 function revokePermission (commandOptions, params) {
   return command(
@@ -302,7 +329,7 @@ function revokePermission (commandOptions, params) {
  * @property {String} params.accountId
  * @property {String} params.key
  * @property {String} params.value
- * @link https://iroha.readthedocs.io/en/latest/develop/api/commands.html#set-account-detail
+ * @link https://iroha.readthedocs.io/en/master/develop/api/commands.html#set-account-detail
  */
 function setAccountDetail (commandOptions, params) {
   return command(
@@ -321,7 +348,7 @@ function setAccountDetail (commandOptions, params) {
  * @param {Object} params
  * @property {String} params.accountId
  * @property {Number} params.quorum
- * @link https://iroha.readthedocs.io/en/latest/develop/api/commands.html#set-account-quorum
+ * @link https://iroha.readthedocs.io/en/master/develop/api/commands.html#set-account-quorum
  */
 function setAccountQuorum (commandOptions, params) {
   return command(
@@ -336,21 +363,23 @@ function setAccountQuorum (commandOptions, params) {
 
 /**
  * setSettingValue
+ * This command is not available for use, it was added for backward compatibility with Iroha
  * @param {Object} commandOptions
  * @param {Object} params
  * @property {String} params.key
  * @property {String} params.value
- * @link https://iroha.readthedocs.io/en/latest/develop/api/commands.html#set-setting-value
+ * @link https://iroha.readthedocs.io/en/master/develop/api/commands.html#set-setting-value
  */
 function setSettingValue (commandOptions, params) {
-  return command(
-    commandOptions,
-    txHelper.addCommand(
-      txHelper.emptyTransaction(),
-      'setSettingValue',
-      validate(params, ['key', 'value'])
-    )
-  )
+  throw new Error('Command not allowed to use')
+  // return command(
+  //   commandOptions,
+  //   txHelper.addCommand(
+  //     txHelper.emptyTransaction(),
+  //     'setSettingValue',
+  //     validate(params, ['key', 'value'])
+  //   )
+  // )
 }
 
 /**
@@ -359,7 +388,7 @@ function setSettingValue (commandOptions, params) {
  * @param {Object} params
  * @property {String} params.assetId
  * @property {Number} params.amount
- * @link https://iroha.readthedocs.io/en/latest/develop/api/commands.html#subtract-asset-quantity
+ * @link https://iroha.readthedocs.io/en/master/develop/api/commands.html#subtract-asset-quantity
  */
 function subtractAssetQuantity (commandOptions, params) {
   return command(
@@ -381,7 +410,7 @@ function subtractAssetQuantity (commandOptions, params) {
  * @property {String} params.assetId
  * @property {String} params.description
  * @property {Number} params.amount
- * @link https://iroha.readthedocs.io/en/latest/develop/api/commands.html#transfer-asset
+ * @link https://iroha.readthedocs.io/en/master/develop/api/commands.html#transfer-asset
  */
 function transferAsset (commandOptions, params) {
   return command(
@@ -399,7 +428,7 @@ function transferAsset (commandOptions, params) {
  * @param {Object} commandOptions
  * @param {Object} args
  * @property {String} args.publicKey
- * @link https://iroha.readthedocs.io/en/latest/develop/api/commands.html#remove-peer
+ * @link https://iroha.readthedocs.io/en/master/develop/api/commands.html#remove-peer
  */
 function removePeer (commandOptions, { publicKey }) {
   return command(
@@ -420,6 +449,7 @@ export default {
   addSignatory,
   appendRole,
   compareAndSetAccountDetail,
+  callEngine,
   createAccount,
   createAsset,
   createDomain,

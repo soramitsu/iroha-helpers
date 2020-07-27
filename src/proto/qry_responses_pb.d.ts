@@ -482,6 +482,28 @@ export namespace PeersResponse {
   }
 }
 
+export class EngineReceiptsResponse extends jspb.Message {
+  clearEngineReceiptsList(): void;
+  getEngineReceiptsList(): Array<primitive_pb.EngineReceipt>;
+  setEngineReceiptsList(value: Array<primitive_pb.EngineReceipt>): void;
+  addEngineReceipts(value?: primitive_pb.EngineReceipt, index?: number): primitive_pb.EngineReceipt;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): EngineReceiptsResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: EngineReceiptsResponse): EngineReceiptsResponse.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: EngineReceiptsResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): EngineReceiptsResponse;
+  static deserializeBinaryFromReader(message: EngineReceiptsResponse, reader: jspb.BinaryReader): EngineReceiptsResponse;
+}
+
+export namespace EngineReceiptsResponse {
+  export type AsObject = {
+    engineReceiptsList: Array<primitive_pb.EngineReceipt.AsObject>,
+  }
+}
+
 export class QueryResponse extends jspb.Message {
   hasAccountAssetsResponse(): boolean;
   clearAccountAssetsResponse(): void;
@@ -548,6 +570,11 @@ export class QueryResponse extends jspb.Message {
   getPeersResponse(): PeersResponse | undefined;
   setPeersResponse(value?: PeersResponse): void;
 
+  hasEngineReceiptsResponse(): boolean;
+  clearEngineReceiptsResponse(): void;
+  getEngineReceiptsResponse(): EngineReceiptsResponse | undefined;
+  setEngineReceiptsResponse(value?: EngineReceiptsResponse): void;
+
   getQueryHash(): string;
   setQueryHash(value: string): void;
 
@@ -577,6 +604,7 @@ export namespace QueryResponse {
     pendingTransactionsPageResponse?: PendingTransactionsPageResponse.AsObject,
     blockResponse?: BlockResponse.AsObject,
     peersResponse?: PeersResponse.AsObject,
+    engineReceiptsResponse?: EngineReceiptsResponse.AsObject,
     queryHash: string,
   }
 
@@ -595,6 +623,7 @@ export namespace QueryResponse {
     PENDING_TRANSACTIONS_PAGE_RESPONSE = 13,
     BLOCK_RESPONSE = 12,
     PEERS_RESPONSE = 14,
+    ENGINE_RECEIPTS_RESPONSE = 15,
   }
 }
 

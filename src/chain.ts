@@ -21,7 +21,8 @@ import {
   SubtractAssetQuantity,
   CompareAndSetAccountDetail,
   RemovePeer,
-  SetSettingValue
+  SetSettingValue,
+  CallEngine
 } from './proto/commands_pb'
 
 class Chain {
@@ -89,6 +90,16 @@ class TxBuilder {
         this.tx,
         'addSignatory',
         validate(params, ['accountId', 'publicKey'])
+      )
+    )
+  }
+
+  public callEngine (params: CallEngine.AsObject): TxBuilder {
+    return new TxBuilder(
+      txHelper.addCommand(
+        this.tx,
+        'callEngine',
+        validate(params, ['type', 'caller', 'callee', 'input'])
       )
     )
   }

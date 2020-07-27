@@ -1,5 +1,4 @@
 import { Buffer as BF } from 'buffer'
-import { sign as signTransaction, derivePublicKey } from 'ed25519.js'
 import { sha3_256 as sha3 } from 'js-sha3'
 import cloneDeep from 'lodash.clonedeep'
 import * as Commands from './proto/commands_pb'
@@ -7,6 +6,7 @@ import { TxList } from './proto/endpoint_pb'
 import { Signature, Peer } from './proto/primitive_pb'
 import * as Transaction from './proto/transaction_pb'
 import { capitalize } from './util.js'
+import cryptoHelper from './cryptoHelper'
 
 /**
  * Returns new transactions
@@ -111,11 +111,11 @@ const hash = transaction => {
  */
 const sign = (transaction, privateKeyHex) => {
   const privateKey = BF.from(privateKeyHex, 'hex')
-  const publicKey = derivePublicKey(privateKey)
+  const publicKey = cryptoHelper.derivePublicKey(privateKeyHex)
 
   const payloadHash = hash(transaction)
 
-  const signatory = signTransaction(payloadHash, publicKey, privateKey)
+  const signatory = cryptoHelper.sign(payloadHash, publicKey, privateKey)
 
   const s = new Signature()
   s.setPublicKey(publicKey.toString('hex'))

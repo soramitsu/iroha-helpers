@@ -4,6 +4,52 @@
 import * as jspb from "google-protobuf";
 import * as primitive_pb from "./primitive_pb";
 
+export class Ordering extends jspb.Message {
+  clearSequenceList(): void;
+  getSequenceList(): Array<Ordering.FieldOrdering>;
+  setSequenceList(value: Array<Ordering.FieldOrdering>): void;
+  addSequence(value?: Ordering.FieldOrdering, index?: number): Ordering.FieldOrdering;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): Ordering.AsObject;
+  static toObject(includeInstance: boolean, msg: Ordering): Ordering.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: Ordering, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): Ordering;
+  static deserializeBinaryFromReader(message: Ordering, reader: jspb.BinaryReader): Ordering;
+}
+
+export namespace Ordering {
+  export type AsObject = {
+    sequenceList: Array<Ordering.FieldOrdering.AsObject>,
+  }
+
+  export class FieldOrdering extends jspb.Message {
+    getField(): FieldMap[keyof FieldMap];
+    setField(value: FieldMap[keyof FieldMap]): void;
+
+    getDirection(): DirectionMap[keyof DirectionMap];
+    setDirection(value: DirectionMap[keyof DirectionMap]): void;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): FieldOrdering.AsObject;
+    static toObject(includeInstance: boolean, msg: FieldOrdering): FieldOrdering.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: FieldOrdering, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): FieldOrdering;
+    static deserializeBinaryFromReader(message: FieldOrdering, reader: jspb.BinaryReader): FieldOrdering;
+  }
+
+  export namespace FieldOrdering {
+    export type AsObject = {
+      field: FieldMap[keyof FieldMap],
+      direction: DirectionMap[keyof DirectionMap],
+    }
+  }
+}
+
 export class TxPaginationMeta extends jspb.Message {
   getPageSize(): number;
   setPageSize(value: number): void;
@@ -12,6 +58,11 @@ export class TxPaginationMeta extends jspb.Message {
   clearFirstTxHash(): void;
   getFirstTxHash(): string;
   setFirstTxHash(value: string): void;
+
+  hasOrdering(): boolean;
+  clearOrdering(): void;
+  getOrdering(): Ordering | undefined;
+  setOrdering(value?: Ordering): void;
 
   getOptFirstTxHashCase(): TxPaginationMeta.OptFirstTxHashCase;
   serializeBinary(): Uint8Array;
@@ -28,6 +79,7 @@ export namespace TxPaginationMeta {
   export type AsObject = {
     pageSize: number,
     firstTxHash: string,
+    ordering?: Ordering.AsObject,
   }
 
   export enum OptFirstTxHashCase {
@@ -438,6 +490,26 @@ export namespace QueryPayloadMeta {
   }
 }
 
+export class GetEngineReceipts extends jspb.Message {
+  getTxHash(): string;
+  setTxHash(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetEngineReceipts.AsObject;
+  static toObject(includeInstance: boolean, msg: GetEngineReceipts): GetEngineReceipts.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: GetEngineReceipts, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetEngineReceipts;
+  static deserializeBinaryFromReader(message: GetEngineReceipts, reader: jspb.BinaryReader): GetEngineReceipts;
+}
+
+export namespace GetEngineReceipts {
+  export type AsObject = {
+    txHash: string,
+  }
+}
+
 export class Query extends jspb.Message {
   hasPayload(): boolean;
   clearPayload(): void;
@@ -536,6 +608,11 @@ export namespace Query {
     getGetPeers(): GetPeers | undefined;
     setGetPeers(value?: GetPeers): void;
 
+    hasGetEngineReceipts(): boolean;
+    clearGetEngineReceipts(): void;
+    getGetEngineReceipts(): GetEngineReceipts | undefined;
+    setGetEngineReceipts(value?: GetEngineReceipts): void;
+
     getQueryCase(): Payload.QueryCase;
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Payload.AsObject;
@@ -563,6 +640,7 @@ export namespace Query {
       getPendingTransactions?: GetPendingTransactions.AsObject,
       getBlock?: GetBlock.AsObject,
       getPeers?: GetPeers.AsObject,
+      getEngineReceipts?: GetEngineReceipts.AsObject,
     }
 
     export enum QueryCase {
@@ -580,6 +658,7 @@ export namespace Query {
       GET_PENDING_TRANSACTIONS = 13,
       GET_BLOCK = 14,
       GET_PEERS = 15,
+      GET_ENGINE_RECEIPTS = 16,
     }
   }
 }
@@ -611,4 +690,18 @@ export namespace BlocksQuery {
     signature?: primitive_pb.Signature.AsObject,
   }
 }
+
+export interface FieldMap {
+  KCREATEDTIME: 0;
+  KPOSITION: 1;
+}
+
+export const Field: FieldMap;
+
+export interface DirectionMap {
+  KASCENDING: 0;
+  KDESCENDING: 1;
+}
+
+export const Direction: DirectionMap;
 
