@@ -13,6 +13,18 @@ const accountPattern = /^[a-z_0-9]{1,32}$/
 const domainPattern = /^([a-zA-Z]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$/
 const roleNamePattern = /^[a-z_0-9]{1,32}$/
 const assetNamePattern = /^[a-z_0-9]{1,32}$/
+const hexString = /^[0-9a-fA-F]*$/
+
+function checkHex (value): ValidationResponse {
+  if (!hexString.test(value)) {
+    return {
+      isValid: false,
+      reason: `Hex should match ${hexString}`
+    }
+  }
+
+  return { isValid: true }
+}
 
 function checkAmount (amount): ValidationResponse {
   const formattedAmount = Number(amount)
@@ -190,6 +202,7 @@ function toImplement (): ValidationResponse {
 }
 
 export default {
+  checkHex,
   checkAmount,
   checkPresission,
   checkAccountName,

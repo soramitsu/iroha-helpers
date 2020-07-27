@@ -21,7 +21,6 @@ import {
   SubtractAssetQuantity,
   CompareAndSetAccountDetail,
   RemovePeer,
-  SetSettingValue,
   CallEngine
 } from './proto/commands_pb'
 
@@ -244,14 +243,8 @@ class TxBuilder {
     )
   }
 
-  public setSettingValue (params: SetSettingValue.AsObject): TxBuilder {
-    return new TxBuilder(
-      txHelper.addCommand(
-        this.tx,
-        'setSettingValue',
-        validate(params, ['key', 'value'])
-      )
-    )
+  public setSettingValue (): void {
+    throw new Error('Command not allowed to use')
   }
 
   public removePeer (params: RemovePeer.AsObject): TxBuilder {
