@@ -21,7 +21,8 @@ class Crypto {
 const libraryCrypto = new Crypto()
 
 /**
- * Returns a new ed25519-sha3 keypair
+ * Returns a new ed25519-sha3 / ed25519-sha2 keypair
+ * Depends on crypto algorithm
  */
 const generateKeyPair = (): { publicKey: string; privateKey: string } => {
   const type = libraryCrypto.getAlgorithm()
