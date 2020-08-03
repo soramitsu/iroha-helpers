@@ -27,7 +27,12 @@ const schema = {
   oldValue: checks.checkAccountDetailsValue,
   roleId: checks.checkRoleName,
   writer: checks.checkAccountId,
+  txHash: checks.checkHex,
+  caller: checks.checkAccountId,
 
+  type: checks.toImplement,
+  callee: checks.toImplement,
+  input: checks.toImplement,
   peerKey: checks.toImplement,
   publicKey: checks.toImplement,
   permissionsList: checks.toImplement,
